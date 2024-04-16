@@ -1,9 +1,10 @@
 
 /**
- * Write a description of class Atividade here.
+ * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Grupo10
+ * @version 16/04/24
+ * Notas versão : falta equals, clone e toString, não compila porque falta a classe Utilizador
  */
 public abstract class Atividade
 {
@@ -45,19 +46,19 @@ public abstract class Atividade
     }
     
     public int getTempo(){
-        
+        return this.tempo;
     }
 
     public int getFreqCardiaca(){
-        
+        return this.freqCardiaca;
     }
 
     public void setTempo(int tempo){
-        
+        this.tempo = tempo;
     }
     
     public void setFreqCardiaca(int freqCardiaca){
-        
+        this.freqCardiaca = freqCardiaca;
     }
     
     /**
