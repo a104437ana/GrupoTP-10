@@ -3,8 +3,8 @@
  * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
  *
  * @author Grupo10
- * @version 16/04/24
- * Notas versão : falta equals, clone e toString, não compila porque falta a classe Utilizador
+ * @version 20/04/24
+ * Notas versão : Não compila porque falta a classe Utilizador
  */
 public abstract class Atividade
 {
@@ -45,6 +45,10 @@ public abstract class Atividade
         this.freqCardiaca = umaAtividade.getFreqCardiaca();
     }
     
+    /**
+     * Getters e setters
+     */
+
     public int getTempo(){
         return this.tempo;
     }
@@ -69,15 +73,23 @@ public abstract class Atividade
      */
     public abstract int consumoCalorias(Utilizador utilizador);
 
-    public String toString(){
-        
-    }
+    /**
+     * Método toString, deve ser implementado pelas sub-classes
+     */
+    public abstract String toString();
 
+    /**
+     * Método equals
+     */
     public boolean equals(Object o){
-        
+        if (this==o) return true;
+        if ((o==null)||(this.getClass()!=o.getClass())) return false;
+        Atividade a = (Atividade) o;
+        return ((this.getTempo()==a.getTempo())&&(this.getFreqCardiaca()==a.getFreqCardiaca()));
     }
 
-    public Atividade clone(){
-        
-    }
+    /**
+     * Método clone, deve ser implementado pelas sub-classes
+     */
+    public abstract Object clone();
 }
