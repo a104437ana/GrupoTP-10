@@ -2,22 +2,22 @@ package Projeto;
 import java.time.*;
 
 /**
- * Classe Corrida
+ * Classe Btt
  *
  * @author Grupo10
  * @version 23/04/24
  * Notas versão : Falta definir consumoCalorias
  */
-public class Corrida extends AtivDistância
+public class Btt extends AtivDistAltimetria
 {
     /**
-     * Construtores de Corrida
+     * Construtores de Btt
      */
     
     /**
      * Construtor vazio
      */
-    public Corrida()
+    public Btt()
     {
         super();
     }
@@ -25,24 +25,24 @@ public class Corrida extends AtivDistância
     /**
      * Construtor parametrizado
      */
-    public Corrida(LocalTime tempo, int freqCardiaca, double distância)
+    public Btt(LocalTime tempo, int freqCardiaca, double distância, double altitude)
     {
-        super(tempo, freqCardiaca, distância);
+        super(tempo, freqCardiaca, distância, altitude);
     }
     
     /**
      * Construtor de cópia
      */
-    public Corrida(Corrida umaCorrida)
+    public Btt(Btt btt)
     {
-        super(umaCorrida);
+        super(btt);
     }
     
     /**
-     * Método que calcula o consumo de calorias de uma corrida
+     * Método que calcula o consumo de calorias de um treino de BTT
      *
-     * @param  utilizador  utilizador que realiza a corrida
-     * @return    consumo de calorias da corrida
+     * @param  utilizador  utilizador que realiza o treino
+     * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
         return 0; //provisório
@@ -53,13 +53,15 @@ public class Corrida extends AtivDistância
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Corrida:\nTempo: ");
+        sb.append("BTT\nTempo: ");
         sb.append(this.getTempo().toString());
         sb.append("\nFrequência Cardíaca: ");
         sb.append(this.getFreqCardiaca());
         sb.append(" bpm\nDistância: ");
         sb.append(this.getDistância());
-        sb.append(" kilómetros\n");
+        sb.append(" kilómetros\nAltitude: ");
+        sb.append(this.getAltitude());
+        sb.append(" metros\n");
         return (sb.toString());
     }
 
@@ -67,7 +69,7 @@ public class Corrida extends AtivDistância
      * Método clone
      */
     public Object clone(){
-        Corrida c = new Corrida(this);
+        Btt c = new Btt(this);
         return c;
     }
 }

@@ -1,9 +1,12 @@
+package Projeto;
+import java.time.*;
+
 /**
  * Classe AtivDistância - classe abstrata que engloba as atividades em que é preciso saber a distância percorrida
  *
  * @author Grupo10
- * @version 20/04/24
- * Notas versão : Não compila, porque a classe Atividade não está acabada
+ * @version 23/04/24
+ * Notas versão :
  */
 public abstract class AtivDistância extends Atividade
 {
@@ -28,7 +31,7 @@ public abstract class AtivDistância extends Atividade
     /**
      * Construtor parametrizado
      */
-    public AtivDistância(int tempo, int freqCardiaca, double distância)
+    public AtivDistância(LocalTime tempo, int freqCardiaca, double distância)
     {
         super(tempo, freqCardiaca);
         this.distância = distância;
@@ -43,9 +46,7 @@ public abstract class AtivDistância extends Atividade
         this.distância = umaAtivDistância.getDistância();
     }
     
-    /**
-     * Getters e setters
-     */
+    //Getters e setters
 
     public double getDistância(){
         return this.distância;

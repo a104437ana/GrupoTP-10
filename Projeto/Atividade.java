@@ -1,15 +1,18 @@
+package Projeto;
+import java.time.*;
+
 
 /**
  * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
  *
  * @author Grupo10
- * @version 20/04/24
- * Notas versão : Não compila porque falta a classe Utilizador
+ * @version 23/04/24
+ * Notas versão : Mudado tempo para LocalTime em vez de int
  */
 public abstract class Atividade
 {
     // variáveis de instância
-    private int tempo;
+    private LocalTime tempo;
     private int freqCardiaca;
 
     /**
@@ -23,14 +26,14 @@ public abstract class Atividade
      */
     public Atividade()
     {
-        this.tempo = 0;
+        this.tempo = LocalTime.of(0,0);
         this.freqCardiaca = 0;
     }
     
     /**
      * Construtor parametrizado
      */
-    public Atividade(int tempo, int freqCardiaca)
+    public Atividade(LocalTime tempo, int freqCardiaca)
     {
         this.tempo = tempo;
         this.freqCardiaca = freqCardiaca;
@@ -45,11 +48,9 @@ public abstract class Atividade
         this.freqCardiaca = umaAtividade.getFreqCardiaca();
     }
     
-    /**
-     * Getters e setters
-     */
+    // Getters e setters
 
-    public int getTempo(){
+    public LocalTime getTempo(){
         return this.tempo;
     }
 
@@ -57,7 +58,7 @@ public abstract class Atividade
         return this.freqCardiaca;
     }
 
-    public void setTempo(int tempo){
+    public void setTempo(LocalTime tempo){
         this.tempo = tempo;
     }
     
@@ -85,7 +86,7 @@ public abstract class Atividade
         if (this==o) return true;
         if ((o==null)||(this.getClass()!=o.getClass())) return false;
         Atividade a = (Atividade) o;
-        return ((this.getTempo()==a.getTempo())&&(this.getFreqCardiaca()==a.getFreqCardiaca()));
+        return (((this.getTempo()).equals(a.getTempo()))&&(this.getFreqCardiaca()==a.getFreqCardiaca()));
     }
 
     /**

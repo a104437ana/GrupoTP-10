@@ -1,12 +1,13 @@
 package Projeto;
+import java.time.*;
 
 
 /**
  * Classe AtivRepetições - classe abstrata que engloba as atividades em que são feitas repetições de exercícios
  *
  * @author Grupo10
- * @version 20/04/24
- * Notas versão : Não compila, porque a classe Atividade não está acabada
+ * @version 23/04/24
+ * Notas versão :
  */
 public abstract class AtivRepetições extends Atividade
 {
@@ -31,7 +32,7 @@ public abstract class AtivRepetições extends Atividade
     /**
      * Construtor parametrizado
      */
-    public AtivRepetições(int tempo, int freqCardiaca, int repeticões)
+    public AtivRepetições(LocalTime tempo, int freqCardiaca, int repeticões)
     {
         super(tempo, freqCardiaca);
         this.repeticões = repeticões;
@@ -46,10 +47,8 @@ public abstract class AtivRepetições extends Atividade
         this.repeticões = umaAtivRepetições.getRepetições();
     }
 
-    /**
-     * Getters e setters
-     */
-
+    //Getters e setters
+    
     public int getRepetições() {
         return this.repeticões;
     }

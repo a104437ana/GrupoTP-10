@@ -2,22 +2,22 @@ package Projeto;
 import java.time.*;
 
 /**
- * Classe Corrida
+ * Classe Ciclismo
  *
  * @author Grupo10
  * @version 23/04/24
  * Notas versão : Falta definir consumoCalorias
  */
-public class Corrida extends AtivDistância
+public class Ciclismo extends AtivDistância
 {
     /**
-     * Construtores de Corrida
+     * Construtores de Ciclismo
      */
     
     /**
      * Construtor vazio
      */
-    public Corrida()
+    public Ciclismo()
     {
         super();
     }
@@ -25,7 +25,7 @@ public class Corrida extends AtivDistância
     /**
      * Construtor parametrizado
      */
-    public Corrida(LocalTime tempo, int freqCardiaca, double distância)
+    public Ciclismo(LocalTime tempo, int freqCardiaca, double distância)
     {
         super(tempo, freqCardiaca, distância);
     }
@@ -33,16 +33,16 @@ public class Corrida extends AtivDistância
     /**
      * Construtor de cópia
      */
-    public Corrida(Corrida umaCorrida)
+    public Ciclismo(Ciclismo ciclismo)
     {
-        super(umaCorrida);
+        super(ciclismo);
     }
     
     /**
-     * Método que calcula o consumo de calorias de uma corrida
+     * Método que calcula o consumo de calorias de um treino de ciclismo
      *
-     * @param  utilizador  utilizador que realiza a corrida
-     * @return    consumo de calorias da corrida
+     * @param  utilizador  utilizador que realiza o treino
+     * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
         return 0; //provisório
@@ -53,7 +53,7 @@ public class Corrida extends AtivDistância
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Corrida:\nTempo: ");
+        sb.append("Ciclismo:\nTempo: ");
         sb.append(this.getTempo().toString());
         sb.append("\nFrequência Cardíaca: ");
         sb.append(this.getFreqCardiaca());
@@ -67,7 +67,7 @@ public class Corrida extends AtivDistância
      * Método clone
      */
     public Object clone(){
-        Corrida c = new Corrida(this);
+        Ciclismo c = new Ciclismo(this);
         return c;
     }
 }

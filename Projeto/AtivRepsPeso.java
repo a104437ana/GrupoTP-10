@@ -1,12 +1,13 @@
 package Projeto;
+import java.time.*;
 
 
 /**
  * Classe AtivRepsPeso - classe abstrata que engloba as atividades em que são feitas repetições de exercícios com pesos
  *
  * @author Grupo10
- * @version 20/04/24
- * Notas versão : Não compila, porque a classe Atividade não está acabada
+ * @version 23/04/24
+ * Notas versão :
  */
 public abstract class AtivRepsPeso extends AtivRepetições
 {
@@ -31,7 +32,7 @@ public abstract class AtivRepsPeso extends AtivRepetições
     /**
      * Construtor parametrizado
      */
-    public AtivRepsPeso(int tempo, int freqCardiaca, int repetições, int peso)
+    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repetições, int peso)
     {
         super(tempo, freqCardiaca, repetições);
         this.peso = peso;
@@ -45,10 +46,8 @@ public abstract class AtivRepsPeso extends AtivRepetições
         super(umaAtivRepsPeso);
         this.peso = umaAtivRepsPeso.getPeso();
     }
-
-    /**
-     * Getters e setters
-     */
+    
+    //Getters e setters
 
     public int getPeso() {
         return this.peso;
