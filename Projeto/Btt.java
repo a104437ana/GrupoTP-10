@@ -64,7 +64,17 @@ public class Btt extends AtivDistAltimetria
         sb.append(" metros\n");
         return (sb.toString());
     }
-
+    
+    /**
+     * Método equals
+     */
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if ((o==null) || (this.getClass() != o.getClass())) return false;
+        Btt b = (Btt) o;
+        return (super.equals(b));
+    }
+    
     /**
      * Método clone
      */

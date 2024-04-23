@@ -66,6 +66,16 @@ public class Trail extends AtivDistAltimetria
     }
 
     /**
+     * Método equals
+     */
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if ((o==null) || (this.getClass() != o.getClass())) return false;
+        Trail t = (Trail) o;
+        return (super.equals(t));
+    }
+    
+    /**
      * Método clone
      */
     public Object clone(){

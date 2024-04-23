@@ -64,6 +64,16 @@ public class Corrida extends AtivDistância
     }
 
     /**
+     * Método equals
+     */
+    public boolean equals(Object o){
+        if (this==o) return true;
+        if ((o==null)||(this.getClass()!=o.getClass())) return false;
+        Corrida c = (Corrida) o;
+        return (super.equals(c));
+    }
+    
+    /**
      * Método clone
      */
     public Object clone(){
