@@ -1,14 +1,15 @@
-# Compiled class file
+# Classes compiladas
 *.class
 
-# Log file
-*.log
-
-# BlueJ files
+# Ficheiros do Bluej
 *.ctxt
 
-# Package Files #
+# Pacotes de ficheiros #
 *.jar
 *.zip
 *.tar.gz
 *.rar
+
+# Documentação do Bluej
+./doc/*
+./Projeto/doc/*
