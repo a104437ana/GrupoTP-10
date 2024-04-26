@@ -3,6 +3,7 @@
 
 # Ficheiros do Bluej
 *.ctxt
+*.bluej
 
 # Pacotes de ficheiros #
 *.jar
