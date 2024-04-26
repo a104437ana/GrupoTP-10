@@ -6,10 +6,12 @@ import java.time.*;
  *
  * @author Grupo10
  * @version 23/04/24
- * Notas versão : Falta definir consumoCalorias
+ * Notas versão : Nao compila pois falta finalizar a classe utilizador
  */
 public class Corrida extends AtivDistância
 {
+    // variáveis de instância
+    private static final int MET = 0; //provisorio
     /**
      * Construtores de Corrida
      */
@@ -45,7 +47,8 @@ public class Corrida extends AtivDistância
      * @return    consumo de calorias da corrida
      */
     public int consumoCalorias(Utilizador utilizador){
-        return 0; //provisório
+        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() / (24 * 60);
+        return (int) consumoCalorias;
     }
 
     /**
