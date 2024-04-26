@@ -7,7 +7,7 @@ import java.time.LocalDate;
  *
  * @author Grupo10
  * @version 20/04/24
- * Notas versão: --
+ * Notas versão: Falta implementar fator multiplicativo
  */
 public class Utilizador
 {
@@ -181,7 +181,7 @@ public class Utilizador
         double bmr = 0;
         char genero = this.getGenero();
         int s = genero == 'M' ? 5 : (genero == 'F' ? -161 : 0);
-        bmr = (10*this.getPeso() + 6.25*this.getAltura() + 5*this.getIdade() + s) / (24 * 60);
+        bmr = 10*this.getPeso() + 6.25*this.getAltura() + 5*this.getIdade() + s;
         return bmr;
     }
 

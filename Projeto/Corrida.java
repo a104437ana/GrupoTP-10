@@ -6,12 +6,12 @@ import java.time.*;
  *
  * @author Grupo10
  * @version 23/04/24
- * Notas versão : Nao compila pois falta finalizar a classe utilizador
+ * Notas versão : --
  */
 public class Corrida extends AtivDistância
 {
     // variáveis de instância
-    private static final int MET = 0; //provisorio
+    private static final int MET = 8;
     /**
      * Construtores de Corrida
      */
@@ -47,7 +47,7 @@ public class Corrida extends AtivDistância
      * @return    consumo de calorias da corrida
      */
     public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() / (24 * 60);
+        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
         return (int) consumoCalorias;
     }
 
