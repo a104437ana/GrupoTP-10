@@ -3,14 +3,16 @@ import java.time.LocalDate;
 
 
 /**
- * Classe Utilizador - classe que engloba os vários utilizadores da aplicação
+ * Classe Utilizador - classe abstrata que engloba os vários utilizadores da aplicação
  *
  * @author Grupo10
- * @version 20/04/24
- * Notas versão: Falta implementar fator multiplicativo
+ * @version 27/04/24
+ * Notas versão: --
  */
-public class Utilizador
+public abstract class Utilizador
 {
+    // variáveis de classe
+    private static int proximoCodigo = 1;
     // variáveis de instância
     private int codUtilizador;
     private String nome;
@@ -46,9 +48,9 @@ public class Utilizador
     /**
      * Construtor parametrizado
      */
-    public Utilizador(int codUtilizador, String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero)
+    public Utilizador(String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero)
     {
-        this.codUtilizador = codUtilizador;
+        this.codUtilizador = proximoCodigo++;
         this.nome = nome;
         this.morada = morada;
         this.email = email;
@@ -167,9 +169,7 @@ public class Utilizador
      * @param  utilizador  utilizador
      * @return    fator multiplicativo do utilizador
      */
-    public int getFatorMultiplicativo() {
-        return 1;
-    }
+    public abstract int getFatorMultiplicativo();
 
     /**
      * Metodo que calcula o BMR - basal metabolic rate, calorias gastas num dia em repouso - de um utilizador, utilizado no calculo do consumo de calorias durante a realizaçao de uma atividade
