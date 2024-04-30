@@ -1,0 +1,69 @@
+package Projeto;
+import java.time.*;
+
+
+/**
+ * Classe AtivRepeticoes - classe abstrata que engloba as atividades em que são feitas repetições de exercícios
+ *
+ * @author Grupo10
+ * @version 23/04/24
+ * Notas versão :
+ */
+public abstract class AtivRepeticoes extends Atividade
+{
+    // variáveis de instância
+    private int repeticoes;
+
+    /**
+     * Construtores de AtivRepeticoes
+     * 
+     * AtivRepeticoes é uma classe abstrata, logo, os construtores só vão ser invocados pelas suas sub-classes nos seus próprios construtores, e não para criar instâncias de AtivRepeticoes
+     */
+
+    /**
+     * Construtor vazio
+     */
+    public AtivRepeticoes()
+    {
+        super();
+        this.repeticoes = 0;
+    }
+
+    /**
+     * Construtor parametrizado
+     */
+    public AtivRepeticoes(LocalTime tempo, int freqCardiaca, int repeticoes)
+    {
+        super(tempo, freqCardiaca);
+        this.repeticoes = repeticoes;
+    }
+
+    /**
+     * Construtor de cópia
+     */
+    public AtivRepeticoes(AtivRepeticoes umaAtivRepeticoes)
+    {
+        super(umaAtivRepeticoes);
+        this.repeticoes = umaAtivRepeticoes.getRepeticoes();
+    }
+
+    //Getters e setters
+    
+    public int getRepeticoes() {
+        return this.repeticoes;
+    }
+
+    public void setRepeticoes(int repeticoes) {
+        this.repeticoes = repeticoes;
+    }
+
+    /**
+     * Método equals
+     */
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if ((o==null) || (this.getClass() != o.getClass())) return false;
+        AtivRepeticoes a = (AtivRepeticoes) o;
+        return ((super.equals(a)) && (this.getRepeticoes() == a.getRepeticoes()));
+    }
+}

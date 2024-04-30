@@ -12,6 +12,7 @@ import java.time.*;
 public abstract class Atividade
 {
     // variáveis de instância
+    private LocalDateTime dataRealizacao; 
     private LocalTime tempo;
     private int freqCardiaca;
 

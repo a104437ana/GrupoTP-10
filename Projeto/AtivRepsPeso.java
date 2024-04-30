@@ -9,7 +9,7 @@ import java.time.*;
  * @version 23/04/24
  * Notas versão :
  */
-public abstract class AtivRepsPeso extends AtivRepetições
+public abstract class AtivRepsPeso extends AtivRepeticoes
 {
     // variáveis de instância
     private int peso;
@@ -32,9 +32,9 @@ public abstract class AtivRepsPeso extends AtivRepetições
     /**
      * Construtor parametrizado
      */
-    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repetições, int peso)
+    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repeticoes, int peso)
     {
-        super(tempo, freqCardiaca, repetições);
+        super(tempo, freqCardiaca, repeticoes);
         this.peso = peso;
     }
 

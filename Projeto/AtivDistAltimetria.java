@@ -9,7 +9,7 @@ import java.time.*;
  * @version 23/04/24
  * Notas versão :
  */
-public abstract class AtivDistAltimetria extends AtivDistância
+public abstract class AtivDistAltimetria extends AtivDistancia
 {
     // variáveis de instância
     private double altitude;

@@ -8,7 +8,7 @@ import java.time.*;
  * @version 23/04/24
  * Notas versão : Falta definir consumoCalorias
  */
-public class Corrida extends AtivDistância
+public class Corrida extends AtivDistancia
 {
     /**
      * Construtores de Corrida
@@ -25,9 +25,9 @@ public class Corrida extends AtivDistância
     /**
      * Construtor parametrizado
      */
-    public Corrida(LocalTime tempo, int freqCardiaca, double distância)
+    public Corrida(LocalTime tempo, int freqCardiaca, double distancia)
     {
-        super(tempo, freqCardiaca, distância);
+        super(tempo, freqCardiaca, distancia);
     }
     
     /**
@@ -58,8 +58,8 @@ public class Corrida extends AtivDistância
         sb.append("\nFrequência Cardíaca: ");
         sb.append(this.getFreqCardiaca());
         sb.append(" bpm\nDistância: ");
-        sb.append(this.getDistância());
-        sb.append(" kilómetros\n");
+        sb.append(this.getDistancia());
+        sb.append(" metros\n");
         return (sb.toString());
     }
 
