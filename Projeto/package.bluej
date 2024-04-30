@@ -15,6 +15,7 @@ dependency5.from=Corrida
 dependency5.to=Utilizador
 dependency5.type=UsesDependency
 objectbench.height=159
+<<<<<<< HEAD
 objectbench.width=1511
 package.divider.horizontal=0.6
 package.divider.vertical=0.7710843373493976
@@ -22,6 +23,15 @@ package.editor.height=557
 package.editor.width=1410
 package.editor.x=0
 package.editor.y=18
+=======
+objectbench.width=1526
+package.divider.horizontal=0.6
+package.divider.vertical=0.7729138166894665
+package.editor.height=558
+package.editor.width=1408
+package.editor.x=50
+package.editor.y=94
+>>>>>>> 7e64bfc80811e22d910c0c0441a6591357d75dbd
 package.frame.height=830
 package.frame.width=1550
 package.numDependencies=5
@@ -72,6 +82,7 @@ target5.height=70
 target5.name=AtivDistancia
 target5.showInterface=false
 target5.type=AbstractTarget
+<<<<<<< HEAD
 target5.width=120
 target5.x=480
 target5.y=230
@@ -82,6 +93,18 @@ target6.type=AbstractTarget
 target6.width=140
 target6.x=860
 target6.y=140
+=======
+target5.width=160
+target5.x=540
+target5.y=340
+target6.height=70
+target6.name=Utilizador
+target6.showInterface=false
+target6.type=ClassTarget
+target6.width=120
+target6.x=120
+target6.y=90
+>>>>>>> 7e64bfc80811e22d910c0c0441a6591357d75dbd
 target7.height=70
 target7.name=Ciclismo
 target7.showInterface=false

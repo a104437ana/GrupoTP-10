@@ -6,10 +6,12 @@ import java.time.*;
  *
  * @author Grupo10
  * @version 23/04/24
- * Notas versão : Falta definir consumoCalorias
+ * Notas versão : --
  */
 public class Trail extends AtivDistAltimetria
 {
+    // variáveis de instância
+    private static final int MET = 10;
     /**
      * Construtores de Trail
      */
@@ -45,7 +47,8 @@ public class Trail extends AtivDistAltimetria
      * @return    consumo de calorias do trail
      */
     public int consumoCalorias(Utilizador utilizador){
-        return 0; //provisório
+        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
+        return (int) consumoCalorias;
     }
 
     /**

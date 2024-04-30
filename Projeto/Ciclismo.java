@@ -6,10 +6,12 @@ import java.time.*;
  *
  * @author Grupo10
  * @version 23/04/24
- * Notas versão : Falta definir consumoCalorias
+ * Notas versão : --
  */
 public class Ciclismo extends AtivDistancia
 {
+    // variáveis de instância
+    private static final int MET = 6;
     /**
      * Construtores de Ciclismo
      */
@@ -45,7 +47,8 @@ public class Ciclismo extends AtivDistancia
      * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
-        return 0; //provisório
+        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
+        return (int) consumoCalorias;
     }
 
     /**
