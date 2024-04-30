@@ -27,9 +27,9 @@ public class Btt extends AtivDistAltimetria
     /**
      * Construtor parametrizado
      */
-    public Btt(LocalTime tempo, int freqCardiaca, double distancia, double altitude)
+    public Btt(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
     {
-        super(tempo, freqCardiaca, distancia, altitude);
+        super(tempo, freqCardiaca, distancia, altimetria);
     }
     
     /**
@@ -62,8 +62,8 @@ public class Btt extends AtivDistAltimetria
         sb.append(this.getFreqCardiaca());
         sb.append(" bpm\nDistância: ");
         sb.append(this.getDistancia());
-        sb.append(" metros\nAltitude: ");
-        sb.append(this.getAltitude());
+        sb.append(" metros\nAltimetria: ");
+        sb.append(this.getAltimetria());
         sb.append(" metros\n");
         return (sb.toString());
     }
@@ -82,7 +82,7 @@ public class Btt extends AtivDistAltimetria
      * Método clone
      */
     public Object clone(){
-        Btt c = new Btt(this);
-        return c;
+        Btt b = new Btt(this);
+        return b;
     }
 }

@@ -12,7 +12,7 @@ import java.time.*;
 public abstract class AtivDistAltimetria extends AtivDistancia
 {
     // variáveis de instância
-    private double altitude;
+    private double altimetria;
 
     /**
      * Construtores de AtivDistAltimetria
@@ -26,16 +26,16 @@ public abstract class AtivDistAltimetria extends AtivDistancia
     public AtivDistAltimetria()
     {
         super();
-        this.altitude = 0.0;
+        this.altimetria = 0.0;
     }
 
     /**
      * Construtor parametrizado
      */
-    public AtivDistAltimetria(LocalTime tempo, int freqCardiaca, double distancia, double altitude)
+    public AtivDistAltimetria(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
     {
         super(tempo, freqCardiaca, distancia);
-        this.altitude = altitude;
+        this.altimetria = altimetria;
     }
 
     /**
@@ -44,17 +44,17 @@ public abstract class AtivDistAltimetria extends AtivDistancia
     public AtivDistAltimetria(AtivDistAltimetria umaAtivDistAltimetria)
     {
         super(umaAtivDistAltimetria);
-        this.altitude = umaAtivDistAltimetria.getAltitude();
+        this.altimetria = umaAtivDistAltimetria.getAltimetria();
     }
     
     //Getters e setters
 
-    public double getAltitude() {
-        return this.altitude;
+    public double getAltimetria() {
+        return this.altimetria;
     }
 
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
+    public void setAltimetria(double altimetria) {
+        this.altimetria = altimetria;
     }
 
     /**
@@ -64,6 +64,6 @@ public abstract class AtivDistAltimetria extends AtivDistancia
         if (this==o) return true;
         if ((o==null) || (this.getClass() != o.getClass())) return false;
         AtivDistAltimetria a = (AtivDistAltimetria) o;
-        return ((super.equals(a)) && (this.getAltitude() == a.getAltitude()));
+        return ((super.equals(a)) && (this.getAltimetria() == a.getAltimetria()));
     }
 }

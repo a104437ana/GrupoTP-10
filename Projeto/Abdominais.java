@@ -2,24 +2,24 @@ package Projeto;
 import java.time.*;
 
 /**
- * Classe Trail
+ * Classe Abdominais
  *
  * @author Grupo10
  * @version 23/04/24
- * Notas versão : --
+ * Notas versão : -- falta ver MET e calculaCalorias
  */
-public class Trail extends AtivDistAltimetria
+public class Abdominais extends AtivRepeticoes
 {
     // variáveis de instância
     private static final int MET = 10;
     /**
-     * Construtores de Trail
+     * Construtores de Abdominais
      */
     
     /**
      * Construtor vazio
      */
-    public Trail()
+    public Abdominais()
     {
         super();
     }
@@ -27,24 +27,24 @@ public class Trail extends AtivDistAltimetria
     /**
      * Construtor parametrizado
      */
-    public Trail(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
+    public Abdominais(LocalTime tempo, int freqCardiaca, int repeticoes)
     {
-        super(tempo, freqCardiaca, distancia, altimetria);
+        super(tempo, freqCardiaca, repeticoes);
     }
     
     /**
      * Construtor de cópia
      */
-    public Trail(Trail umTrail)
+    public Abdominais(Abdominais abdominais)
     {
-        super(umTrail);
+        super(abdominais);
     }
     
     /**
-     * Método que calcula o consumo de calorias de um trail
+     * Método que calcula o consumo de calorias de uma série de abdominais
      *
-     * @param  utilizador  utilizador que realiza o trail
-     * @return    consumo de calorias do trail
+     * @param  utilizador  utilizador que realiza o treino
+     * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
         double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
@@ -56,33 +56,31 @@ public class Trail extends AtivDistAltimetria
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Trail\nTempo: ");
+        sb.append("Abdominais\nTempo: ");
         sb.append(this.getTempo().toString());
         sb.append("\nFrequência Cardíaca: ");
         sb.append(this.getFreqCardiaca());
-        sb.append(" bpm\nDistância: ");
-        sb.append(this.getDistancia());
-        sb.append(" metros\nAltimetria: ");
-        sb.append(this.getAltimetria());
-        sb.append(" metros\n");
+        sb.append(" bpm\nRepetições: ");
+        sb.append(this.getRepeticoes());
+        sb.append("\n");
         return (sb.toString());
     }
-
+    
     /**
      * Método equals
      */
     public boolean equals(Object o) {
         if (this==o) return true;
         if ((o==null) || (this.getClass() != o.getClass())) return false;
-        Trail t = (Trail) o;
-        return (super.equals(t));
+        Abdominais a = (Abdominais) o;
+        return (super.equals(a));
     }
     
     /**
      * Método clone
      */
     public Object clone(){
-        Trail t = new Trail(this);
-        return t;
+        Abdominais a = new Abdominais(this);
+        return a;
     }
 }
