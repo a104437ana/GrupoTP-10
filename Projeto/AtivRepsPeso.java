@@ -12,7 +12,7 @@ import java.time.*;
 public abstract class AtivRepsPeso extends AtivRepeticoes
 {
     // variáveis de instância
-    private int peso;
+    private double peso;
 
     /**
      * Construtores de AtivRepsPeso
@@ -26,13 +26,13 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
     public AtivRepsPeso()
     {
         super();
-        this.peso = 0;
+        this.peso = 0.0;
     }
 
     /**
      * Construtor parametrizado
      */
-    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repeticoes, int peso)
+    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
     {
         super(tempo, freqCardiaca, repeticoes);
         this.peso = peso;
@@ -49,11 +49,11 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
     
     //Getters e setters
 
-    public int getPeso() {
+    public double getPeso() {
         return this.peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
