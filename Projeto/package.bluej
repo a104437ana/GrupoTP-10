@@ -2,20 +2,35 @@
 dependency1.from=AppDesportiva
 dependency1.to=GestorDesportivo
 dependency1.type=UsesDependency
+<<<<<<< HEAD
 dependency10.from=Flexoes
 dependency10.to=Utilizador
 dependency10.type=UsesDependency
 dependency11.from=Abdominais
+=======
+dependency10.from=GestorDesportivo
+dependency10.to=Utilizador
+dependency10.type=UsesDependency
+dependency11.from=Corrida
+>>>>>>> 0cbdea5 (Continuação dos menus)
 dependency11.to=Utilizador
 dependency11.type=UsesDependency
 dependency12.from=BenchPress
 dependency12.to=Utilizador
 dependency12.type=UsesDependency
+<<<<<<< HEAD
 dependency13.from=BicepCurls
 dependency13.to=Utilizador
 dependency13.type=UsesDependency
 dependency14.from=LegPress
 dependency14.to=Utilizador
+=======
+dependency13.from=AppDesportiva
+dependency13.to=GestorDesportivo
+dependency13.type=UsesDependency
+dependency14.from=AppDesportiva
+dependency14.to=Menu
+>>>>>>> 0cbdea5 (Continuação dos menus)
 dependency14.type=UsesDependency
 dependency2.from=AppDesportiva
 dependency2.to=Menu
@@ -35,15 +50,23 @@ dependency6.type=UsesDependency
 dependency7.from=Ciclismo
 dependency7.to=Utilizador
 dependency7.type=UsesDependency
+<<<<<<< HEAD
 dependency8.from=Btt
 dependency8.to=Utilizador
 dependency8.type=UsesDependency
 dependency9.from=Trail
+=======
+dependency8.from=Abdominais
+dependency8.to=Utilizador
+dependency8.type=UsesDependency
+dependency9.from=LegPress
+>>>>>>> 0cbdea5 (Continuação dos menus)
 dependency9.to=Utilizador
 dependency9.type=UsesDependency
 objectbench.height=160
 objectbench.width=1826
 package.divider.horizontal=0.6
+<<<<<<< HEAD
 package.divider.vertical=0.8247639034627492
 package.editor.height=779
 package.editor.width=1708
@@ -51,6 +74,15 @@ package.editor.x=70
 package.editor.y=27
 package.frame.height=1053
 package.frame.width=1850
+=======
+package.divider.vertical=0.7724534501642937
+package.editor.height=559
+package.editor.width=1424
+package.editor.x=0
+package.editor.y=0
+package.frame.height=830
+package.frame.width=1550
+>>>>>>> 0cbdea5 (Continuação dos menus)
 package.numDependencies=14
 package.numTargets=21
 package.showExtends=true
@@ -134,9 +166,15 @@ target19.height=70
 target19.name=GestorDesportivo
 target19.showInterface=false
 target19.type=ClassTarget
+<<<<<<< HEAD
 target19.width=160
 target19.x=40
 target19.y=250
+=======
+target19.width=130
+target19.x=370
+target19.y=10
+>>>>>>> 0cbdea5 (Continuação dos menus)
 target2.height=70
 target2.name=Flexoes
 target2.showInterface=false

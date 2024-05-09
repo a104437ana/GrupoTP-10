@@ -29,6 +29,7 @@ public class Menu
      * Método runMenu, que mostra o menu e lê uma opção
      */
     public void runMenu(){
+        this.op = -1;
         while (this.op == -1){
             this.mostraMenu();
             this.op = this.lerOpcao();
@@ -39,6 +40,7 @@ public class Menu
      * Método mostraMenu, que imprime as opções disponíveis
      */
     public void mostraMenu(){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("-------------Menu-------------");
         int i;
         for (i=0; i<this.opcoes.size(); i++){
@@ -69,4 +71,16 @@ public class Menu
         }
         return op;
     }
+    
+    /**
+    * Método pedeInput
+    */
+    public String pedeInput(String mensagem){
+        System.out.println(mensagem);
+        String input;
+        Scanner scan = new Scanner(System.in);
+        input = scan.nextLine();
+        return input;
+    }
 }
+
