@@ -10,7 +10,7 @@ import java.time.*;
  */
 public class Ciclismo extends AtivDistancia
 {
-    // variáveis de instância
+    // variáveis de classe
     private static final double MET = 6;
     /**
      * Construtores de Ciclismo

@@ -10,7 +10,7 @@ import java.time.*;
  */
 public class Trail extends AtivDistAltimetria
 {
-    // variáveis de instância
+    // variáveis de classe
     private static final double MET = 10;
     /**
      * Construtores de Trail

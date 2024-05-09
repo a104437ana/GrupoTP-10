@@ -215,6 +215,24 @@ public abstract class Utilizador
     }
     
     /**
+     * Método equals
+     */
+    public boolean equals(Object o){
+        if (this==o) return true;
+        if ((o==null)||(this.getClass()!=o.getClass())) return false;
+        Utilizador a = (Utilizador) o;
+        return ((this.codUtilizador == (a.getCodUtilizador()))
+        && (this.nome == (a.getNome()))
+        && (this.morada == (a.getMorada()))
+        && (this.email == (a.getEmail()))
+        && (this.freqCardiaca == (a.getFreqCardiaca()))
+        && (this.peso == (a.getPeso()))
+        && (this.altura == (a.getAltura()))
+        && ((this.dataNascimento).equals(a.getDataNascimento()))
+        && (this.genero == (a.getGenero())));
+    }
+    
+    /**
      * Método clone, deve ser implementado pelas sub-classes
      */
     public abstract Object clone();

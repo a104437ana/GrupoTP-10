@@ -10,7 +10,7 @@ import java.time.*;
  */
 public class Abdominais extends AtivRepeticoes
 {
-    // variáveis de instância
+    // variáveis de classe
     private static final double MET = 3;
     /**
      * Construtores de Abdominais

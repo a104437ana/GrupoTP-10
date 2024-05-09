@@ -59,6 +59,10 @@ public abstract class Atividade
     public int getFreqCardiaca(){
         return this.freqCardiaca;
     }
+    
+    public LocalDateTime getDataRealizacao() {
+        return this.dataRealizacao;
+    }
 
     public void setTempo(LocalTime tempo){
         this.tempo = tempo;
@@ -66,6 +70,10 @@ public abstract class Atividade
     
     public void setFreqCardiaca(int freqCardiaca){
         this.freqCardiaca = freqCardiaca;
+    }
+    
+    public void setDataRealizacao(LocalDateTime dataRealizacao) {
+        this.dataRealizacao = dataRealizacao;
     }
     
     /**
@@ -110,7 +118,7 @@ public abstract class Atividade
         if (this==o) return true;
         if ((o==null)||(this.getClass()!=o.getClass())) return false;
         Atividade a = (Atividade) o;
-        return (((this.getTempo()).equals(a.getTempo()))&&(this.getFreqCardiaca()==a.getFreqCardiaca()));
+        return (((this.tempo).equals(a.getTempo()))&&(this.freqCardiaca ==a.getFreqCardiaca()) && ((this.dataRealizacao).equals(a.getDataRealizacao())));
     }
 
     /**

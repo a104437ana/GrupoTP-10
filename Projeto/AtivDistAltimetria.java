@@ -74,7 +74,7 @@ public abstract class AtivDistAltimetria extends AtivDistancia
         if (this==o) return true;
         if ((o==null) || (this.getClass() != o.getClass())) return false;
         AtivDistAltimetria a = (AtivDistAltimetria) o;
-        return ((super.equals(a)) && (this.getAltimetria() == a.getAltimetria()));
+        return ((super.equals(a)) && (this.altimetria == a.getAltimetria()));
     }
     
     /**

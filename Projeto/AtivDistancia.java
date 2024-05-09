@@ -76,7 +76,7 @@ public abstract class AtivDistancia extends Atividade
         if (this==o) return true;
         if ((o==null)||(this.getClass()!=o.getClass())) return false;
         AtivDistancia a = (AtivDistancia) o;
-        return ((super.equals(a))&&(this.getDistancia()==a.getDistancia()));
+        return ((super.equals(a))&&(this.distancia==a.getDistancia()));
     }
     
     /**

@@ -10,7 +10,7 @@ import java.time.*;
  */
 public class Corrida extends AtivDistancia
 {
-    // variáveis de instância
+    // variáveis de classe
     private static final double MET = 8;
     /**
      * Construtores de Corrida

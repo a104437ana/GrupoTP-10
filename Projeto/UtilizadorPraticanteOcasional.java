@@ -11,6 +11,15 @@ import java.time.LocalDate;
 public class UtilizadorPraticanteOcasional extends Utilizador
 {
     private static final double fatorMultiplicativo = 1.25;
+    
+    /**
+     * Construtor vazio
+     */
+    public UtilizadorPraticanteOcasional()
+    {
+        super();
+    }
+    
     /**
      * Construtor parametrizado
      */
@@ -19,6 +28,9 @@ public class UtilizadorPraticanteOcasional extends Utilizador
         super(nome,morada,email,freqCardiaca,peso,altura,dataNascimento,genero);
     }
     
+    /**
+     * Construtor de cópia
+     */
     public UtilizadorPraticanteOcasional(UtilizadorPraticanteOcasional u) {
         super(u);
     }
@@ -39,6 +51,16 @@ public class UtilizadorPraticanteOcasional extends Utilizador
         sb.append(super.toString());
         sb.append("\nTipo de Utilizador: Praticante Ocasional");
         return (sb.toString());
+    }
+    
+    /**
+     * Método equals
+     */
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if ((o==null) || (this.getClass() != o.getClass())) return false;
+        UtilizadorPraticanteOcasional b = (UtilizadorPraticanteOcasional) o;
+        return (super.equals(b));
     }
     
     /**

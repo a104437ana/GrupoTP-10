@@ -77,7 +77,7 @@ public abstract class AtivRepeticoes extends Atividade
         if (this==o) return true;
         if ((o==null) || (this.getClass() != o.getClass())) return false;
         AtivRepeticoes a = (AtivRepeticoes) o;
-        return ((super.equals(a)) && (this.getRepeticoes() == a.getRepeticoes()));
+        return ((super.equals(a)) && (this.repeticoes == a.getRepeticoes()));
     }
     
     /**

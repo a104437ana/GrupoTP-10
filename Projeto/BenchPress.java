@@ -10,7 +10,7 @@ import java.time.*;
  */
 public class BenchPress extends AtivRepsPeso
 {
-    // variáveis de instância
+    // variáveis de classe
     private static final double MET = 4;
     /**
      * Construtores de BenchPress

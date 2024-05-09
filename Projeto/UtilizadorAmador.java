@@ -11,6 +11,15 @@ import java.time.LocalDate;
 public class UtilizadorAmador extends Utilizador
 {
     private static final double fatorMultiplicativo = 1;
+    
+    /**
+     * Construtor vazio
+     */
+    public UtilizadorAmador()
+    {
+        super();
+    }
+    
     /**
      * Construtor parametrizado
      */
@@ -19,6 +28,9 @@ public class UtilizadorAmador extends Utilizador
         super(nome,morada,email,freqCardiaca,peso,altura,dataNascimento,genero);
     }
     
+    /**
+     * Construtor de cópia
+     */
     public UtilizadorAmador(UtilizadorAmador u) {
         super(u);
     }
@@ -29,7 +41,7 @@ public class UtilizadorAmador extends Utilizador
      * @param
      * @return    fatorMultiplicativo
      */
-        public double getFatorMultiplicativo()
+    public double getFatorMultiplicativo()
     {
         return this.fatorMultiplicativo;
     }
@@ -39,6 +51,16 @@ public class UtilizadorAmador extends Utilizador
         sb.append(super.toString());
         sb.append("\nTipo de Utilizador: Amador");
         return (sb.toString());
+    }
+    
+    /**
+     * Método equals
+     */
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if ((o==null) || (this.getClass() != o.getClass())) return false;
+        UtilizadorAmador b = (UtilizadorAmador) o;
+        return (super.equals(b));
     }
     
     /**

@@ -78,7 +78,7 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
         if (this==o) return true;
         if ((o==null) || (this.getClass() != o.getClass())) return false;
         AtivRepsPeso a = (AtivRepsPeso) o;
-        return ((super.equals(a)) && (this.getPeso() == a.getPeso()));
+        return ((super.equals(a)) && (this.peso == a.getPeso()));
     }
     
     /**
