@@ -18,6 +18,10 @@ public class UtilizadorAmador extends Utilizador
     {
         super(nome,morada,email,freqCardiaca,peso,altura,dataNascimento,genero);
     }
+    
+    public UtilizadorAmador(UtilizadorAmador u) {
+        super(u);
+    }
 
     /**
      * Método que calcula o fator multiplicativo de um utilizador amador
@@ -25,8 +29,23 @@ public class UtilizadorAmador extends Utilizador
      * @param
      * @return    fatorMultiplicativo
      */
-    public double getFatorMultiplicativo()
+        public double getFatorMultiplicativo()
     {
         return this.fatorMultiplicativo;
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nTipo de Utilizador: Amador");
+        return (sb.toString());
+    }
+    
+    /**
+     * Método clone
+     */
+    public Object clone(){
+        UtilizadorAmador t = new UtilizadorAmador(this);
+        return t;
     }
 }

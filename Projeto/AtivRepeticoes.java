@@ -79,4 +79,15 @@ public abstract class AtivRepeticoes extends Atividade
         AtivRepeticoes a = (AtivRepeticoes) o;
         return ((super.equals(a)) && (this.getRepeticoes() == a.getRepeticoes()));
     }
+    
+    /**
+     * Método toString, deve ser implementado pelas sub-classes
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nRepetiçoes: ");
+        sb.append(this.repeticoes);
+        return (sb.toString());
+    }
 }

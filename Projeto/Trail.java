@@ -58,15 +58,8 @@ public class Trail extends AtivDistAltimetria
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Trail\nTempo: ");
-        sb.append(this.getTempo().toString());
-        sb.append("\nFrequência Cardíaca: ");
-        sb.append(this.getFreqCardiaca());
-        sb.append(" bpm\nDistância: ");
-        sb.append(this.getDistancia());
-        sb.append(" metros\nAltimetria: ");
-        sb.append(this.getAltimetria());
-        sb.append(" metros\n");
+        sb.append(super.toString());
+        sb.append("\nTipo de atividade: Trail");
         return (sb.toString());
     }
 

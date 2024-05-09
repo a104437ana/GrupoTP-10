@@ -58,13 +58,8 @@ public class Ciclismo extends AtivDistancia
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Ciclismo:\nTempo: ");
-        sb.append(this.getTempo().toString());
-        sb.append("\nFrequência Cardíaca: ");
-        sb.append(this.getFreqCardiaca());
-        sb.append(" bpm\nDistância: ");
-        sb.append(this.getDistancia());
-        sb.append(" metros\n");
+        sb.append(super.toString());
+        sb.append("\nTipo de atividade: Ciclismo");
         return (sb.toString());
     }
 

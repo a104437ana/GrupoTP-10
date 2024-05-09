@@ -58,13 +58,8 @@ public class Corrida extends AtivDistancia
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Corrida:\nTempo: ");
-        sb.append(this.getTempo().toString());
-        sb.append("\nFrequência Cardíaca: ");
-        sb.append(this.getFreqCardiaca());
-        sb.append(" bpm\nDistância: ");
-        sb.append(this.getDistancia());
-        sb.append(" metros\n");
+        sb.append(super.toString());
+        sb.append("\nTipo de atividade: Corrida");
         return (sb.toString());
     }
 

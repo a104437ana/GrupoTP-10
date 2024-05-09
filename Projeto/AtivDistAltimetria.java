@@ -76,4 +76,16 @@ public abstract class AtivDistAltimetria extends AtivDistancia
         AtivDistAltimetria a = (AtivDistAltimetria) o;
         return ((super.equals(a)) && (this.getAltimetria() == a.getAltimetria()));
     }
+    
+    /**
+     * Método toString, deve ser implementado pelas sub-classes
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nAltimetria: ");
+        sb.append(this.altimetria);
+        sb.append(" metros");
+        return (sb.toString());
+    }
 }

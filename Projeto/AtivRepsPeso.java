@@ -80,4 +80,16 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
         AtivRepsPeso a = (AtivRepsPeso) o;
         return ((super.equals(a)) && (this.getPeso() == a.getPeso()));
     }
+    
+    /**
+     * Método toString, deve ser implementado pelas sub-classes
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nPeso: ");
+        sb.append(this.peso);
+        sb.append(" kilos");
+        return (sb.toString());
+    }
 }

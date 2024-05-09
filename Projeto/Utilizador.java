@@ -1,6 +1,6 @@
 package Projeto;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 
 /**
  * Classe Utilizador - classe abstrata que engloba os vários utilizadores da aplicação
@@ -184,5 +184,38 @@ public abstract class Utilizador
         bmr = 10*this.getPeso() + 6.25*this.getAltura() + 5*this.getIdade() + s;
         return bmr;
     }
-
+    
+    /**
+     * Método toString
+     */
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Utilizador\nCodigo de Utilizador: ");
+        sb.append(this.codUtilizador);
+        sb.append("\nNome: ");
+        sb.append(this.nome);
+        sb.append("\nMorada: ");
+        sb.append(this.morada);
+        sb.append("\nEmail: ");
+        sb.append(this.email);
+        sb.append("\nFrequencia Cardiaca: ");
+        sb.append(this.freqCardiaca);
+        sb.append(" bpm\nPeso: ");
+        sb.append(this.peso);
+        sb.append(" kilos\nAltura: ");
+        sb.append(this.altura);
+        sb.append(" centimetros\nData de nascimento ");
+        sb.append(this.dataNascimento.format(formatter));
+        sb.append("\nIdade: ");
+        sb.append(this.getIdade());
+        sb.append(" anos\nGenero: ");
+        sb.append(this.genero);
+        return (sb.toString());
+    }
+    
+    /**
+     * Método clone, deve ser implementado pelas sub-classes
+     */
+    public abstract Object clone();
 }

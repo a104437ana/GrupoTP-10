@@ -58,15 +58,8 @@ public class BenchPress extends AtivRepsPeso
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Bench press\nTempo: ");
-        sb.append(this.getTempo().toString());
-        sb.append("\nFrequência Cardíaca: ");
-        sb.append(this.getFreqCardiaca());
-        sb.append(" bpm\nRepetições: ");
-        sb.append(this.getRepeticoes());
-        sb.append("\nPeso: ");
-        sb.append(this.getPeso());
-        sb.append(" kilos\n");
+        sb.append(super.toString());
+        sb.append("\nTipo de atividade: Bench press");
         return (sb.toString());
     }
     

@@ -18,7 +18,11 @@ public class UtilizadorPraticanteOcasional extends Utilizador
     {
         super(nome,morada,email,freqCardiaca,peso,altura,dataNascimento,genero);
     }
-
+    
+    public UtilizadorPraticanteOcasional(UtilizadorPraticanteOcasional u) {
+        super(u);
+    }
+    
     /**
      * Método que calcula o fator multiplicativo de um utilizador praticante ocasional
      *
@@ -28,5 +32,20 @@ public class UtilizadorPraticanteOcasional extends Utilizador
     public double getFatorMultiplicativo()
     {
         return this.fatorMultiplicativo;
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nTipo de Utilizador: Praticante Ocasional");
+        return (sb.toString());
+    }
+    
+    /**
+     * Método clone
+     */
+    public Object clone(){
+        UtilizadorPraticanteOcasional t = new UtilizadorPraticanteOcasional(this);
+        return t;
     }
 }

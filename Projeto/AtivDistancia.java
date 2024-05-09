@@ -78,4 +78,16 @@ public abstract class AtivDistancia extends Atividade
         AtivDistancia a = (AtivDistancia) o;
         return ((super.equals(a))&&(this.getDistancia()==a.getDistancia()));
     }
+    
+    /**
+     * Método toString, deve ser implementado pelas sub-classes
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nDistancia: ");
+        sb.append(this.distancia);
+        sb.append(" metros");
+        return (sb.toString());
+    }
 }

@@ -18,7 +18,11 @@ public class UtilizadorProfissional extends Utilizador
     {
         super(nome,morada,email,freqCardiaca,peso,altura,dataNascimento,genero);
     }
-
+    
+    public UtilizadorProfissional(UtilizadorProfissional u) {
+        super(u);
+    }
+    
     /**
      * Método que calcula o fator multiplicativo de um utilizador profissional
      *
@@ -28,5 +32,20 @@ public class UtilizadorProfissional extends Utilizador
     public double getFatorMultiplicativo()
     {
         return this.fatorMultiplicativo;
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\nTipo de Utilizador: Profissional");
+        return (sb.toString());
+    }
+    
+    /**
+     * Método clone
+     */
+    public Object clone(){
+        UtilizadorProfissional t = new UtilizadorProfissional(this);
+        return t;
     }
 }

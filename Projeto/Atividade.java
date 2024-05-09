@@ -1,7 +1,7 @@
 package Projeto;
-import java.time.*;
-import java.io.*;
-
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
@@ -90,7 +90,18 @@ public abstract class Atividade
     /**
      * Método toString, deve ser implementado pelas sub-classes
      */
-    public abstract String toString();
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Atividade\nData e hora: ");
+        sb.append(this.dataRealizacao.format(formatter));
+        sb.append("\nDuraçao: ");
+        sb.append(this.tempo);
+        sb.append("\nFrequencia Cardiaca: ");
+        sb.append(this.freqCardiaca);
+        sb.append(" bpm");
+        return (sb.toString());
+    }
 
     /**
      * Método equals
