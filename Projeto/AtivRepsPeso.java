@@ -6,8 +6,8 @@ import java.time.*;
  * Classe AtivRepsPeso - classe abstrata que engloba as atividades em que são feitas repetições de exercícios com pesos
  *
  * @author Grupo10
- * @version 23/04/24
- * Notas versão :
+ * @version 09/05/24
+ * Notas versão : --
  */
 public abstract class AtivRepsPeso extends AtivRepeticoes
 {
@@ -55,6 +55,20 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+
+    /**
+     * Método que calcula o fator de intensidade pelo peso utilizado na atividade
+     * 
+     * 
+     * @param utilizador utilizador que realiza a atividade
+     * @param valorNulo razão de peso para a qual o fator deve ser nulo
+     * @param valorIncremento valor no qual uma unidade da razão aumenta o fator
+     * @return fator de intensidade da velocidade a que é realizada a atividade
+     */
+    public double getFatorPeso(Utilizador utilizador, double valorNulo, double valorIncremento){
+        double razaoPeso = this.peso / utilizador.getPeso();
+        return (razaoPeso - valorNulo) * valorIncremento;
     }
 
     /**

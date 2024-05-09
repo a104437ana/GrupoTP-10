@@ -6,8 +6,8 @@ import java.time.*;
  * Classe AtivRepeticoes - classe abstrata que engloba as atividades em que são feitas repetições de exercícios
  *
  * @author Grupo10
- * @version 23/04/24
- * Notas versão :
+ * @version 09/05/24
+ * Notas versão : --
  */
 public abstract class AtivRepeticoes extends Atividade
 {
@@ -55,6 +55,19 @@ public abstract class AtivRepeticoes extends Atividade
 
     public void setRepeticoes(int repeticoes) {
         this.repeticoes = repeticoes;
+    }
+
+    /**
+     * Método que calcula o fator de intensidade pela quantidade de repetições durante a atividade
+     * 
+     * 
+     * @param valorNulo repetições/segundo para a qual o fator deve ser nulo
+     * @param valorIncremento valor no qual uma unidade de repetições/segundo aumenta o fator
+     * @return fator de intensidade da velocidade a que é realizada a atividade
+     */
+    public double getFatorRepeticoes(double valorNulo, double valorIncremento){
+        double repeticoesPorSegundo = this.repeticoes / this.getTempo().toSecondOfDay();
+        return (repeticoesPorSegundo - valorNulo) * valorIncremento;
     }
 
     /**

@@ -7,8 +7,8 @@ import java.io.*;
  * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
  *
  * @author Grupo10
- * @version 23/04/24
- * Notas versão : Mudado tempo para LocalTime em vez de int
+ * @version 09/05/24
+ * Notas versão : --
  */
 public abstract class Atividade
 {
@@ -75,6 +75,17 @@ public abstract class Atividade
      * @return    consumo de calorias da atividade
      */
     public abstract int consumoCalorias(Utilizador utilizador);
+
+    /**
+     * Método que calcula um fator de intensidade pela razão entre a frequência cardíaca a que é feita a atividade e a frequência cardíaca normal
+     * 
+     * @param utilizador utilizador que realiza a atividade
+     * @return fator de intensidade da frequência cardíaca realizada durante a atividade
+     */
+    public double getFatorFreqCardiaca(Utilizador utilizador){
+        double razaoFreqCardiaca = utilizador.getFreqCardiaca() / this.freqCardiaca;
+        return (razaoFreqCardiaca - 2) * 0.4; //cada unidade da razão aumenta o fator em 0.4
+    }
 
     /**
      * Método toString, deve ser implementado pelas sub-classes

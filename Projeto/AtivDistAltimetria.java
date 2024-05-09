@@ -6,8 +6,8 @@ import java.time.*;
  * Classe AtivDistAltimetria - classe abstrata que engloba as atividades em que é preciso saber a distância percorrida e a altimetria
  *
  * @author Grupo10
- * @version 23/04/24
- * Notas versão :
+ * @version 09/05/24
+ * Notas versão : --
  */
 public abstract class AtivDistAltimetria extends AtivDistancia
 {
@@ -55,6 +55,16 @@ public abstract class AtivDistAltimetria extends AtivDistancia
 
     public void setAltimetria(double altimetria) {
         this.altimetria = altimetria;
+    }
+
+    /**
+     * Método que calcula o fator de intensidade pela altimetria da atividade
+     * 
+     * 
+     * @return fator de intensidade da altimetria a que é realizada a atividade
+     */
+    public double getFatorAltimetria(){
+        return this.altimetria * 0.0005;
     }
 
     /**

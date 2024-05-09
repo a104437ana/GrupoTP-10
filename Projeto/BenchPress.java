@@ -5,13 +5,13 @@ import java.time.*;
  * Classe BenchPress
  *
  * @author Grupo10
- * @version 08/05/24
- * Notas versão : -- falta ver MET e calculaCalorias
+ * @version 09/05/24
+ * Notas versão : --
  */
 public class BenchPress extends AtivRepsPeso
 {
     // variáveis de instância
-    private static final int MET = 10;
+    private static final double MET = 4;
     /**
      * Construtores de BenchPress
      */
@@ -47,7 +47,9 @@ public class BenchPress extends AtivRepsPeso
      * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
+        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorRepeticoes(0.25, 0.2) + this.getFatorPeso(utilizador, 0.5, 0.2) + this.getFatorFreqCardiaca(utilizador)) 
+                                          * utilizador.getBMR() / (24 * 60 * 60)
+                                          * this.getTempo().toSecondOfDay();
         return (int) consumoCalorias;
     }
 

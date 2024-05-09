@@ -5,13 +5,13 @@ import java.time.*;
  * Classe Corrida
  *
  * @author Grupo10
- * @version 23/04/24
+ * @version 09/05/24
  * Notas versão : --
  */
 public class Corrida extends AtivDistancia
 {
     // variáveis de instância
-    private static final int MET = 8;
+    private static final double MET = 8;
     /**
      * Construtores de Corrida
      */
@@ -47,7 +47,9 @@ public class Corrida extends AtivDistancia
      * @return    consumo de calorias da corrida
      */
     public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
+        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador)) 
+                                          * utilizador.getBMR() / (24 * 60 * 60)
+                                          * this.getTempo().toSecondOfDay();
         return (int) consumoCalorias;
     }
 

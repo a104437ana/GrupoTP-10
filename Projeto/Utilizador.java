@@ -169,7 +169,7 @@ public abstract class Utilizador
      * @param  utilizador  utilizador
      * @return    fator multiplicativo do utilizador
      */
-    public abstract int getFatorMultiplicativo();
+    public abstract double getFatorMultiplicativo();
 
     /**
      * Metodo que calcula o BMR - basal metabolic rate, calorias gastas num dia em repouso - de um utilizador, utilizado no calculo do consumo de calorias durante a realizaçao de uma atividade

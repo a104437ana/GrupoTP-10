@@ -5,13 +5,13 @@ import java.time.*;
  * Classe Btt
  *
  * @author Grupo10
- * @version 23/04/24
+ * @version 09/05/24
  * Notas versão : --
  */
 public class Btt extends AtivDistAltimetria
 {
     // variáveis de instância
-    private static final int MET = 10;
+    private static final double MET = 10;
     /**
      * Construtores de Btt
      */
@@ -47,7 +47,9 @@ public class Btt extends AtivDistAltimetria
      * @return    consumo de calorias do treino
      */
     public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * utilizador.getFatorMultiplicativo() * utilizador.getBMR() * this.getTempo().toSecondOfDay() / (24 * 60 * 60);
+        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(10.5, 0.11) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
+                                          * utilizador.getBMR() / (24 * 60 * 60)
+                                          * this.getTempo().toSecondOfDay();
         return (int) consumoCalorias;
     }
 

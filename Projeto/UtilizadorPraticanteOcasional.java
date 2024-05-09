@@ -5,10 +5,12 @@ import java.time.LocalDate;
  * Classe UtilizadorPraticanteOcasional - classe que engloba todos os utilizadores que sao praticantes ocasionais.
  *
  * @author Grupo10
- * @version 27/04/24
+ * @version 09/05/24
+ * Notas Versão : --
  */
 public class UtilizadorPraticanteOcasional extends Utilizador
 {
+    private static final double fatorMultiplicativo = 1.25;
     /**
      * Construtor parametrizado
      */
@@ -23,8 +25,8 @@ public class UtilizadorPraticanteOcasional extends Utilizador
      * @param
      * @return    fatorMultiplicativo
      */
-    public int getFatorMultiplicativo()
+    public double getFatorMultiplicativo()
     {
-        return getFreqCardiaca()/200;
+        return this.fatorMultiplicativo;
     }
 }

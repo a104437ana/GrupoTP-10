@@ -5,10 +5,12 @@ import java.time.LocalDate;
  * Classe UtilizadorProfissional - classe que engloba todos os utilizadores que sao atletas profissionais.
  *
  * @author Grupo10
- * @version 27/04/24
+ * @version 09/05/24
+ * Notas Versão : --
  */
 public class UtilizadorProfissional extends Utilizador
 {
+    private static final double fatorMultiplicativo = 1.5;
     /**
      * Construtor parametrizado
      */
@@ -23,8 +25,8 @@ public class UtilizadorProfissional extends Utilizador
      * @param  
      * @return    fatorMultiplicativo
      */
-    public int getFatorMultiplicativo()
+    public double getFatorMultiplicativo()
     {
-        return 2 + this.getFreqCardiaca()/200;
+        return this.fatorMultiplicativo;
     }
 }

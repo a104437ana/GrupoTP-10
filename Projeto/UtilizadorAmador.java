@@ -5,10 +5,12 @@ import java.time.LocalDate;
  * Classe UtilizadorAmador - classe que engloba todos os utilizadores que sao atletas amadores.
  *
  * @author Grupo10
- * @version 27/04/24
+ * @version 09/05/24
+ * Notas Versão : --
  */
 public class UtilizadorAmador extends Utilizador
 {
+    private static final double fatorMultiplicativo = 1;
     /**
      * Construtor parametrizado
      */
@@ -23,8 +25,8 @@ public class UtilizadorAmador extends Utilizador
      * @param
      * @return    fatorMultiplicativo
      */
-    public int getFatorMultiplicativo()
+    public double getFatorMultiplicativo()
     {
-        return 1 + getFreqCardiaca()/200;
+        return this.fatorMultiplicativo;
     }
 }

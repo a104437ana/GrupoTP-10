@@ -5,8 +5,8 @@ import java.time.*;
  * Classe AtivDistancia - classe abstrata que engloba as atividades em que é preciso saber a distância percorrida
  *
  * @author Grupo10
- * @version 23/04/24
- * Notas versão :
+ * @version 09/05/24
+ * Notas versão : --
  */
 public abstract class AtivDistancia extends Atividade
 {
@@ -55,7 +55,20 @@ public abstract class AtivDistancia extends Atividade
     public void setDistancia(double distancia){
         this.distancia = distancia;
     }
-    
+
+    /**
+     * Método que calcula o fator de intensidade pela velocidade a que é percorrida a distância
+     * 
+     * 
+     * @param valorNulo velocidade para a qual o fator deve ser nulo
+     * @param valorIncremento valor no qual uma unidade de velocidade aumenta o fator
+     * @return fator de intensidade da velocidade a que é realizada a atividade
+     */
+    public double getFatorVelocidade(double valorNulo, double valorIncremento){
+        double velocidade = this.distancia / this.getTempo().toSecondOfDay();
+        return (velocidade - valorNulo) * valorIncremento;
+    }
+
     /**
      * Método equals
      */
