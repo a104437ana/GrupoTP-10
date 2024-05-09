@@ -35,4 +35,22 @@ public class GestorDesportivo
         ois.close();
         return (model);
     }
+
+    /**
+     * Método maisCaloriasGastas, que calcula qual utilizador dispendeu mais calorias num período ou desde sempre
+     */
+    public Utilizador maisCaloriasGastas(LocalDate dataInicio, LocalDate dataFim){
+        Utilizador utilizador = null;
+        double maxCalorias = 0;
+        double calorias;
+        for (Utilizador u : this.utilizadores.values()) {
+            calorias = u.totalCaloriasDispendidas(dataInicio, dataFim);
+            if (maxCalorias < calorias) {
+                maxCalorias = calorias;
+                utilizador = (Utilizador) u.clone();
+            }
+            calorias = 0;
+        }
+        return utilizador;
+    }
 }

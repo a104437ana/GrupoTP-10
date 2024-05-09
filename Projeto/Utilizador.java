@@ -1,6 +1,11 @@
 package Projeto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /**
  * Classe Utilizador - classe abstrata que engloba os vários utilizadores da aplicação
@@ -23,7 +28,8 @@ public abstract class Utilizador
     private int altura;
     private LocalDate dataNascimento;
     private char genero;
-//    private Map<String,List<PlanoDeTreino>> atividadesEfetuadas;
+    private Set<PlanoTreino> atividadesPlanoTreino;
+    private Set<Atividade> atividadesIsoladas;
 
     /**
      * Construtores de Utilizador
@@ -43,6 +49,8 @@ public abstract class Utilizador
         this.altura = 0;
         this.dataNascimento = LocalDate.now();
         this.genero = 0;
+        this.atividadesPlanoTreino = new TreeSet<PlanoTreino>();
+        this.atividadesIsoladas = new TreeSet<Atividade>();
     }
 
     /**
@@ -59,6 +67,8 @@ public abstract class Utilizador
         this.altura = altura;
         this.dataNascimento = dataNascimento;
         this.genero = genero;
+        this.atividadesPlanoTreino = new TreeSet<PlanoTreino>();
+        this.atividadesIsoladas = new TreeSet<Atividade>();
     }
 
     /**
@@ -75,6 +85,8 @@ public abstract class Utilizador
         this.altura = umUtilizador.getAltura();
         this.dataNascimento = umUtilizador.getDataNascimento();
         this.genero = umUtilizador.getGenero();
+        this.atividadesPlanoTreino = new TreeSet<PlanoTreino>(); //cópia
+        this.atividadesIsoladas = new TreeSet<Atividade>(); //cópia
     }
 
     /**
@@ -153,10 +165,29 @@ public abstract class Utilizador
         this.genero = genero;
     }
 
+    public List<PlanoTreino> planosTreinoEfetuados(LocalDate dataInicial, LocalDate dataFinal){
+        List<PlanoTreino> pt = new ArrayList<PlanoTreino>();
+        PlanoTreino pt1 = new PlanoTreino();
+        PlanoTreino pt2 = new PlanoTreino();
+        pt1.setDataRealizacao(dataInicial);
+        pt2.setDataRealizacao(dataFinal);
+        pt = ((TreeSet)(this.atividadesPlanoTreino)).subSet(pt1, true, pt2, true).stream().toList();
+        return pt;
+    }
+
+    public List<Atividade> atividadesIsoladasEfetuadas(LocalDate dataInicial, LocalDate dataFinal){
+        List<Atividade> at = new ArrayList<Atividade>();
+        Atividade at1 = new Corrida();
+        Atividade at2 = new Corrida();
+        at1.setDataRealizacao(dataInicial.atStartOfDay());
+        at2.setDataRealizacao(dataFinal.atStartOfDay());
+        at = ((TreeSet)(this.atividadesPlanoTreino)).subSet(at1, true, at2, true).stream().toList();
+        return at;
+    }
+
     /**
      * Metodo que calcula a idade de um utilizador
      * 
-     * @param utilizador
      * @return idade do utilizador
      */
     public int getIdade() {
@@ -236,4 +267,11 @@ public abstract class Utilizador
      * Método clone, deve ser implementado pelas sub-classes
      */
     public abstract Object clone();
+
+    /**
+     * Método totalCaloriasDispendidas que calcula o total de calorias dispendidas por um utilizador entre duas datas
+     * 
+     * @return total calorias dispendidas entre duas datas
+     */
+    public abstract double totalCaloriasDispendidas(LocalDate dataInicial, LocalDate dataFinal);
 }

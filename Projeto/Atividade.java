@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @version 09/05/24
  * Notas versão : --
  */
-public abstract class Atividade
+public abstract class Atividade implements Comparable<Atividade>
 {
     // variáveis de instância
     private LocalDateTime dataRealizacao; 
@@ -52,6 +52,10 @@ public abstract class Atividade
     
     // Getters e setters
 
+    public LocalDateTime getDataRealizacao(){
+        return this.dataRealizacao;
+    }
+
     public LocalTime getTempo(){
         return this.tempo;
     }
@@ -60,8 +64,8 @@ public abstract class Atividade
         return this.freqCardiaca;
     }
     
-    public LocalDateTime getDataRealizacao() {
-        return this.dataRealizacao;
+    public void setDataRealizacao(LocalDateTime dataRealizacao){
+        this.dataRealizacao = dataRealizacao;
     }
 
     public void setTempo(LocalTime tempo){
@@ -71,11 +75,7 @@ public abstract class Atividade
     public void setFreqCardiaca(int freqCardiaca){
         this.freqCardiaca = freqCardiaca;
     }
-    
-    public void setDataRealizacao(LocalDateTime dataRealizacao) {
-        this.dataRealizacao = dataRealizacao;
-    }
-    
+
     /**
      * Método que calcula o consumo de calorias de uma atividade, da maneira definida para essa atividade - deve ser implementado pelas sub-classes
      *
@@ -125,4 +125,11 @@ public abstract class Atividade
      * Método clone, deve ser implementado pelas sub-classes
      */
     public abstract Object clone();
+
+    /**
+     * Método compareTo
+     */
+    public int compareTo(Atividade a){
+        return this.dataRealizacao.compareTo(a.getDataRealizacao());
+    }
 }

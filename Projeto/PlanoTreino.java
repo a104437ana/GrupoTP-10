@@ -1,0 +1,111 @@
+package Projeto;
+import java.util.List;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.ArrayList;
+
+
+/**
+ * Classe PlanoTreino, que engloba as várias atividades realizadas por um utilizador numa dada altura
+ * 
+ * @author Grupo10
+ * @version 09/05/24
+ * Notas versão : Falta adicionar atividades
+ */
+public class PlanoTreino implements Comparable<PlanoTreino>
+{
+    // variáveis de instância
+    private LocalDate dataRealizacao;
+    private List<AtividadeIteracoes> atividades;
+
+    /**
+     * Classe AtividadeIteracoes, classe auxiliar para armazenar iterações de atividades
+     */
+    class AtividadeIteracoes {
+        //variáveis de instância
+        private int iteracoes;
+        private Atividade atividade;
+    
+        /**
+         * Construtor parameterizado
+         */
+        public AtividadeIteracoes(int iteracoes, Atividade atividade){
+            this.iteracoes = iteracoes;
+            this.atividade = atividade;
+        }
+    
+        public int getIteracoes(){
+            return this.iteracoes;
+        }
+    
+        public Atividade getAtividade(){
+            return this.atividade; //clone ??
+        }
+    
+        public void setIteracoes(int iteracoes){
+            this.iteracoes = iteracoes;
+        }
+    
+        public void setR(Atividade atividade){
+            this.atividade = atividade; //clone ??
+        }
+    }
+
+    /**
+     * Construtor vazio
+     */
+    public PlanoTreino()
+    {
+        this.dataRealizacao = LocalDate.now();
+        this.atividades = new ArrayList<>();
+    }
+
+    /**
+     * Construtor parameterizado
+     */
+    public PlanoTreino(LocalDate dataRealizacao)
+    {
+        this.dataRealizacao = dataRealizacao;
+        this.atividades = new ArrayList<>();
+    }
+
+    /**
+     * Construtor de cópia
+     */
+    public PlanoTreino(PlanoTreino planoTreino)
+    {
+        this.dataRealizacao = planoTreino.getDataRealizacao();
+//        this.atividades = planoTreino.getAtividades();
+    }
+
+    // Getters e setters
+
+    public LocalDate getDataRealizacao(){
+        return this.dataRealizacao;
+    }
+
+    public void setDataRealizacao(LocalDate dataRealizacao){
+        this.dataRealizacao = dataRealizacao;
+    }
+
+    /**
+     * Método caloriasDispendidas que calcula o total de calorias dispendidas num plano de treino
+     * 
+     * @param utilizador utilizador que realiza o plano de treino
+     * @return calorias dispendidas durante o plano de treino
+     */
+    public double caloriasDispendidas(Utilizador utilizador){
+        double calorias = 0;
+        for (AtividadeIteracoes a : this.atividades) {
+            calorias += a.getIteracoes() * a.getAtividade().consumoCalorias(utilizador);
+        }
+        return calorias;
+    }
+
+    /**
+     * Método compareTo
+     */
+    public int compareTo(PlanoTreino p){
+        return this.dataRealizacao.compareTo(p.getDataRealizacao());
+    }
+}

@@ -1,5 +1,7 @@
 package Projeto;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.List;
 
 /**
  * Classe UtilizadorAmador - classe que engloba todos os utilizadores que sao atletas amadores.
@@ -69,5 +71,24 @@ public class UtilizadorAmador extends Utilizador
     public Object clone(){
         UtilizadorAmador t = new UtilizadorAmador(this);
         return t;
+    }
+
+    /**
+     * Método totalCaloriasDispendidas que calcula o total de calorias dispendidas por um utilizador entre duas datas
+     * 
+     * @return total calorias dispendidas entre duas datas
+     */
+    public double totalCaloriasDispendidas(LocalDate dataInicial, LocalDate dataFinal){
+        double calorias = 0;
+        Utilizador u = new UtilizadorAmador(this);
+        List<PlanoTreino> planosTreino = this.planosTreinoEfetuados(dataInicial, dataFinal);
+        for (PlanoTreino p : planosTreino) {
+            calorias += p.caloriasDispendidas(u);
+        }
+        List<Atividade> atividades = this.atividadesIsoladasEfetuadas(dataInicial, dataFinal);
+        for (Atividade a : atividades) {
+            calorias += a.consumoCalorias(u);
+        }
+        return calorias;
     }
 }

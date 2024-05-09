@@ -1,5 +1,6 @@
 package Projeto;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Classe UtilizadorProfissional - classe que engloba todos os utilizadores que sao atletas profissionais.
@@ -69,5 +70,19 @@ public class UtilizadorProfissional extends Utilizador
     public Object clone(){
         UtilizadorProfissional t = new UtilizadorProfissional(this);
         return t;
+    }
+
+    public double totalCaloriasDispendidas(LocalDate dataInicial, LocalDate dataFinal){
+        double calorias = 0;
+        Utilizador u = new UtilizadorProfissional(this);
+        List<PlanoTreino> planosTreino = this.planosTreinoEfetuados(dataInicial, dataFinal);
+        for (PlanoTreino p : planosTreino) {
+            calorias += p.caloriasDispendidas(u);
+        }
+        List<Atividade> atividades = this.atividadesIsoladasEfetuadas(dataInicial, dataFinal);
+        for (Atividade a : atividades) {
+            calorias += a.consumoCalorias(u);
+        }
+        return calorias;
     }
 }
