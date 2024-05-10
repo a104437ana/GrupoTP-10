@@ -3,7 +3,8 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 /**
  * Classe PlanoTreino, que engloba as várias atividades realizadas por um utilizador numa dada altura
@@ -88,6 +89,18 @@ public class PlanoTreino implements Comparable<PlanoTreino>
         this.dataRealizacao = dataRealizacao;
     }
 
+    public List<Atividade> atividadesQueRespeitamP(Predicate<Atividade> p) {
+        List<Atividade> atividades = new ArrayList<Atividade>();
+        for (AtividadeIteracoes atividadeIter : this.atividades) {
+            int iteracoes = atividadeIter.getIteracoes();
+            for (int i = 0; i < iteracoes; i++) {
+                Atividade atividade = atividadeIter.getAtividade();
+                if (p.test(atividade)) atividades.add(atividade);
+            }
+        }
+        return atividades;
+    }
+    
     /**
      * Método caloriasDispendidas que calcula o total de calorias dispendidas num plano de treino
      * 

@@ -1,11 +1,15 @@
 package Projeto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
+import java.util.function.Predicate;
+import java.util.function.Function;
 
 /**
  * Classe Utilizador - classe abstrata que engloba os vários utilizadores da aplicação
@@ -165,26 +169,122 @@ public abstract class Utilizador
         this.genero = genero;
     }
 
+    /* estao certas, mas fiz funcoes melhores embaixo, isto vai ser pa eliminar
     public List<PlanoTreino> planosTreinoEfetuados(LocalDate dataInicial, LocalDate dataFinal){
         List<PlanoTreino> pt = new ArrayList<PlanoTreino>();
-        PlanoTreino pt1 = new PlanoTreino();
-        PlanoTreino pt2 = new PlanoTreino();
-        pt1.setDataRealizacao(dataInicial);
-        pt2.setDataRealizacao(dataFinal);
-        pt = ((TreeSet)(this.atividadesPlanoTreino)).subSet(pt1, true, pt2, true).stream().toList();
+        pt = this.atividadesPlanoTreino.stream().filter(b -> b.getDataRealizacao().compareTo(dataInicial) >= 0 && b.getDataRealizacao().compareTo(dataFinal) <= 0)
+        .collect(Collectors.toList());
         return pt;
     }
 
     public List<Atividade> atividadesIsoladasEfetuadas(LocalDate dataInicial, LocalDate dataFinal){
         List<Atividade> at = new ArrayList<Atividade>();
-        Atividade at1 = new Corrida();
-        Atividade at2 = new Corrida();
-        at1.setDataRealizacao(dataInicial.atStartOfDay());
-        at2.setDataRealizacao(dataFinal.atStartOfDay());
-        at = ((TreeSet)(this.atividadesPlanoTreino)).subSet(at1, true, at2, true).stream().toList();
+        LocalDateTime data_inicial = LocalDateTime.of(dataInicial, LocalTime.MIDNIGHT);
+        LocalDateTime data_final = LocalDateTime.of(dataFinal, LocalTime.MIDNIGHT);
+        at = this.atividadesIsoladas.stream().filter(b -> b.getDataRealizacao().compareTo(data_inicial) >= 0 && b.getDataRealizacao().compareTo(data_final) <= 0)
+        .collect(Collectors.toList());
         return at;
     }
-
+    */
+   
+    /** 
+     * Numero de calorias gastas pelo utilizador
+     * Requisito 3.2
+     * ponto 2
+        */
+    public double totalCaloriasDispendidas (LocalDate dataInicial, LocalDate dataFinal) {
+        Predicate<Atividade> p = atividade -> true;
+        Utilizador u = this;
+        Function<Atividade,Integer> f = atividade -> atividade.consumoCalorias(u);
+        List<Integer> calorias = infoDasAtividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p, f);
+        double total_calorias = calorias.stream().mapToInt(h -> h).sum();
+        return total_calorias;
+    }
+   
+    /** 
+     * Numero de atividades do utilizador
+     * Requisito 3.2
+     * ponto 2
+        */
+    public int numeroAtividades (LocalDate dataInicial, LocalDate dataFinal) {
+        Predicate<Atividade> p = atividade -> true;
+        List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p);
+        return atividades.size();
+    }
+   
+    /**
+     * Requisito 3.2
+     * ponto 4
+        */
+    public double allKmsDistancia (LocalDate dataInicial, LocalDate dataFinal) {
+        Predicate<Atividade> p = atividade -> atividade instanceof AtivDistancia;
+        Function<Atividade,Double> f = atividade -> ((AtivDistancia) atividade).getDistancia();
+        List<Double> distancias = infoDasAtividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p, f);
+        double distancia_metros = distancias.stream().mapToDouble(h->h).sum();
+        return distancia_metros/1000;
+    }
+    
+    /**
+     * Requisito 3.2
+     * ponto 5
+       */
+    public double allMetrosAltimetria(LocalDate dataInicial, LocalDate dataFinal) {
+        Predicate<Atividade> p = atividade -> atividade instanceof AtivDistAltimetria;
+        Function<Atividade,Double> f = atividade -> ((AtivDistAltimetria) atividade).getAltimetria();
+        List<Double> altimetrias = infoDasAtividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p, f);
+        return altimetrias.stream().mapToDouble(h->h).sum();
+    }
+      
+    /**
+     * Requisito 3.2
+     * ponto 7
+       */
+    public List<Atividade> allAtividades(LocalDate dataInicial, LocalDate dataFinal){
+        Predicate<Atividade> p = atividade -> true;
+        List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(LocalDate.MIN,LocalDate.MAX,p);
+        return atividades;
+    }
+    
+    
+    public <R> List<R> infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate dataInicio, LocalDate dataFim, Predicate p, Function<Atividade,R> f){
+        List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(dataInicio, dataFim, p);
+        
+        List<R> infoDasAtividades = new ArrayList<>();
+        for(Atividade atividade: atividades) {
+            infoDasAtividades.add(f.apply(atividade));
+        }
+        return infoDasAtividades;
+    }
+    
+    public List<Atividade> atividadesNumPeriodoQueRespeitamP (LocalDate dataInicio, LocalDate dataFim, Predicate p){
+        List<Atividade> atividades = new ArrayList<Atividade>();
+        
+        LocalDateTime data_inicial = LocalDateTime.of(dataInicio, LocalTime.MIDNIGHT);
+        LocalDateTime data_final = LocalDateTime.of(dataFim, LocalTime.MIDNIGHT);
+        
+        List<Atividade> atividadesIsoladas = this.atividadesIsoladas
+        .stream()
+        .filter(atividade -> p.test(atividade) && atividade.getDataRealizacao().compareTo(data_inicial) >= 0 && atividade.getDataRealizacao().compareTo(data_final) <= 0)
+        .collect(Collectors.toList());
+        
+        atividades.addAll(atividadesIsoladas);
+        
+        List<PlanoTreino> planosTreino = this.atividadesPlanoTreino
+        .stream()
+        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .collect(Collectors.toList());
+        
+        for(PlanoTreino planoTreino : planosTreino){
+            
+            List<Atividade> atividadesPlanoTreino = planoTreino.atividadesQueRespeitamP(p);
+            
+            atividades.addAll(atividadesPlanoTreino);
+            
+        }
+        
+        return atividades;
+    }
+    
     /**
      * Metodo que calcula a idade de um utilizador
      * 
@@ -267,11 +367,4 @@ public abstract class Utilizador
      * Método clone, deve ser implementado pelas sub-classes
      */
     public abstract Object clone();
-
-    /**
-     * Método totalCaloriasDispendidas que calcula o total de calorias dispendidas por um utilizador entre duas datas
-     * 
-     * @return total calorias dispendidas entre duas datas
-     */
-    public abstract double totalCaloriasDispendidas(LocalDate dataInicial, LocalDate dataFinal);
 }

@@ -71,18 +71,4 @@ public class UtilizadorProfissional extends Utilizador
         UtilizadorProfissional t = new UtilizadorProfissional(this);
         return t;
     }
-
-    public double totalCaloriasDispendidas(LocalDate dataInicial, LocalDate dataFinal){
-        double calorias = 0;
-        Utilizador u = new UtilizadorProfissional(this);
-        List<PlanoTreino> planosTreino = this.planosTreinoEfetuados(dataInicial, dataFinal);
-        for (PlanoTreino p : planosTreino) {
-            calorias += p.caloriasDispendidas(u);
-        }
-        List<Atividade> atividades = this.atividadesIsoladasEfetuadas(dataInicial, dataFinal);
-        for (Atividade a : atividades) {
-            calorias += a.consumoCalorias(u);
-        }
-        return calorias;
-    }
 }

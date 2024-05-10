@@ -2,6 +2,9 @@ package Projeto;
 import java.time.*;
 import java.util.*;
 import java.io.*;
+import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  * Classe GestorDesportivo, que corresponde à lógica de negócio da aplicação / model
@@ -36,10 +39,27 @@ public class GestorDesportivo
         return (model);
     }
 
-    /**
+    /* 
+     * Utilizador com mais atividades
+     * Requisito 3.2
+     * ponto 2
+     * mal feito
+    
+    public Utilizador maisAtividades (LocalDate dataInicial, LocalDate dataFinal) {
+         Optional<Utilizador> primeiroUtilizador = this.utilizadores.values().stream().findFirst();
+         Utilizador u = this.utilizadores.values().stream().reduce(primeiroUtilizador,(u1, u2) -> u1.numeroAtividades(dataInicial,dataFinal) > u2.numeroAtividades(dataInicial,dataFinal) ? u1 : u2);
+         return u;
+    }
+    */
+    /*
      * Método maisCaloriasGastas, que calcula qual utilizador dispendeu mais calorias num período ou desde sempre
-     */
-    public Utilizador maisCaloriasGastas(LocalDate dataInicio, LocalDate dataFim){
+     * mal feito
+     
+    public Utilizador maisCaloriasGastas(LocalDate dataInicial, LocalDate dataFinal) {
+        Utilizador u = this.utilizadores.values().stream().reduce(u1,(u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2);
+         return u;
+    }*/
+    /*public Utilizador maisCaloriasGastas(LocalDate dataInicio, LocalDate dataFim){
         Utilizador utilizador = null;
         double maxCalorias = 0;
         double calorias;
@@ -52,5 +72,5 @@ public class GestorDesportivo
             calorias = 0;
         }
         return utilizador;
-    }
+    }*/
 }
