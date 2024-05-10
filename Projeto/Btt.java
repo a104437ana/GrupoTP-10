@@ -27,9 +27,9 @@ public class Btt extends AtivDistAltimetria
     /**
      * Construtor parametrizado
      */
-    public Btt(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
+    public Btt(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
     {
-        super(tempo, freqCardiaca, distancia, altimetria);
+        super(realizacao, tempo, freqCardiaca, distancia, altimetria);
     }
     
     /**

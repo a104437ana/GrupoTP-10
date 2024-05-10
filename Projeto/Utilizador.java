@@ -168,6 +168,11 @@ public abstract class Utilizador
     public void setGenero(char genero) {
         this.genero = genero;
     }
+    
+    public void addAtividade(Atividade atividade){
+        Atividade adicionar = (Atividade) atividade.clone();
+        this.atividadesIsoladas.add(adicionar);
+    }
    
     /** 
      * Numero de calorias gastas pelo utilizador

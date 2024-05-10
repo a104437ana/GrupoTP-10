@@ -27,9 +27,9 @@ public class BenchPress extends AtivRepsPeso
     /**
      * Construtor parametrizado
      */
-    public BenchPress(LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
+    public BenchPress(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
     {
-        super(tempo, freqCardiaca, repeticoes, peso);
+        super(realizacao, tempo, freqCardiaca, repeticoes, peso);
     }
     
     /**

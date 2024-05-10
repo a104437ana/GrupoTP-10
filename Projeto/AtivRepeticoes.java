@@ -32,9 +32,9 @@ public abstract class AtivRepeticoes extends Atividade
     /**
      * Construtor parametrizado
      */
-    public AtivRepeticoes(LocalTime tempo, int freqCardiaca, int repeticoes)
+    public AtivRepeticoes(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes)
     {
-        super(tempo, freqCardiaca);
+        super(realizacao, tempo, freqCardiaca);
         this.repeticoes = repeticoes;
     }
 

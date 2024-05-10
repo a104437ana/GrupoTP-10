@@ -27,9 +27,9 @@ public class Trail extends AtivDistAltimetria
     /**
      * Construtor parametrizado
      */
-    public Trail(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
+    public Trail(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
     {
-        super(tempo, freqCardiaca, distancia, altimetria);
+        super(realizacao, tempo, freqCardiaca, distancia, altimetria);
     }
     
     /**

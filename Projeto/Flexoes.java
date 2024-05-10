@@ -27,9 +27,9 @@ public class Flexoes extends AtivRepeticoes
     /**
      * Construtor parametrizado
      */
-    public Flexoes(LocalTime tempo, int freqCardiaca, int repeticoes)
+    public Flexoes(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes)
     {
-        super(tempo, freqCardiaca, repeticoes);
+        super(realizacao, tempo, freqCardiaca, repeticoes);
     }
     
     /**

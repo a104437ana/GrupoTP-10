@@ -27,9 +27,9 @@ public class BicepCurls extends AtivRepsPeso
     /**
      * Construtor parametrizado
      */
-    public BicepCurls(LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
+    public BicepCurls(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
     {
-        super(tempo, freqCardiaca, repeticoes, peso);
+        super(realizacao, tempo, freqCardiaca, repeticoes, peso);
     }
     
     /**

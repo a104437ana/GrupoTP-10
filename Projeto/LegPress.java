@@ -27,9 +27,9 @@ public class LegPress extends AtivRepsPeso
     /**
      * Construtor parametrizado
      */
-    public LegPress(LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
+    public LegPress(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
     {
-        super(tempo, freqCardiaca, repeticoes, peso);
+        super(realizacao, tempo, freqCardiaca, repeticoes, peso);
     }
     
     /**

@@ -27,9 +27,9 @@ public class Abdominais extends AtivRepeticoes
     /**
      * Construtor parametrizado
      */
-    public Abdominais(LocalTime tempo, int freqCardiaca, int repeticoes)
+    public Abdominais(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes)
     {
-        super(tempo, freqCardiaca, repeticoes);
+        super(realizacao, tempo, freqCardiaca, repeticoes);
     }
     
     /**

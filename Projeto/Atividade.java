@@ -35,8 +35,9 @@ public abstract class Atividade implements Comparable<Atividade>
     /**
      * Construtor parametrizado
      */
-    public Atividade(LocalTime tempo, int freqCardiaca)
+    public Atividade(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca)
     {
+        this.dataRealizacao = realizacao;
         this.tempo = tempo;
         this.freqCardiaca = freqCardiaca;
     }

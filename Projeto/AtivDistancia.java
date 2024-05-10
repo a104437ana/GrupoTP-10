@@ -31,9 +31,9 @@ public abstract class AtivDistancia extends Atividade
     /**
      * Construtor parametrizado
      */
-    public AtivDistancia(LocalTime tempo, int freqCardiaca, double distancia)
+    public AtivDistancia(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia)
     {
-        super(tempo, freqCardiaca);
+        super(realizacao, tempo, freqCardiaca);
         this.distancia = distancia;
     }
     

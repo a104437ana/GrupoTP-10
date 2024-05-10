@@ -80,11 +80,53 @@ public class AppDesportiva
             switch (op){ 
 
                 case 1 :   //opção "Carregar estado"
-                    String ficheiro = menuSetup.pedeInput("Insira o nome do ficheiro a carregar");
+                    String ficheiro = menuSetup.pedeString("Insira o nome do ficheiro a carregar");
                     this.carregaDados(ficheiro);
                     break;
-                case 2 : ; //opção "Adicionar utilizador"
-                case 3 : ; //opção "Adicionar atividade"
+                case 2 :    //opção "Adicionar utilizador"
+                    String nome = menuSetup.pedeString("Insira o nome do utilizador");
+                    String morada = menuSetup.pedeString("Insira a morada do utilizador");
+                    String email = menuSetup.pedeString("Insira o email do utilizador");
+                    int freqCardiaca = menuSetup.pedeInt("Insira a frequência cardíaca do utilizador");
+                    int peso = menuSetup.pedeInt("Insira o peso do utilizador");
+                    int altura = menuSetup.pedeInt("Insira a altura do utilizador");
+                    LocalDate dataNascimento = menuSetup.pedeData("Insira a data de nascimento do utilizador (ano-mês-dia)");
+                    char genero = menuSetup.pedeString("Insira o género do utilizador").charAt(0);
+                    String tipo = menuSetup.pedeString("Insira o tipo de utilizador");
+                    model.addUtilizador(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero, tipo);
+                    break;
+                case 3 :    //opção "Adicionar atividade"
+                    int codUtilizador = menuSetup.pedeInt("Insira o código do utilizador");
+                    if (!model.existeUtilizador(codUtilizador)){
+                         System.out.println("Utilizador não existe");
+                         break;
+                    }
+                    String tipoAtiv = menuSetup.pedeString("Insira o tipo da atividade");
+                    LocalDateTime realizacao = menuSetup.pedeDataHora("Insira a data e hora de realização");
+                    LocalTime tempo = menuSetup.pedeTempo("Insira o tempo de realização");
+                    int freq = menuSetup.pedeInt("Insira a frequência cardíaca");
+                    if(tipoAtiv.equals("Corrida")||tipoAtiv.equals("Ciclismo")){
+                        double dist = menuSetup.pedeDouble("Insira a distância percorrida");
+                        this.model.addAtivDist(codUtilizador,realizacao, tempo, freq, dist, tipoAtiv);
+                    }
+                    else if(tipoAtiv.equals("Btt")||tipoAtiv.equals("Trail")){
+                        double distancia = menuSetup.pedeDouble("Insira a distância percorrida");
+                        double alt = menuSetup.pedeDouble("Insira a altimetria");
+                        this.model.addAtivDistAlt(codUtilizador,realizacao,  tempo, freq, distancia, alt, tipoAtiv);
+                    }
+                    else if(tipoAtiv.equals("Flexões")||tipoAtiv.equals("Abdominais")){
+                        int reps = menuSetup.pedeInt("Insira o número de repetições");
+                        this.model.addAtivRep(codUtilizador,realizacao,  tempo, freq, reps, tipoAtiv);
+                    }
+                    else if(tipoAtiv.equals("Leg Press")||tipoAtiv.equals("Bench Press")||tipoAtiv.equals("Bicep Curls")){
+                        int repeticoes = menuSetup.pedeInt("Insira o número de repetições");
+                        double pes = menuSetup.pedeDouble("Insira o peso");
+                        this.model.addAtivRepsPeso(codUtilizador,realizacao,  tempo, freq, repeticoes, pes, tipoAtiv);
+                    }
+                    else {
+                        System.out.println("Tipo de atividade não existe");                        
+                    }
+                    break;
                 case 4 : ; //opção "Adicionar plano de treino"
                 case 5 :    //opção "Começar fase de simulação"
                     {
@@ -93,18 +135,18 @@ public class AppDesportiva
                             op=0;
                         }
                         else if (ext == 1){
-                            String nomeFicheiro = menuSetup.pedeInput("Insira o nome do ficheiro para guardar");
+                            String nomeFicheiro = menuSetup.pedeString("Insira o nome do ficheiro para guardar");
                             this.guardaDados(nomeFicheiro);
                             op=0;
                         }
                     }
                     break;
                 case 6 :    //opção "Guardar estado"
-                    String file = menuSetup.pedeInput("Insira o nome do ficheiro para guardar");
+                    String file = menuSetup.pedeString("Insira o nome do ficheiro para guardar");
                     this.guardaDados(file);
                     break;
                 case 7 :    //opção "Guardar e sair"
-                    String saveFile = menuSetup.pedeInput("Insira o nome do ficheiro para guardar");
+                    String saveFile = menuSetup.pedeString("Insira o nome do ficheiro para guardar");
                     this.guardaDados(saveFile);
                     op=0;
                     break;
@@ -130,12 +172,16 @@ public class AppDesportiva
                 case 2 : ; //opção "Registar atividade"
                 case 3 : ; //opção "Adicionar plano de treino"
                 case 4 : ; //opção "Alterar data"
-                case 5 : ; //opção "Mostrar informações"
+                case 5 : 
+                    String str = this.model.mostraInfo();
+                    System.out.println(str);
+                    String ext = menuApp.pedeString("Enter para continuar");
+                    break; //opção "Mostrar informações"
                 case 6 :    //opção "Consultar estatísticas"
                     this.runQueries();
                     break;
                 case 7 :    //opção "Guardar estado"
-                    String nomeFicheiro = menuApp.pedeInput("Insira o nome do ficheiro para guardar");
+                    String nomeFicheiro = menuApp.pedeString("Insira o nome do ficheiro para guardar");
                     this.guardaDados(nomeFicheiro);
                     break;
                 case 8 : return 0;  //opção "Voltar ao setup"
@@ -156,14 +202,14 @@ public class AppDesportiva
         while (op!=0){
             switch (op){
                 case 1 :    //opção "Recorde calorias gastas"
-                    LocalDate dataInicial = LocalDate.parse(this.menuEstatisticas.pedeInput("Insira data inicial"));
-                    LocalDate dataFinal = LocalDate.parse(this.menuEstatisticas.pedeInput("Insira data final"));
+                    LocalDate dataInicial = this.menuEstatisticas.pedeData("Insira data inicial");
+                    LocalDate dataFinal = this.menuEstatisticas.pedeData("Insira data final");
                     Utilizador res = this.model.maisCaloriasGastas(dataInicial,dataFinal);
                     System.out.println(res.toString());
                     break;
                 case 2 :    //opção "Recorde atividades realizadas"
-                    LocalDate dataInicio = LocalDate.parse(this.menuEstatisticas.pedeInput("Insira data inicial"));
-                    LocalDate dataFim = LocalDate.parse(this.menuEstatisticas.pedeInput("Insira data final"));
+                    LocalDate dataInicio = this.menuEstatisticas.pedeData("Insira data inicial");
+                    LocalDate dataFim = this.menuEstatisticas.pedeData("Insira data final");
                     Utilizador user = this.model.maisAtividades(dataInicio,dataFim);
                     System.out.println(user.toString());
                     break;

@@ -1,5 +1,6 @@
 package Projeto;
 import java.util.*;
+import java.time.*;
 
 /**
  * Classe Menu, que implementa uma interface em modo texto
@@ -78,15 +79,120 @@ public class Menu
     }
     
     /**
-    * Método pedeInput
+    * Método pedeString
     * @param mensagem: mensagem para mostrar ao utilizador
     * @returns próxima linha inserida
     */
-    public String pedeInput(String mensagem){
+    public String pedeString(String mensagem){
         System.out.println(mensagem);
         String input;
         Scanner scan = new Scanner(System.in);
         input = scan.nextLine();
+        return input;
+    }
+    
+    /**
+    * Método pedeInt
+    * @param mensagem: mensagem para mostrar ao utilizador
+    * @returns próximo inteiro inserido
+    */
+    public int pedeInt(String mensagem){
+        System.out.println(mensagem);
+        int input = -1;
+        Scanner scan;
+        while(input == -1){
+        try{
+            scan = new Scanner(System.in);
+            input = scan.nextInt();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Inserir um número inteiro");
+        }
+        }
+        return input;
+    }
+    
+    /**
+    * Método pedeDouble
+    * @param mensagem: mensagem para mostrar ao utilizador
+    * @returns próximo número inserido
+    */
+    public double pedeDouble(String mensagem){
+        System.out.println(mensagem);
+        double input = -1;
+        Scanner scan;
+        while(input == -1){
+        try{
+            scan = new Scanner(System.in);
+            input = scan.nextDouble();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Inserir um número");
+        }
+        }
+        return input;
+    }
+    
+    /**
+    * Método pedeData
+    * @param mensagem: mensagem para mostrar ao utilizador
+    * @returns próxima data inserida
+    */
+    public LocalDate pedeData(String mensagem){
+        System.out.println(mensagem);
+        LocalDate input = null;
+        Scanner scan;
+        while(input == null){
+        try{
+            scan = new Scanner(System.in);
+            input = LocalDate.parse(scan.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("Inserir uma data no formato ano-mês-dia");
+        }
+        }
+        return input;
+    }
+    
+    /**
+    * Método pedeTempo
+    * @param mensagem: mensagem para mostrar ao utilizador
+    * @returns próximo tempo inserido
+    */
+    public LocalTime pedeTempo(String mensagem){
+        System.out.println(mensagem);
+        LocalTime input = null;
+        Scanner scan;
+        while(input == null){
+        try{
+            scan = new Scanner(System.in);
+            input = LocalTime.parse(scan.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("Inserir uma duração no formato horas:minutos ou horas:minutos:segundos");
+        }
+        }
+        return input;
+    }
+    
+    /**
+    * Método pedeDataHora
+    * @param mensagem: mensagem para mostrar ao utilizador
+    * @returns próxima data com hora inserida
+    */
+    public LocalDateTime pedeDataHora(String mensagem){
+        System.out.println(mensagem);
+        LocalDateTime input = null;
+        Scanner scan;
+        while(input == null){
+        try{
+            scan = new Scanner(System.in);
+            input = LocalDateTime.parse(scan.nextLine());
+        }
+        catch (Exception e){
+            System.out.println("Inserir data e hora");
+        }
+        }
         return input;
     }
 }

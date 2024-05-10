@@ -27,9 +27,9 @@ public class Ciclismo extends AtivDistancia
     /**
      * Construtor parametrizado
      */
-    public Ciclismo(LocalTime tempo, int freqCardiaca, double distancia)
+    public Ciclismo(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia)
     {
-        super(tempo, freqCardiaca, distancia);
+        super(realizacao, tempo, freqCardiaca, distancia);
     }
     
     /**

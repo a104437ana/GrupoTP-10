@@ -27,9 +27,9 @@ public class Corrida extends AtivDistancia
     /**
      * Construtor parametrizado
      */
-    public Corrida(LocalTime tempo, int freqCardiaca, double distancia)
+    public Corrida(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia)
     {
-        super(tempo, freqCardiaca, distancia);
+        super(realizacao, tempo, freqCardiaca, distancia);
     }
     
     /**

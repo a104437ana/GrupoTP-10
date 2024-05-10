@@ -32,9 +32,9 @@ public abstract class AtivRepsPeso extends AtivRepeticoes
     /**
      * Construtor parametrizado
      */
-    public AtivRepsPeso(LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
+    public AtivRepsPeso(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso)
     {
-        super(tempo, freqCardiaca, repeticoes);
+        super(realizacao, tempo, freqCardiaca, repeticoes);
         this.peso = peso;
     }
 

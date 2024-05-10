@@ -32,9 +32,9 @@ public abstract class AtivDistAltimetria extends AtivDistancia
     /**
      * Construtor parametrizado
      */
-    public AtivDistAltimetria(LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
+    public AtivDistAltimetria(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria)
     {
-        super(tempo, freqCardiaca, distancia);
+        super(realizacao, tempo, freqCardiaca, distancia);
         this.altimetria = altimetria;
     }
 
