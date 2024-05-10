@@ -39,7 +39,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         }
     
         public Atividade getAtividade(){
-            return this.atividade; //clone ??
+            return (Atividade) this.atividade.clone();
         }
     
         public void setIteracoes(int iteracoes){
@@ -47,7 +47,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         }
     
         public void setR(Atividade atividade){
-            this.atividade = atividade; //clone ??
+            this.atividade = atividade; //clone??
         }
     }
 
@@ -94,7 +94,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             int iteracoes = atividadeIter.getIteracoes();
             for (int i = 0; i < iteracoes; i++) {
                 Atividade atividade = atividadeIter.getAtividade();
-                if (p.test(atividade)) atividades.add(atividade);
+                if (p.test(atividade)) atividades.add((Atividade)atividade.clone());
             }
         }
         return atividades;
@@ -119,5 +119,13 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public int compareTo(PlanoTreino p){
         return this.dataRealizacao.compareTo(p.getDataRealizacao());
+    }
+    
+    /**
+     * clone
+     */
+    public PlanoTreino clone() {
+        PlanoTreino c = new PlanoTreino(this);
+        return c;
     }
 }

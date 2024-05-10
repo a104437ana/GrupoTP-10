@@ -91,7 +91,7 @@ public class GestorDesportivo implements Serializable
      * ponto 2
     */
     public Utilizador maisAtividades (LocalDate dataInicial, LocalDate dataFinal) {
-         return this.utilizadores.values().stream().reduce((u1, u2) -> u1.numeroAtividades(dataInicial,dataFinal) > u2.numeroAtividades(dataInicial,dataFinal) ? u1 : u2).orElse(null);
+         return (Utilizador) this.utilizadores.values().stream().reduce((u1, u2) -> u1.numeroAtividades(dataInicial,dataFinal) > u2.numeroAtividades(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
     }
     
     /**
@@ -100,7 +100,7 @@ public class GestorDesportivo implements Serializable
      * ponto 1
     */
     public Utilizador maisCaloriasGastas(LocalDate dataInicial, LocalDate dataFinal) {
-        return this.utilizadores.values().stream().reduce((u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2).orElse(null);
+        return (Utilizador) this.utilizadores.values().stream().reduce((u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
     }
     
     

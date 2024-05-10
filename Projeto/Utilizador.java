@@ -253,6 +253,7 @@ public abstract class Utilizador implements Serializable
         List<Atividade> atividadesIsoladas = this.atividadesIsoladas
         .stream()
         .filter(atividade -> p.test(atividade) && atividade.getDataRealizacao().compareTo(data_inicial) >= 0 && atividade.getDataRealizacao().compareTo(data_final) <= 0)
+        .map(atividade -> (Atividade) atividade.clone())
         .collect(Collectors.toList());
         
         atividades.addAll(atividadesIsoladas);
