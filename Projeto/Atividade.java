@@ -82,7 +82,7 @@ public abstract class Atividade implements Comparable<Atividade>
      * @param  utilizador  utilizador que realiza a atividade
      * @return    consumo de calorias da atividade
      */
-    public abstract int consumoCalorias(Utilizador utilizador);
+    public abstract double consumoCalorias(Utilizador utilizador);
 
     /**
      * Método que calcula um fator de intensidade pela razão entre a frequência cardíaca a que é feita a atividade e a frequência cardíaca normal

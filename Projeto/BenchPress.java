@@ -46,11 +46,11 @@ public class BenchPress extends AtivRepsPeso
      * @param  utilizador  utilizador que realiza o treino
      * @return    consumo de calorias do treino
      */
-    public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorRepeticoes(0.25, 0.2) + this.getFatorPeso(utilizador, 0.5, 0.2) + this.getFatorFreqCardiaca(utilizador)) 
-                                          * utilizador.getBMR() / (24 * 60 * 60)
-                                          * this.getTempo().toSecondOfDay();
-        return (int) consumoCalorias;
+    public double consumoCalorias(Utilizador utilizador){
+        double consumoCalorias = BenchPress.MET * (utilizador.getFatorMultiplicativo() + this.getFatorRepeticoes(0.25, 0.2) + this.getFatorPeso(utilizador, 0.5, 0.2) + this.getFatorFreqCardiaca(utilizador)) 
+                                                * utilizador.getBMR() / (24 * 60 * 60)
+                                                * this.getTempo().toSecondOfDay();
+        return consumoCalorias;
     }
 
     /**

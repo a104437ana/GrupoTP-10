@@ -23,9 +23,9 @@ public class AppDesportiva
     public AppDesportiva()
     {
         this.model = new GestorDesportivo();
-        this.menuSetup = new Menu(this.opcoesSetup);
-        this.menuApp = new Menu(this.opcoesApp);
-        this.menuEstatisticas = new Menu(this.opcoesQueries);
+        this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
+        this.menuApp = new Menu(AppDesportiva.opcoesApp);
+        this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
     }
     
     /**
@@ -36,9 +36,9 @@ public class AppDesportiva
     {
         this.model = new GestorDesportivo();
         this.carregaDados(ficheiro);
-        this.menuSetup = new Menu(this.opcoesSetup);
-        this.menuApp = new Menu(this.opcoesApp);
-        this.menuEstatisticas = new Menu(this.opcoesQueries);
+        this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
+        this.menuApp = new Menu(AppDesportiva.opcoesApp);
+        this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
     }
     
     /**

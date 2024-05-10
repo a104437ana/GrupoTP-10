@@ -1,6 +1,5 @@
 package Projeto;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Classe UtilizadorProfissional - classe que engloba todos os utilizadores que sao atletas profissionais.
@@ -44,7 +43,7 @@ public class UtilizadorProfissional extends Utilizador
      */
     public double getFatorMultiplicativo()
     {
-        return this.fatorMultiplicativo;
+        return UtilizadorProfissional.fatorMultiplicativo;
     }
     
     public String toString(){

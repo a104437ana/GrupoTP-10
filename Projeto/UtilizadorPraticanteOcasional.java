@@ -1,6 +1,5 @@
 package Projeto;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Classe UtilizadorPraticanteOcasional - classe que engloba todos os utilizadores que sao praticantes ocasionais.
@@ -44,7 +43,7 @@ public class UtilizadorPraticanteOcasional extends Utilizador
      */
     public double getFatorMultiplicativo()
     {
-        return this.fatorMultiplicativo;
+        return UtilizadorPraticanteOcasional.fatorMultiplicativo;
     }
     
     public String toString(){

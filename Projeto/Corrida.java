@@ -46,11 +46,11 @@ public class Corrida extends AtivDistancia
      * @param  utilizador  utilizador que realiza a corrida
      * @return    consumo de calorias da corrida
      */
-    public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador)) 
-                                          * utilizador.getBMR() / (24 * 60 * 60)
-                                          * this.getTempo().toSecondOfDay();
-        return (int) consumoCalorias;
+    public double consumoCalorias(Utilizador utilizador){
+        double consumoCalorias = Corrida.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador)) 
+                                             * utilizador.getBMR() / (24 * 60 * 60)
+                                             * this.getTempo().toSecondOfDay();
+        return consumoCalorias;
     }
 
     /**

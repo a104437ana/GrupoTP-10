@@ -46,11 +46,11 @@ public class Trail extends AtivDistAltimetria
      * @param  utilizador  utilizador que realiza o trail
      * @return    consumo de calorias do trail
      */
-    public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
-                                          * utilizador.getBMR() / (24 * 60 * 60)
-                                          * this.getTempo().toSecondOfDay();
-        return (int) consumoCalorias;
+    public double consumoCalorias(Utilizador utilizador){
+        double consumoCalorias = Trail.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
+                                           * utilizador.getBMR() / (24 * 60 * 60)
+                                           * this.getTempo().toSecondOfDay();
+        return consumoCalorias;
     }
 
     /**

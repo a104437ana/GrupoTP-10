@@ -168,24 +168,6 @@ public abstract class Utilizador
     public void setGenero(char genero) {
         this.genero = genero;
     }
-
-    /* estao certas, mas fiz funcoes melhores embaixo, isto vai ser pa eliminar
-    public List<PlanoTreino> planosTreinoEfetuados(LocalDate dataInicial, LocalDate dataFinal){
-        List<PlanoTreino> pt = new ArrayList<PlanoTreino>();
-        pt = this.atividadesPlanoTreino.stream().filter(b -> b.getDataRealizacao().compareTo(dataInicial) >= 0 && b.getDataRealizacao().compareTo(dataFinal) <= 0)
-        .collect(Collectors.toList());
-        return pt;
-    }
-
-    public List<Atividade> atividadesIsoladasEfetuadas(LocalDate dataInicial, LocalDate dataFinal){
-        List<Atividade> at = new ArrayList<Atividade>();
-        LocalDateTime data_inicial = LocalDateTime.of(dataInicial, LocalTime.MIDNIGHT);
-        LocalDateTime data_final = LocalDateTime.of(dataFinal, LocalTime.MIDNIGHT);
-        at = this.atividadesIsoladas.stream().filter(b -> b.getDataRealizacao().compareTo(data_inicial) >= 0 && b.getDataRealizacao().compareTo(data_final) <= 0)
-        .collect(Collectors.toList());
-        return at;
-    }
-    */
    
     /** 
      * Numero de calorias gastas pelo utilizador
@@ -195,9 +177,9 @@ public abstract class Utilizador
     public double totalCaloriasDispendidas (LocalDate dataInicial, LocalDate dataFinal) {
         Predicate<Atividade> p = atividade -> true;
         Utilizador u = this;
-        Function<Atividade,Integer> f = atividade -> atividade.consumoCalorias(u);
-        List<Integer> calorias = infoDasAtividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p, f);
-        double total_calorias = calorias.stream().mapToInt(h -> h).sum();
+        Function<Atividade,Double> f = atividade -> atividade.consumoCalorias(u);
+        List<Double> calorias = infoDasAtividadesNumPeriodoQueRespeitamP(dataInicial, dataFinal, p, f);
+        double total_calorias = calorias.stream().mapToDouble(h -> h).sum();
         return total_calorias;
     }
    

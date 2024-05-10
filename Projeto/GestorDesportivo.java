@@ -1,10 +1,7 @@
 package Projeto;
-import java.time.*;
 import java.util.*;
 import java.io.*;
-import java.util.stream.Collectors;
 import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * Classe GestorDesportivo, que corresponde à lógica de negócio da aplicação / model
@@ -56,18 +53,4 @@ public class GestorDesportivo
     public Utilizador maisCaloriasGastas(LocalDate dataInicial, LocalDate dataFinal) {
         return this.utilizadores.values().stream().reduce((u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2).orElse(null);
     }
-    /*public Utilizador maisCaloriasGastas(LocalDate dataInicio, LocalDate dataFim){
-        Utilizador utilizador = null;
-        double maxCalorias = 0;
-        double calorias;
-        for (Utilizador u : this.utilizadores.values()) {
-            calorias = u.totalCaloriasDispendidas(dataInicio, dataFim);
-            if (maxCalorias < calorias) {
-                maxCalorias = calorias;
-                utilizador = (Utilizador) u.clone();
-            }
-            calorias = 0;
-        }
-        return utilizador;
-    }*/
 }

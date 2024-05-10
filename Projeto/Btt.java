@@ -46,11 +46,11 @@ public class Btt extends AtivDistAltimetria
      * @param  utilizador  utilizador que realiza o treino
      * @return    consumo de calorias do treino
      */
-    public int consumoCalorias(Utilizador utilizador){
-        double consumoCalorias = this.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(10.5, 0.11) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
-                                          * utilizador.getBMR() / (24 * 60 * 60)
-                                          * this.getTempo().toSecondOfDay();
-        return (int) consumoCalorias;
+    public double consumoCalorias(Utilizador utilizador){
+        double consumoCalorias = Btt.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(10.5, 0.11) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
+                                         * utilizador.getBMR() / (24 * 60 * 60)
+                                         * this.getTempo().toSecondOfDay();
+        return consumoCalorias;
     }
 
     /**
