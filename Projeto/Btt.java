@@ -8,7 +8,7 @@ import java.time.*;
  * @version 09/05/24
  * Notas versão : --
  */
-public class Btt extends AtivDistAltimetria
+public class Btt extends AtivDistAltimetria implements Hard
 {
     // variáveis de classe
     private static final double MET = 10;
@@ -40,6 +40,15 @@ public class Btt extends AtivDistAltimetria
         super(btt);
     }
     
+    public double getFatorHard() {
+        double hard = 1.05;
+        if (this.getAltimetria() > 1000) {
+            hard+=0.10;
+            if (this.getAltimetria() > 2000) hard+=0.10;
+        }
+        return hard;
+    }
+    
     /**
      * Método que calcula o consumo de calorias de um treino de BTT
      *
@@ -48,7 +57,7 @@ public class Btt extends AtivDistAltimetria
      */
     public double consumoCalorias(Utilizador utilizador){
         double consumoCalorias = Btt.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(10.5, 0.11) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
-                                         * utilizador.getBMR() / (24 * 60 * 60)
+                                         * utilizador.getBMR() / (24 * 60 * 60) * this.getFatorHard()
                                          * this.getTempo().toSecondOfDay();
         return consumoCalorias;
     }

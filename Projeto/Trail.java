@@ -8,7 +8,7 @@ import java.time.*;
  * @version 09/05/24
  * Notas versão : --
  */
-public class Trail extends AtivDistAltimetria
+public class Trail extends AtivDistAltimetria implements Hard
 {
     // variáveis de classe
     private static final double MET = 10;
@@ -40,6 +40,15 @@ public class Trail extends AtivDistAltimetria
         super(umTrail);
     }
     
+    public double getFatorHard() {
+        double hard = 1.15;
+        if (this.getAltimetria() > 1000) {
+            hard+=0.10;
+            if (this.getAltimetria() > 2000) hard+=0.10;
+        }
+        return hard;
+    }
+    
     /**
      * Método que calcula o consumo de calorias de um trail
      *
@@ -48,7 +57,7 @@ public class Trail extends AtivDistAltimetria
      */
     public double consumoCalorias(Utilizador utilizador){
         double consumoCalorias = Trail.MET * (utilizador.getFatorMultiplicativo() + this.getFatorVelocidade(2.2, 0.22) + this.getFatorFreqCardiaca(utilizador) + this.getFatorAltimetria()) 
-                                           * utilizador.getBMR() / (24 * 60 * 60)
+                                           * utilizador.getBMR() / (24 * 60 * 60) * this.getFatorHard()
                                            * this.getTempo().toSecondOfDay();
         return consumoCalorias;
     }
