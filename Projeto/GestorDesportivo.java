@@ -3,6 +3,8 @@ import java.util.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.*;
+import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 /**
  * Classe GestorDesportivo, que corresponde à lógica de negócio da aplicação / model
@@ -37,6 +39,52 @@ public class GestorDesportivo implements Serializable
         return (model);
     }
 
+        /**
+     * Requisitos 3.2
+     * ponto 6
+     */
+    public PlanoTreino planoTreinoMaisCalorias (LocalDate dataInicio, LocalDate dataFim) {
+        double maxCal = 0;
+        PlanoTreino b = null;
+        for (Utilizador u : this.utilizadores.values()) {
+            PlanoTreino a = u.planoTreinoMaisCalorias(dataInicio, dataFim);
+            if (a.caloriasDispendidas(u) >= maxCal) {
+                b = a;
+                maxCal = a.caloriasDispendidas(u);
+            }
+        }
+        return b;
+    }
+    
+    /**
+     * Requisitos 3.2
+     * ponto 3
+     */
+    public String atividadeMaisRealizada (LocalDate dataAtual) {
+        List<Atividade> atividades = new ArrayList<Atividade>();
+        Predicate<Atividade> p = atividade -> true;
+        this.utilizadores.values().forEach(u -> atividades.addAll(u.atividadesNumPeriodoQueRespeitamP(LocalDate.MIN, dataAtual, p)));
+        
+        Map<String,Integer> tipoAtividadeQuantidade = new HashMap<>();
+        
+        for (Atividade atividade : atividades) {
+            String tipo = atividade.getClass().getSimpleName();
+            tipoAtividadeQuantidade.put(tipo, tipoAtividadeQuantidade.getOrDefault(tipo, 0) + 1);
+        }
+        
+        String atividadeMaisRealizada = null;
+        int contagemMaisFrequente = 0;
+        
+        for (Map.Entry<String, Integer> entry : tipoAtividadeQuantidade.entrySet()) {
+            if (entry.getValue() >= contagemMaisFrequente) {
+                atividadeMaisRealizada = entry.getKey();
+                contagemMaisFrequente = entry.getValue();
+            }
+        }
+
+        return atividadeMaisRealizada;
+    }
+    
     /** 
      * Utilizador com mais atividades
      * Requisito 3.2

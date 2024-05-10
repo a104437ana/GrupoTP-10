@@ -173,7 +173,7 @@ public abstract class Utilizador
         Atividade adicionar = (Atividade) atividade.clone();
         this.atividadesIsoladas.add(adicionar);
     }
-   
+    
     /** 
      * Numero de calorias gastas pelo utilizador
      * Requisito 3.2
@@ -270,6 +270,14 @@ public abstract class Utilizador
         }
         
         return atividades;
+    }
+    
+    public PlanoTreino planoTreinoMaisCalorias (LocalDate dataInicio, LocalDate dataFim) {
+        return this.atividadesPlanoTreino
+        .stream()
+        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .reduce((p1, p2) -> p1.caloriasDispendidas(this) > p2.caloriasDispendidas(this) ? p1 : p2)
+        .orElse(null);
     }
     
     /**
