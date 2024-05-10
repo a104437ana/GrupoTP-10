@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.function.Predicate;
 import java.util.function.Function;
+import java.io.*;
 
 /**
  * Classe Utilizador - classe abstrata que engloba os vários utilizadores da aplicação
@@ -18,7 +19,7 @@ import java.util.function.Function;
  * @version 27/04/24
  * Notas versão: --
  */
-public abstract class Utilizador
+public abstract class Utilizador implements Serializable
 {
     // variáveis de classe
     private static int proximoCodigo = 1;

@@ -2,6 +2,7 @@ package Projeto;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.io.*;
 
 /**
  * Classe Atividade - classe abstrata que engloba os vários tipos de atividades desportivas
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * @version 09/05/24
  * Notas versão : --
  */
-public abstract class Atividade implements Comparable<Atividade>
+public abstract class Atividade implements Comparable<Atividade>, Serializable
 {
     // variáveis de instância
     private LocalDateTime dataRealizacao; 

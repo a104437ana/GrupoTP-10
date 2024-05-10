@@ -3,6 +3,7 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.io.*;
 
 /**
  * Classe PlanoTreino, que engloba as várias atividades realizadas por um utilizador numa dada altura
@@ -11,7 +12,7 @@ import java.util.function.Predicate;
  * @version 09/05/24
  * Notas versão : Falta adicionar atividades
  */
-public class PlanoTreino implements Comparable<PlanoTreino>
+public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
 {
     // variáveis de instância
     private LocalDate dataRealizacao;

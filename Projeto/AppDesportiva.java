@@ -47,7 +47,7 @@ public class AppDesportiva
      */
     private void carregaDados(String ficheiro){
         try{
-        this.model.carregaEstado(ficheiro);
+            this.model = this.model.carregaEstado(ficheiro);
         }
         catch (ClassNotFoundException clExc){
             System.out.println("Não foi possível carregar os dados do ficheiro");
