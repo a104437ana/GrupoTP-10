@@ -338,6 +338,10 @@ public abstract class Utilizador implements Serializable
         sb.append(this.getIdade());
         sb.append(" anos\nGenero: ");
         sb.append(this.genero);
+        sb.append("\nAtividades: ");
+        for (Atividade a : this.atividadesIsoladas){
+            sb.append(a.toString());
+        }
         return (sb.toString());
     }
     

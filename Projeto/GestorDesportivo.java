@@ -104,19 +104,16 @@ public class GestorDesportivo implements Serializable
     }
     
     
-    public void addUtilizador(String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero, String tipo){
+    public void addUtilizador(String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero, int tipo){
          Utilizador novoUtilizador;
-         if(tipo.equals("Amador")){
+         if(tipo==1){
              novoUtilizador = new UtilizadorAmador(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
          }
-         else if(tipo.equals("Profissional")){
+         else if(tipo==3){
              novoUtilizador = new UtilizadorProfissional(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
          }
-         else if (tipo.equals("Ocasional")){
-             novoUtilizador = new UtilizadorPraticanteOcasional(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
-         }
          else{
-             return;
+             novoUtilizador = new UtilizadorPraticanteOcasional(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
          }
          this.utilizadores.put(novoUtilizador.getCodUtilizador(), novoUtilizador);
     }
@@ -125,61 +122,49 @@ public class GestorDesportivo implements Serializable
         return this.utilizadores.containsKey(codUtilizador);
     }
     
-    public void addAtivDist(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, String tipo){
+    public void addAtivDist(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
          Atividade novaAtividade;
-         if(tipo.equals("Corrida")){
+         if(tipo==1){
              novaAtividade = new Corrida(realizacao, tempo, freqCardiaca, distancia);
          }
-         if(tipo.equals("Ciclismo")){
-             novaAtividade = new Ciclismo(realizacao, tempo, freqCardiaca, distancia);
-         }
          else{
-             return;
+             novaAtividade = new Ciclismo(realizacao, tempo, freqCardiaca, distancia);
          }
          this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
     }
     
-    public void addAtivDistAlt(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, String tipo){
+    public void addAtivDistAlt(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
          Atividade novaAtividade;
-         if(tipo.equals("Btt")){
-             novaAtividade = new Btt(realizacao, tempo, freqCardiaca, distancia, altimetria);
-         }
-         if(tipo.equals("Trail")){
+         if(tipo==3){
              novaAtividade = new Trail(realizacao, tempo, freqCardiaca, distancia, altimetria);
          }
          else{
-             return;
+             novaAtividade = new Btt(realizacao, tempo, freqCardiaca, distancia, altimetria);
          }
          this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
     }
     
-    public void addAtivRep(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, String tipo){
+    public void addAtivRep(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
          Atividade novaAtividade;
-         if(tipo.equals("Flexões")){
+         if(tipo==5){
              novaAtividade = new Flexoes(realizacao, tempo, freqCardiaca, repeticoes);
          }
-         if(tipo.equals("Abdominais")){
-             novaAtividade = new Abdominais(realizacao, tempo, freqCardiaca, repeticoes);
-         }
          else{
-             return;
+             novaAtividade = new Abdominais(realizacao, tempo, freqCardiaca, repeticoes);
          }
          this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
     }
     
-    public void addAtivRepsPeso(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, String tipo){
+    public void addAtivRepsPeso(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
          Atividade novaAtividade;
-         if(tipo.equals("Bench Press")){
-             novaAtividade = new BenchPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
-         }
-         if(tipo.equals("Leg Press")){
+         if(tipo==7){
              novaAtividade = new LegPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
          }
-         if(tipo.equals("Bicep Curls")){
-             novaAtividade = new BicepCurls(realizacao, tempo, freqCardiaca, repeticoes, peso);
+         if(tipo==8){
+             novaAtividade = new BenchPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
          }
          else{
-             return;
+             novaAtividade = new BicepCurls(realizacao, tempo, freqCardiaca, repeticoes, peso);
          }
          this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
     }

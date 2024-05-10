@@ -29,6 +29,7 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      */
     public Atividade()
     {
+        this.dataRealizacao = LocalDateTime.now();
         this.tempo = LocalTime.of(0,0);
         this.freqCardiaca = 0;
     }
@@ -48,6 +49,7 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      */
     public Atividade(Atividade umaAtividade)
     {
+        this.dataRealizacao = umaAtividade.getDataRealizacao();
         this.tempo = umaAtividade.getTempo();
         this.freqCardiaca = umaAtividade.getFreqCardiaca();
     }
