@@ -13,6 +13,7 @@ public class AppDesportiva
 {
     private GestorDesportivo model;
     private Menu menuSetup, menuApp, menuEstatisticas;
+    private LocalDate dataAtual;
     private static String[] opcoesSetup = {"Menu Principal","Carregar estado", "Adicionar utilizador", "Adicionar atividade", "Adicionar plano de treino", "Começar fase de simulação", "Guardar estado", "Guardar e sair","Sair"};
     private static String[] opcoesApp = {"Menu","Adicionar utilizador", "Registar atividade", "Adicionar plano de treino", "Alterar data", "Mostrar informações", "Consultar estatísticas", "Guardar estado", "Voltar ao setup", "Guardar e sair", "Sair"};
     private static String[] opcoesQueries = {"Estatísticas","Recorde calorias gastas", "Recorde atividades realizadas", "Atividade mais realizada", "Kms percorridos", "Metros de altimetria", "Record plano de treino", "Atividades utilizador", "Voltar"};
@@ -26,6 +27,7 @@ public class AppDesportiva
         this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
         this.menuApp = new Menu(AppDesportiva.opcoesApp);
         this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
+        this.dataAtual = LocalDate.now();
     }
     
     /**
@@ -47,6 +49,7 @@ public class AppDesportiva
         this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
         this.menuApp = new Menu(AppDesportiva.opcoesApp);
         this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
+        this.dataAtual = LocalDate.now();
     }
     
     /**
@@ -201,7 +204,7 @@ public class AppDesportiva
                 case 5 : 
                     String str = this.model.mostraInfo();
                     System.out.println(str);
-                    String ext = menuApp.pedeString("Enter para continuar");
+                    menuApp.pedeString("Enter para continuar");
                     break; //opção "Mostrar informações"
                 case 6 :    //opção "Consultar estatísticas"
                     this.runQueries();
@@ -231,20 +234,50 @@ public class AppDesportiva
                     LocalDate dataFinal = this.menuEstatisticas.pedeData("Insira data final");
                     Utilizador res = this.model.maisCaloriasGastas(dataInicial,dataFinal);
                     System.out.println(res.toString());
+                    menuEstatisticas.pedeString("Enter para continuar");
                     break;
                 case 2 :    //opção "Recorde atividades realizadas"
                     LocalDate dataInicio = this.menuEstatisticas.pedeData("Insira data inicial");
                     LocalDate dataFim = this.menuEstatisticas.pedeData("Insira data final");
                     Utilizador user = this.model.maisAtividades(dataInicio,dataFim);
                     System.out.println(user.toString());
+                    menuEstatisticas.pedeString("Enter para continuar");
                     break;
-                case 3 : ;
-                case 4 : ;
-                case 5 : ;
-                case 6 : ;
-                case 7 : ;
-                case 8 : ;
-                case 9 : ;
+                case 3 :    //opção "Atividade mais realizada"
+                    String resposta = this.model.atividadeMaisRealizada(this.dataAtual);
+                    System.out.println(resposta);
+                    menuEstatisticas.pedeString("Enter para continuar");
+                    break;
+                case 4 :    //opção "Kms percorridos"
+                    int codUser = menuEstatisticas.pedeInt("Insira o código do utilizador");
+                    if (!model.existeUtilizador(codUser)){
+                        System.out.println("Utilizador não existe");
+                        break;
+                    }
+                    LocalDate dataBegin = this.menuEstatisticas.pedeData("Insira data inicial");
+                    LocalDate dataEnd = this.menuEstatisticas.pedeData("Insira data final");
+                    double kms = model.kmsPercorridos(codUser, dataBegin, dataEnd);
+                    System.out.print(kms);
+                    System.out.println(" kilómetros\n");
+                    menuEstatisticas.pedeString("Enter para continuar");
+                    break;
+                case 5 :    //opção "Metros de altimetria"
+                    int codUtilizador = menuEstatisticas.pedeInt("Insira o código do utilizador");
+                    if (!model.existeUtilizador(codUtilizador)){
+                        System.out.println("Utilizador não existe");
+                        break;
+                    }
+                    LocalDate dateBegin = this.menuEstatisticas.pedeData("Insira data inicial");
+                    LocalDate dateEnd = this.menuEstatisticas.pedeData("Insira data final");
+                    double metros = model.metrosAltimetria(codUtilizador, dateBegin, dateEnd);
+                    System.out.print(metros);
+                    System.out.println(" metros\n");
+                    menuEstatisticas.pedeString("Enter para continuar");
+                    break;
+                case 6 :    //opção "Record plano de treino"
+                    break;
+                case 7 :    //opção "Atividades utilizador"
+                    break;
             }
             menuEstatisticas.runMenu();
             op = menuEstatisticas.getOpcao();

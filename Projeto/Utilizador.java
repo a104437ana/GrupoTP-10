@@ -343,6 +343,9 @@ public abstract class Utilizador implements Serializable
         for (Atividade a : this.atividadesIsoladas){
             sb.append(a.toString());
         }
+        for (PlanoTreino p : this.atividadesPlanoTreino){
+            sb.append(p.toString());
+        }
         return (sb.toString());
     }
     
