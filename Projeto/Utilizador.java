@@ -190,7 +190,7 @@ public abstract class Utilizador
     /** 
      * Numero de calorias gastas pelo utilizador
      * Requisito 3.2
-     * ponto 2
+     * ponto 1
         */
     public double totalCaloriasDispendidas (LocalDate dataInicial, LocalDate dataFinal) {
         Predicate<Atividade> p = atividade -> true;
@@ -246,7 +246,7 @@ public abstract class Utilizador
     }
     
     
-    public <R> List<R> infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate dataInicio, LocalDate dataFim, Predicate p, Function<Atividade,R> f){
+    public <R> List<R> infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p, Function<Atividade,R> f){
         List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(dataInicio, dataFim, p);
         
         List<R> infoDasAtividades = new ArrayList<>();
@@ -256,7 +256,7 @@ public abstract class Utilizador
         return infoDasAtividades;
     }
     
-    public List<Atividade> atividadesNumPeriodoQueRespeitamP (LocalDate dataInicio, LocalDate dataFim, Predicate p){
+    public List<Atividade> atividadesNumPeriodoQueRespeitamP (LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p){
         List<Atividade> atividades = new ArrayList<Atividade>();
         
         LocalDateTime data_inicial = LocalDateTime.of(dataInicio, LocalTime.MIDNIGHT);
