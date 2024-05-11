@@ -307,7 +307,7 @@ public class AppDesportiva
                 System.out.println(user.toString());
                 break;
             case 6:
-                PlanoTreino plano = this.model.planoTreinoMaisCalorias(dataInicial,dataFinal);
+                PlanoTreino plano = this.model.planoTreinoMaisCalorias(dataFinal);
                 System.out.println(plano.toString());
                 break;
         }
@@ -489,7 +489,7 @@ public class AppDesportiva
                     this.estatisticaEntreDatas(op);
                     break;
                 case 3 :    //opção "Atividade mais realizada"
-                    String resposta = this.model.atividadeMaisRealizada(this.dataAtual);
+                    String resposta = this.model.atividadeMaisRealizada();
                     System.out.println(resposta);
                     menuEstatisticas.pedeString("Enter para continuar");
                     break;
