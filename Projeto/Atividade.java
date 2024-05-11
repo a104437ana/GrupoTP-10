@@ -13,7 +13,10 @@ import java.io.*;
  */
 public abstract class Atividade implements Comparable<Atividade>, Serializable
 {
+    //variáveis de calsse
+    private static int proximoCodAtividade = 1;
     // variáveis de instância
+    private int codAtividade;
     private LocalDateTime dataRealizacao; 
     private LocalTime tempo;
     private int freqCardiaca;
@@ -29,6 +32,7 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      */
     public Atividade()
     {
+        this.codAtividade = Atividade.proximoCodAtividade++;
         this.dataRealizacao = LocalDateTime.now();
         this.tempo = LocalTime.of(0,0);
         this.freqCardiaca = 0;
@@ -39,6 +43,7 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      */
     public Atividade(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca)
     {
+        this.codAtividade = Atividade.proximoCodAtividade++;
         this.dataRealizacao = realizacao;
         this.tempo = tempo;
         this.freqCardiaca = freqCardiaca;
@@ -49,12 +54,17 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      */
     public Atividade(Atividade umaAtividade)
     {
+        this.codAtividade = umaAtividade.getCodAtividade();
         this.dataRealizacao = umaAtividade.getDataRealizacao();
         this.tempo = umaAtividade.getTempo();
         this.freqCardiaca = umaAtividade.getFreqCardiaca();
     }
     
     // Getters e setters
+
+    public int getCodAtividade(){
+        return this.codAtividade;
+    }
 
     public LocalDateTime getDataRealizacao(){
         return this.dataRealizacao;
@@ -107,7 +117,9 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         StringBuilder sb = new StringBuilder();
-        sb.append("Atividade\nData e hora: ");
+        sb.append("Atividade\nId: ");
+        sb.append(this.codAtividade);
+        sb.append("\nData e hora: ");
         sb.append(this.dataRealizacao.format(formatter));
         sb.append("\nDuraçao: ");
         sb.append(this.tempo);
@@ -136,6 +148,8 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
      * Método compareTo
      */
     public int compareTo(Atividade a){
-        return this.dataRealizacao.compareTo(a.getDataRealizacao());
+        int res = this.dataRealizacao.compareTo(a.getDataRealizacao());
+        if (res == 0) res = this.codAtividade - a.getCodAtividade();
+        return res;
     }
 }

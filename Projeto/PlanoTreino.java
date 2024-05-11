@@ -84,7 +84,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public PlanoTreino()
     {
-        this.codPlano = 0;
+        this.codPlano = PlanoTreino.proximoCodigo++;
         this.dataRealizacao = LocalDate.now();
         this.atividades = new ArrayList<>();
     }
@@ -186,7 +186,9 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      * Método compareTo
      */
     public int compareTo(PlanoTreino p){
-        return this.dataRealizacao.compareTo(p.getDataRealizacao());
+        int res = this.dataRealizacao.compareTo(p.getDataRealizacao());
+        if (res == 0) res = this.codPlano - p.getCodPlano();
+        return res;
     }
     
     /**
