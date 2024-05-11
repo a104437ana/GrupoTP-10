@@ -47,11 +47,11 @@ public class GestorDesportivo implements Serializable
         return (model);
     }
 
-    public void atualizaInfo (LocalDate dataInicio, LocalDate datafim) {
+    public void atualizaInfo (LocalDate datafim) {
         this.utilizadoresNumPeriodo = new HashMap<Integer, Utilizador>();
         List<Utilizador> utilizadores = new ArrayList<Utilizador>();
         for (Utilizador u : this.utilizadores.values()) {
-            Utilizador value = (Utilizador) u.utilizadorNumPeriodo(dataInicio,datafim);
+            Utilizador value = (Utilizador) u.utilizadorNumPeriodo(LocalDate.MIN,datafim);
             int chave = value.getCodUtilizador();
             this.utilizadoresNumPeriodo.put(chave,value);
         }
@@ -61,11 +61,11 @@ public class GestorDesportivo implements Serializable
      * Requisitos 3.2
      * ponto 6
      */
-    public PlanoTreino planoTreinoMaisCalorias (LocalDate i, LocalDate f) {
+    public PlanoTreino planoTreinoMaisCalorias (LocalDate f) {
         double maxCal = 0;
         PlanoTreino b = null;
         for (Utilizador u : this.utilizadoresNumPeriodo.values()) {
-            PlanoTreino a = u.planoTreinoMaisCalorias(LocalDate.MIN, dataAtual);
+            PlanoTreino a = u.planoTreinoMaisCalorias(LocalDate.MIN, f);
             if (a.caloriasDispendidas(u) >= maxCal) {
                 b = a;
                 maxCal = a.caloriasDispendidas(u);
@@ -78,10 +78,10 @@ public class GestorDesportivo implements Serializable
      * Requisitos 3.2
      * ponto 3
      */
-    public String atividadeMaisRealizada (LocalDate i, LocalDate f) {
+    public String atividadeMaisRealizada () {
         List<Atividade> atividades = new ArrayList<Atividade>();
         Predicate<Atividade> p = atividade -> true;
-        this.utilizadoresNumPeriodo.values().forEach(u -> atividades.addAll(u.atividadesNumPeriodoQueRespeitamP(i, f, p)));
+        this.utilizadoresNumPeriodo.values().forEach(u -> atividades.addAll(u.atividadesNumPeriodoQueRespeitamP(LocalDate.MIN, LocalDate.MAX, p)));
         
         Map<String,Integer> tipoAtividadeQuantidade = new HashMap<>();
         
@@ -249,9 +249,17 @@ public class GestorDesportivo implements Serializable
         return this.utilizadoresNumPeriodo.get(codUtilizador).allMetrosAltimetria(dataInicio,dataFim);
     }
     
-    public String atividadesUtilizador(int codUtilizador){
+    public String atividadesExecutadasUtilizador(int codUtilizador){
         StringBuilder sb = new StringBuilder();
         for (Atividade a : this.utilizadoresNumPeriodo.get(codUtilizador).allAtividades(LocalDate.MIN,LocalDate.MAX)){
+            sb.append(a.toString());
+        }
+        return sb.toString();
+    }
+    
+    public String atividadesUtilizador(int codUtilizador){
+        StringBuilder sb = new StringBuilder();
+        for (Atividade a : this.utilizadores.get(codUtilizador).allAtividades(LocalDate.MIN,LocalDate.MAX)){
             sb.append(a.toString());
         }
         return sb.toString();
