@@ -195,7 +195,7 @@ public class GestorDesportivo implements Serializable
     
     public String mostraInfo(){
         StringBuilder sb = new StringBuilder();
-        for(Utilizador u : this.utilizadores.values()){
+        for(Utilizador u : this.infoNumPeriodo(LocalDate.MIN, this.dataAtual)){
             sb.append(u.toString());
         }
         return sb.toString();

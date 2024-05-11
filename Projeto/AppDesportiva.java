@@ -46,16 +46,16 @@ public class AppDesportiva
         this.dataAtual = LocalDate.now();
         try{
             this.model = this.model.carregaEstado(ficheiro);
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            menuSetup.pedeString("Dados carregados com sucesso.\nEnter para continuar");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            menuInicial.pedeString("Dados carregados com sucesso.\nEnter para continuar");
         }
         catch (ClassNotFoundException clExc){
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            menuSetup.pedeString("Não foi possível carregar os dados do ficheiro.\nEnter para continuar");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            menuInicial.pedeString("Não foi possível carregar os dados do ficheiro.\nEnter para continuar");
         }
         catch (IOException ioExc){
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            menuSetup.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            menuInicial.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
         }
     }
     
@@ -63,12 +63,13 @@ public class AppDesportiva
      * Método auxiliar carregaDados
      * @param menu atual
      */
-    private void carregaDados(Menu menuAtual){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    private int carregaDados(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         String ficheiro = menuAtual.pedeString("Insira o nome do ficheiro a carregar");
         try{
             this.model = this.model.carregaEstado(ficheiro);
             menuAtual.pedeString("Dados carregados com sucesso.\nEnter para continuar");
+            return 0;
         }
         catch (ClassNotFoundException clExc){
             menuAtual.pedeString("Não foi possível carregar os dados do ficheiro.\nEnter para continuar");
@@ -76,22 +77,25 @@ public class AppDesportiva
         catch (IOException ioExc){
             menuAtual.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
         }
+        return 1;
     }
     
     /**
      * Método auxiliar guardaDados
      * @param menu atual
      */
-    private void guardaDados(Menu menuAtual){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    private int guardaDados(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         String ficheiro = menuAtual.pedeString("Insira o nome do ficheiro para guardar");
         try {
             this.model.guardaEstado(ficheiro);
             menuAtual.pedeString("Estado guardado com sucesso.\nEnter para continuar");
+            return 0;
         }
         catch (IOException e){
             menuAtual.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
         }
+        return 1;
     }
     
     /**
@@ -99,7 +103,7 @@ public class AppDesportiva
      * @param menu atual
      */
     private void adicionaUser(Menu menuAtual){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         String nome = menuAtual.pedeString("Insira o nome do utilizador");
         String morada = menuAtual.pedeString("Insira a morada do utilizador");
         String email = menuAtual.pedeString("Insira o email do utilizador");
@@ -126,7 +130,7 @@ public class AppDesportiva
      * @param menu atual
      */
     private void adicionaAtividade(Menu menuAtual){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
         if (!model.existeUtilizador(codUtilizador)){
                 menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
@@ -173,7 +177,7 @@ public class AppDesportiva
             dataInicial = this.menuEstatisticas.pedeData("Insira data inicial (dia/mês/ano)");
             dataFinal = this.menuEstatisticas.pedeData("Insira data final (dia/mês/ano)");
         }
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (op){
             case 1:
                 Utilizador res = this.model.maisCaloriasGastas(dataInicial,dataFinal);
@@ -211,7 +215,7 @@ public class AppDesportiva
             dataInicial = this.menuEstatisticas.pedeData("Insira data inicial (dia/mês/ano)");
             dataFinal = this.menuEstatisticas.pedeData("Insira data final (dia/mês/ano)");
         }
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (op){
             case 4:
                 double kms = model.kmsPercorridos(codUser, dataInicial, dataFinal);
@@ -236,7 +240,8 @@ public class AppDesportiva
         while (op!=0){
             switch (op){ 
                 case 1 :   //opção "Carregar estado"
-                    this.carregaDados(menuInicial);
+                    int carregar = this.carregaDados(menuInicial);
+                    if (carregar == 1) break;
                     int ext = this.runSetup();
                     if (ext==1) op=0;
                     op=0;
@@ -251,7 +256,7 @@ public class AppDesportiva
                 op = menuSetup.getOpcao();
             }
         }
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("Programa encerrado");
     }
     
@@ -282,7 +287,8 @@ public class AppDesportiva
                     this.guardaDados(menuSetup);
                     break;
                 case 6 :    //opção "Guardar e sair"
-                    this.guardaDados(menuSetup);
+                    int guardar = this.guardaDados(menuSetup);
+                    if (guardar == 1) break;
                     op=0;
                     break;
             }
@@ -310,7 +316,7 @@ public class AppDesportiva
                     this.runQueries();
                     break;
                 case 4 :    //opção "Mostrar todas as informações"
-                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     String str = this.model.mostraInfo();
                     System.out.println(str);
                     menuSimulacao.pedeString("Enter para continuar");
