@@ -59,7 +59,7 @@ public class BenchPress extends AtivRepsPeso
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Bench press");
+        sb.append("\nTipo de atividade: Bench press\n");
         return (sb.toString());
     }
     

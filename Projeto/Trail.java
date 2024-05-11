@@ -68,7 +68,7 @@ public class Trail extends AtivDistAltimetria implements Hard
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Trail");
+        sb.append("\nTipo de atividade: Trail\n");
         return (sb.toString());
     }
 

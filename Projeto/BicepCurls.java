@@ -59,7 +59,7 @@ public class BicepCurls extends AtivRepsPeso
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: BicepCurls");
+        sb.append("\nTipo de atividade: Bicep curls\n");
         return (sb.toString());
     }
     

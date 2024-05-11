@@ -59,7 +59,7 @@ public class Ciclismo extends AtivDistancia
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Ciclismo");
+        sb.append("\nTipo de atividade: Ciclismo\n");
         return (sb.toString());
     }
 

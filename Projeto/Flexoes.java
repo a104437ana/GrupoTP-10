@@ -59,7 +59,7 @@ public class Flexoes extends AtivRepeticoes
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Flexoes");
+        sb.append("\nTipo de atividade: Flexões\n");
         return (sb.toString());
     }
     

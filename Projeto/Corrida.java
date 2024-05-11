@@ -59,7 +59,7 @@ public class Corrida extends AtivDistancia
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Corrida");
+        sb.append("\nTipo de atividade: Corrida\n");
         return (sb.toString());
     }
 

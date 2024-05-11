@@ -177,6 +177,14 @@ public class GestorDesportivo implements Serializable
         return this.utilizadores.get(codUtilizador).allMetrosAltimetria(dataInicio,dataFim);
     }
     
+    public String atividadesUtilizador(int codUtilizador){
+        StringBuilder sb = new StringBuilder();
+        for (Atividade a : this.utilizadores.get(codUtilizador).allAtividades(LocalDate.MIN,LocalDate.MAX)){
+            sb.append(a.toString());
+        }
+        return sb.toString();
+    }
+    
     public String mostraInfo(){
         StringBuilder sb = new StringBuilder();
         for(Utilizador u : this.utilizadores.values()){

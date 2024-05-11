@@ -59,7 +59,7 @@ public class LegPress extends AtivRepsPeso
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Leg press");
+        sb.append("\nTipo de atividade: Leg press\n");
         return (sb.toString());
     }
     

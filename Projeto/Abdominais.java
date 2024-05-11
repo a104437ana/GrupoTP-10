@@ -59,7 +59,7 @@ public class Abdominais extends AtivRepeticoes
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de atividade: Abdominais");
+        sb.append("\nTipo de atividade: Abdominais\n");
         return (sb.toString());
     }
     
