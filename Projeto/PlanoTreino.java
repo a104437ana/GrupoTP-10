@@ -58,9 +58,19 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         /**
          * clone
          */
-        public AtividadeIteracoes clone() {
+        public Object clone() {
             AtividadeIteracoes c = new AtividadeIteracoes(this);
             return c;
+        }
+
+        /**
+         * Método equals
+         */
+        public boolean equals(Object o){
+            if (this==o) return true;
+            if ((o==null)||(this.getClass()!=o.getClass())) return false;
+            AtividadeIteracoes a = (AtividadeIteracoes) o;
+            return (this.getIteracoes()==a.getIteracoes()&&this.getAtividade().equals(a.getAtividade()));
         }
     }
 
@@ -144,7 +154,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     /**
      * clone
      */
-    public PlanoTreino clone() {
+    public Object clone() {
         PlanoTreino c = new PlanoTreino(this);
         return c;
     }
