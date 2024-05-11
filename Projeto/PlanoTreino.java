@@ -1,6 +1,8 @@
 package Projeto;
 import java.util.List;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.io.*;
@@ -100,8 +102,23 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         this.dataRealizacao = planoTreino.getDataRealizacao();
         this.atividades = planoTreino.getAtividades();
     }
+    
+    public PlanoTreino(PlanoTreino planoTreino, LocalDate inicio, LocalDate fim) {
+        this.dataRealizacao = planoTreino.getDataRealizacao();
+        this.atividades = planoTreino.getAtividadesNumPeriodo(inicio,fim);
+    }
 
     // Getters e setters
+    public List<AtividadeIteracoes> getAtividadesNumPeriodo(LocalDate inicio, LocalDate fim) {
+        LocalDateTime i2 = LocalDateTime.of(inicio, LocalTime.MIDNIGHT);
+        LocalDateTime f2 = LocalDateTime.of(fim, LocalTime.MIDNIGHT);
+        List<AtividadeIteracoes> atividades = new ArrayList<AtividadeIteracoes>();
+        for(AtividadeIteracoes a : this.atividades) {
+            if (a.getAtividade().getDataRealizacao().compareTo(i2) >= 0 && a.getAtividade().getDataRealizacao().compareTo(f2) <= 0) atividades.add((AtividadeIteracoes) a.clone());
+        }
+        return atividades;
+    }
+    
     public List<AtividadeIteracoes> getAtividades() {
         List<AtividadeIteracoes> atividades = new ArrayList<AtividadeIteracoes>();
         for(AtividadeIteracoes a : this.atividades) {
@@ -118,13 +135,15 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         this.dataRealizacao = dataRealizacao;
     }
 
-    public List<Atividade> atividadesQueRespeitamP(Predicate<Atividade> p) {
+    public List<Atividade> atividadesQueRespeitamP(LocalDate ii, LocalDate f, Predicate<Atividade> p) {
+        LocalDateTime i2 = LocalDateTime.of(ii, LocalTime.MIDNIGHT);
+        LocalDateTime f2 = LocalDateTime.of(f, LocalTime.MIDNIGHT);
         List<Atividade> atividades = new ArrayList<Atividade>();
         for (AtividadeIteracoes atividadeIter : this.atividades) {
             int iteracoes = atividadeIter.getIteracoes();
             for (int i = 0; i < iteracoes; i++) {
                 Atividade atividade = atividadeIter.getAtividade();
-                if (p.test(atividade)) atividades.add((Atividade)atividade.clone());
+                if (p.test(atividade) && atividade.getDataRealizacao().compareTo(i2) >= 0 && atividade.getDataRealizacao().compareTo(f2) <= 0) atividades.add((Atividade)atividade.clone());
             }
         }
         return atividades;
@@ -157,5 +176,10 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     public Object clone() {
         PlanoTreino c = new PlanoTreino(this);
         return c;
+    }
+    
+    public Object planoTreinoNumPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        PlanoTreino t = new PlanoTreino (this, dataInicio, dataFim);
+        return t;
     }
 }

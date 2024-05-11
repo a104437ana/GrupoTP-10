@@ -301,12 +301,12 @@ public abstract class Utilizador implements Serializable
         
         List<PlanoTreino> planosTreino = this.atividadesPlanoTreino
         .stream()
-        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .filter(planoTreino -> planoTreino.getDataRealizacao().minusDays(7).compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
         .collect(Collectors.toList());
         
         for(PlanoTreino planoTreino : planosTreino){
             
-            List<Atividade> atividadesPlanoTreino = planoTreino.atividadesQueRespeitamP(p);
+            List<Atividade> atividadesPlanoTreino = planoTreino.atividadesQueRespeitamP(dataInicio, dataFim, p);
             
             atividades.addAll(atividadesPlanoTreino);
             
@@ -318,7 +318,7 @@ public abstract class Utilizador implements Serializable
     public PlanoTreino planoTreinoMaisCalorias (LocalDate dataInicio, LocalDate dataFim) {
         return (PlanoTreino) this.atividadesPlanoTreino
         .stream()
-        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().plusDays(7).compareTo(dataFim) <= 0)
         .reduce((p1, p2) -> p1.caloriasDispendidas(this) > p2.caloriasDispendidas(this) ? p1 : p2)
         .orElse(null).clone();
     }
@@ -336,8 +336,8 @@ public abstract class Utilizador implements Serializable
     public List<PlanoTreino> planosTreinos(LocalDate dataInicio, LocalDate dataFim) {
         return this.atividadesPlanoTreino
         .stream()
-        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
-        .map(planoTreino -> (PlanoTreino) planoTreino.clone())
+        .filter(planoTreino -> planoTreino.getDataRealizacao().minusDays(7).compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .map(planoTreino -> (PlanoTreino) planoTreino.planoTreinoNumPeriodo(dataInicio,dataFim))
         .collect(Collectors.toList());
     }
     
