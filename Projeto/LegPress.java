@@ -1,5 +1,7 @@
 package Projeto;
 import java.time.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Classe LegPress
@@ -51,6 +53,28 @@ public class LegPress extends AtivRepsPeso
                                               * utilizador.getBMR() / (24 * 60 * 60)
                                               * this.getTempo().toSecondOfDay();
         return consumoCalorias;
+    }
+
+    public Atividade geraAtividade(Utilizador utilizador, double consumoCalorias){
+        Atividade a = new LegPress();
+        Predicate<Atividade> p = at -> at instanceof LegPress;
+        Function<Atividade,Double> f = at -> ((LegPress)at).getPeso();
+        double maxPeso = utilizador.infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate.MIN, LocalDate.MAX, p, f)
+                                   .stream().reduce((p1,p2) -> p1 > p2 ? p1 : p2).orElse(0.0);
+        double peso = maxPeso == 0 ? utilizador.getPeso() : maxPeso * 0.8;
+        maxPeso *= 0.8;
+        maxPeso /= utilizador.getPeso();
+        double fatorPeso = (maxPeso - 1) * 0.2;
+        if (fatorPeso < 0) fatorPeso = 0;
+        double tempoDouble = consumoCalorias / (LegPress.MET * (utilizador.getBMR() / (24 * 60 * 60)) * (utilizador.getFatorMultiplicativo() + fatorPeso));
+        int tempo = (int) tempoDouble;
+        double reps = tempo * 0.25;
+        LocalTime t = LocalTime.MIN.plusSeconds(tempo);
+        a.setTempo(t);
+        a.setFreqCardiaca(0);
+        ((AtivRepeticoes)a).setRepeticoes((int)reps);
+        ((AtivRepsPeso)a).setPeso(peso);
+        return a;
     }
 
     /**

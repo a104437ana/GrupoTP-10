@@ -53,6 +53,18 @@ public class Flexoes extends AtivRepeticoes
         return consumoCalorias;
     }
 
+    public Atividade geraAtividade(Utilizador utilizador, double consumoCalorias){
+        Atividade a = new Flexoes();
+        double tempoDouble = consumoCalorias / (Flexoes.MET * (utilizador.getBMR() / (24 * 60 * 60)) * utilizador.getFatorMultiplicativo());
+        int tempo = (int) tempoDouble;
+        int reps = tempo * 1;
+        LocalTime t = LocalTime.MIN.plusSeconds(tempo);
+        a.setTempo(t);
+        a.setFreqCardiaca(0);
+        ((AtivRepeticoes)a).setRepeticoes(reps);
+        return a;
+    }
+
     /**
      * Método toString
      */

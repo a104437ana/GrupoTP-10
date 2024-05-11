@@ -1,5 +1,7 @@
 package Projeto;
 import java.time.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Classe Btt
@@ -60,6 +62,25 @@ public class Btt extends AtivDistAltimetria implements Hard
                                          * utilizador.getBMR() / (24 * 60 * 60) * this.getFatorHard()
                                          * this.getTempo().toSecondOfDay();
         return consumoCalorias;
+    }
+
+    public Atividade geraAtividade(Utilizador utilizador, double consumoCalorias){
+        Atividade a = new Btt();
+        Predicate<Atividade> p = at -> at instanceof BicepCurls;
+        Function<Atividade,Double> f = at -> ((Btt)at).getAltimetria();
+        double maxAltimetria = utilizador.infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate.MIN, LocalDate.MAX, p, f)
+                                         .stream().reduce((p1,p2) -> p1 > p2 ? p1 : p2).orElse(0.0);
+        double altimetria = maxAltimetria * 0.8;
+        double fatorAltimetria = altimetria * 0.0005;
+        double tempoDouble = consumoCalorias / (Btt.MET * (utilizador.getBMR() / (24 * 60 * 60)) * (utilizador.getFatorMultiplicativo() + fatorAltimetria));
+        int tempo = (int) tempoDouble;
+        double distancia = tempo * 10.5;
+        LocalTime t = LocalTime.MIN.plusSeconds(tempo);
+        a.setTempo(t);
+        a.setFreqCardiaca(0);
+        ((AtivDistancia)a).setDistancia(distancia);
+        ((AtivDistAltimetria)a).setAltimetria(altimetria);
+        return a;
     }
 
     /**

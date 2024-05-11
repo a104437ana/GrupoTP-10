@@ -53,6 +53,18 @@ public class Corrida extends AtivDistancia
         return consumoCalorias;
     }
 
+    public Atividade geraAtividade(Utilizador utilizador, double consumoCalorias){
+        Atividade a = new Corrida();
+        double tempoDouble = consumoCalorias / (Corrida.MET * (utilizador.getBMR() / (24 * 60 * 60)) * utilizador.getFatorMultiplicativo());
+        int tempo = (int) tempoDouble;
+        double distancia = tempo * 2.2;
+        LocalTime t = LocalTime.MIN.plusSeconds(tempo);
+        a.setTempo(t);
+        a.setFreqCardiaca(0);
+        ((AtivDistancia)a).setDistancia(distancia);
+        return a;
+    }
+
     /**
      * Método toString
      */

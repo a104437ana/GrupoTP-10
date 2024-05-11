@@ -177,6 +177,11 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         this.atividades.add(adicionar);
     }
 
+    public List<PlanoTreino> geraPlanoTreino(Utilizador utilizador, List<Atividade> atividades, int maxAtivDia, int ativPorSemana, double consumoCaloricoMinimo, LocalDate inicio){
+        List<PlanoTreino> planos = new ArrayList<PlanoTreino>();
+        return planos;
+    }
+
     /**
      * Método compareTo
      */

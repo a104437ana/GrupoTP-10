@@ -99,6 +99,8 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
         return (razaoFreqCardiaca - 2) * 0.4; //cada unidade da razão aumenta o fator em 0.4
     }
 
+    public abstract Atividade geraAtividade(Utilizador utilizador, double consumoCalorias);
+
     /**
      * Método toString, deve ser implementado pelas sub-classes
      */

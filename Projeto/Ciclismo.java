@@ -53,6 +53,18 @@ public class Ciclismo extends AtivDistancia
             return consumoCalorias;
     }
 
+    public Atividade geraAtividade(Utilizador utilizador, double consumoCalorias){
+        Atividade a = new Ciclismo();
+        double tempoDouble = consumoCalorias / (Ciclismo.MET * (utilizador.getBMR() / (24 * 60 * 60)) * utilizador.getFatorMultiplicativo());
+        int tempo = (int) tempoDouble;
+        double distancia = tempo * 10.5;
+        LocalTime t = LocalTime.MIN.plusSeconds(tempo);
+        a.setTempo(t);
+        a.setFreqCardiaca(0);
+        ((AtivDistancia)a).setDistancia(distancia);
+        return a;
+    }
+
     /**
      * Método toString
      */
