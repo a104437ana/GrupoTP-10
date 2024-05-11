@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.io.*;
 
 /**
@@ -84,7 +86,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public PlanoTreino()
     {
-        this.codPlano = PlanoTreino.proximoCodigo++;
+        this.codPlano = 0;
         this.dataRealizacao = LocalDate.now();
         this.atividades = new ArrayList<>();
     }
@@ -179,6 +181,67 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
 
     public List<PlanoTreino> geraPlanoTreino(Utilizador utilizador, List<Atividade> atividades, int maxAtivDia, int ativPorSemana, double consumoCaloricoMinimo, LocalDate inicio){
         List<PlanoTreino> planos = new ArrayList<PlanoTreino>();
+        int i = 0, j = 0, size = atividades.size();
+        int salto = 2;
+        List<Atividade> ativsHard = atividades.stream().filter(a -> a instanceof Hard).collect(Collectors.toList());
+        List<Atividade> ativsNormal = atividades.stream().filter(a -> !(a instanceof Hard)).collect(Collectors.toList());
+        int hard = ativsHard.size();
+        int sizeHard = hard, sizeNormal = ativsNormal.size();
+        int[] semana = new int[]{0, 0, 0, 0, 0, 0, 0}; // array auxiliar para gerir dias em que há atividades
+        if (ativPorSemana % 2 == 0) i = 0;
+        else i = 1;
+        if (hard > 3) hard = 3; // não pode haver mais que 3 atividades hard por semana
+        if (hard < 3) salto = 3;
+        if (hard == 1) i = ativPorSemana%2 == 0 ? 4 : 6;
+        //atividades hard
+        while (hard > 0 && ativPorSemana > 0) {
+            semana[i] = -1;
+            i+=salto;
+            hard--;
+            ativPorSemana--;
+        }
+        i = 0;
+        //atividades normais
+        while (ativPorSemana > 0) {
+            if (semana[i] > 0 && semana[i] < maxAtivDia) {
+                semana[i]++;
+                ativPorSemana--;
+            }
+            i=(i+1)%7;
+        }
+        LocalDate dia = inicio;
+        double caloriasCadaAtividade = consumoCaloricoMinimo/ativPorSemana;
+        hard = 0;
+        Atividade a;
+        int iteracoes = 1;
+        for (i=0; i<7; i++) {
+            //adiciona atividades normais
+            if (semana[i] > 0) {
+                PlanoTreino p = new PlanoTreino(dia.plusDays(i));
+                while (semana[i] > 0) {
+                    a = ativsNormal.get(j);
+                    if (a instanceof AtivRepeticoes)
+                        iteracoes = ((i % 5) * sizeNormal * (j + 1)) % 10;
+                    a.geraAtividade(utilizador, caloriasCadaAtividade/iteracoes);
+                    p.addAtividade(a, iteracoes);
+                    iteracoes = 1;
+                    j=(j+1)%sizeNormal;
+                    semana[i]--;
+                }
+                planos.add(p);
+            }
+            //adiciona atividades hard
+            if (semana[i] < 0) {
+                PlanoTreino p = new PlanoTreino(dia.plusDays(i));
+                a = ativsHard.get(hard);
+                a.geraAtividade(utilizador, caloriasCadaAtividade);
+                p.addAtividade(a, 1);
+                hard++;
+                semana[i] = 0;
+                planos.add(p);
+            }
+            dia = inicio;
+        }
         return planos;
     }
 

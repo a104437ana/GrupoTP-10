@@ -325,4 +325,56 @@ public class GestorDesportivo implements Serializable
                                 .reduce((n1, n2) -> n1 > n2 ? n1 : n2)
                                 .orElse(0);
     }
+
+    public List<Atividade> listaAtividades(int[] atividades){
+        int size = atividades.length;
+        List<Atividade> a = new ArrayList<>();
+        int i = 0;
+        Atividade at;
+        for (i=0; i<size; i++) {
+            if (atividades[i] == 1) { //Abdominais
+                at = new Abdominais();
+            }
+            else if (atividades[i] == 2) { //BenchPress
+                at = new BenchPress();
+            }
+            else if (atividades[i] == 3) { //BicepCurls
+                at = new BicepCurls();
+            }
+            else if (atividades[i] == 4) { //Btt
+                at = new Btt();
+            }
+            else if (atividades[i] == 5) { //Ciclismo
+                at = new Ciclismo();
+            }
+            else if (atividades[i] == 6) { //Corrida
+                at = new Corrida();
+            }
+            else if (atividades[i] == 7) { //Flexoes
+                at = new Flexoes();
+            }
+            else if (atividades[i] == 8) { //LegPress
+                at = new LegPress();
+            }
+            else { //Trail
+                at = new Trail();
+            }
+            a.add(at);
+        }
+        return a;
+    }
+
+    public void geraPlanoTreinoUtilizador(int codUtilizador, int[] atividades, int maxAtivDia, int ativPorSemana, double consumoCaloricoMinimo, LocalDate inicioSemana){
+        if (this.utilizadores.containsKey(codUtilizador)) {
+            List<Atividade> a = listaAtividades(atividades);
+            List<PlanoTreino> p = new ArrayList<>();
+            PlanoTreino plano = null;
+            p = plano.geraPlanoTreino(this.utilizadores.get(codUtilizador), a, maxAtivDia, ativPorSemana, consumoCaloricoMinimo, inicioSemana);
+            int size = p.size();
+            int i = 0;
+            for (i=0; i<size; i++) {
+                this.utilizadores.get(codUtilizador).addPlanoTreino(p.get(i));
+            }
+        }
+    }
 }
