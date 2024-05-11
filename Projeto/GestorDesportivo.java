@@ -203,174 +203,46 @@ public class GestorDesportivo implements Serializable
         return sb.toString();
     }
 
-    public double recordMaisPeso(int tipo){
+    public double recordMaisPeso(Class<Atividade> tipo){
         double peso;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //BenchPress
-                p = a -> a instanceof BenchPress;
-            break;
-            case 2:     //BicepCurls
-                p = a -> a instanceof BicepCurls;
-            break;
-            case 3:     //LegPress
-                p = a -> a instanceof LegPress;
-            break;
-            default:
-                p = a -> a instanceof AtivRepsPeso;
-            break;
-        }
-        peso = recordDouble(p, a -> ((AtivRepsPeso)a).getPeso());
+        peso = recordDouble(tipo, a -> ((AtivRepsPeso)a).getPeso());
         return peso;
     }
 
-    public int recordMaisRepeticoes(int tipo){
+    public int recordMaisRepeticoes(Class<Atividade> tipo){
         int reps;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Flexoes
-                p = a -> a instanceof Flexoes;
-            break;
-            case 2:     //Abdominais
-                p = a -> a instanceof Abdominais;
-            break;
-            case 3:     //BenchPress
-                p = a -> a instanceof BenchPress;
-            break;
-            case 4:     //BicepCurls
-                p = a -> a instanceof BicepCurls;
-            break;
-            case 5:     //LegPress
-                p = a -> a instanceof LegPress;
-            break;
-            default:
-                p = a -> a instanceof AtivRepeticoes;
-            break;
-        }
-        reps = recordInt(p, a -> ((AtivRepeticoes)a).getRepeticoes());
+        reps = recordInt(tipo, a -> ((AtivRepeticoes)a).getRepeticoes());
         return reps;
     }
 
-    public double recordMaiorAltimetria(int tipo){
+    public double recordMaiorAltimetria(Class<Atividade> tipo){
         double altimetria;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Btt
-                p = a -> a instanceof Btt;
-            break;
-            case 2:     //Trail
-                p = a -> a instanceof Trail;
-            break;
-            default:
-                p = a -> a instanceof AtivDistAltimetria;
-            break;
-        }
-        altimetria = recordDouble(p, a -> ((AtivDistAltimetria)a).getAltimetria());
+        altimetria = recordDouble(tipo, a -> ((AtivDistAltimetria)a).getAltimetria());
         return altimetria;
     }
 
-    public double recordMaisVelocidade(int tipo){
+    public double recordMaisVelocidade(Class<Atividade> tipo){
         double velocidade;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Corrida
-                p = a -> a instanceof Corrida;
-            break;
-            case 2:     //Ciclismo
-                p = a -> a instanceof Ciclismo;
-            break;
-            default:
-                p = a -> a instanceof AtivDistancia;
-            break;
-        }
-        velocidade = recordDouble(p, a -> ((AtivDistancia)a).getVelocidade());
+        velocidade = recordDouble(tipo, a -> ((AtivDistancia)a).getVelocidade());
         return velocidade;
     }
 
-    public int recordMaisTempo(int tipo){
+    public int recordMaisTempo(Class<Atividade> tipo){
         int tempo;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Corrida
-                p = a -> a instanceof Corrida;
-            break;
-            case 2:     //Ciclismo
-                p = a -> a instanceof Ciclismo;
-            break;
-            case 3:     //Btt
-                p = a -> a instanceof Btt;
-            break;
-            case 4:     //Trail
-                p = a -> a instanceof Trail;
-            break;
-            default:
-                p = a -> a instanceof AtivDistancia;
-            break;
-        }
-        tempo = recordInt(p, a -> ((Atividade)a).getTempo().toSecondOfDay());
+        tempo = recordInt(tipo, a -> ((Atividade)a).getTempo().toSecondOfDay());
         return tempo;
     }
 
-    public double recordMaisDistancia(int tipo){
+    public double recordMaisDistancia(Class<Atividade> tipo){
         double distancia;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Corrida
-                p = a -> a instanceof Corrida;
-            break;
-            case 2:     //Ciclismo
-                p = a -> a instanceof Ciclismo;
-            break;
-            case 3:     //Btt
-                p = a -> a instanceof Btt;
-            break;
-            case 4:     //Trail
-                p = a -> a instanceof Trail;
-            break;
-            default:
-                p = a -> a instanceof AtivDistancia;
-            break;
-        }
-        distancia = recordDouble(p, a -> ((AtivDistancia)a).getDistancia());
+        distancia = recordDouble(tipo, a -> ((AtivDistancia)a).getDistancia());
         return distancia;
     }
 
-    public double recordMaisCalorias(int tipo){
+    public double recordMaisCalorias(Class<Atividade> tipo){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
-        Predicate<Atividade> p;
-        switch (tipo) {
-            case 1:     //Corrida
-                p = a -> a instanceof Corrida;
-                break;
-            case 2:     //Ciclismo
-                p = a -> a instanceof Ciclismo;
-                break;
-            case 3:     //Btt
-                p = a -> a instanceof Btt;
-                break;
-            case 4:     //Trail
-                p = a -> a instanceof Trail;
-                break;
-            case 5:     //Flexões
-                p = a -> a instanceof Flexoes;
-                break;
-            case 6:     //Abdominais
-                p = a -> a instanceof Abdominais;
-                break;
-            case 7:     //BenchPress
-                p = a -> a instanceof BenchPress;
-                break;
-            case 8:     //BicepCurls
-                p = a -> a instanceof BicepCurls;
-                break;
-            case 9:     //LegPress
-                p = a -> a instanceof LegPress;
-                break;
-            default:
-                p = a -> a instanceof Atividade;
-                break;
-        }
+        Predicate<Atividade> p = a -> tipo.isInstance(a);
         BiFunction<Atividade,Utilizador,Double> f = (a,u) -> ((Atividade)a).consumoCalorias((Utilizador)u);
         return this.utilizadores.values().stream()
                                 .flatMap(u -> u.infoDasAtividadesUtilizadorNumPeriodoQueRespeitamP(inicio, fim, p, f, u).stream())
@@ -378,18 +250,20 @@ public class GestorDesportivo implements Serializable
                                 .orElse(0.0);
     }
 
-    public double recordDouble(Predicate<Atividade> p, Function<Atividade,Double> f){
+    public double recordDouble(Class<Atividade> tipo, Function<Atividade,Double> f){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
+        Predicate<Atividade> p = a -> tipo.isInstance(a);
         return this.utilizadores.values().stream()
                                 .flatMap(u -> u.infoDasAtividadesNumPeriodoQueRespeitamP(inicio, fim, p, f).stream())
                                 .reduce((n1, n2) -> n1 > n2 ? n1 : n2)
                                 .orElse(0.0);
     }
 
-    public int recordInt(Predicate<Atividade> p, Function<Atividade,Integer> f){
+    public int recordInt(Class<Atividade> tipo, Function<Atividade,Integer> f){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
+        Predicate<Atividade> p = a -> tipo.isInstance(a);
         return this.utilizadores.values().stream()
                                 .flatMap(u -> u.infoDasAtividadesNumPeriodoQueRespeitamP(inicio, fim, p, f).stream())
                                 .reduce((n1, n2) -> n1 > n2 ? n1 : n2)
