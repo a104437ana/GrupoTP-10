@@ -15,8 +15,11 @@ import java.io.*;
  * Notas versão : Falta adicionar atividades
  */
 public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
-{
+{   
+    // variáveis de classe
+    private static int proximoCodigo = 1;
     // variáveis de instância
+    private int codPlano;
     private LocalDate dataRealizacao;
     private List<AtividadeIteracoes> atividades;
 
@@ -81,6 +84,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public PlanoTreino()
     {
+        this.codPlano = 0;
         this.dataRealizacao = LocalDate.now();
         this.atividades = new ArrayList<>();
     }
@@ -90,6 +94,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public PlanoTreino(LocalDate dataRealizacao)
     {
+        this.codPlano = PlanoTreino.proximoCodigo++;
         this.dataRealizacao = dataRealizacao;
         this.atividades = new ArrayList<>();
     }
@@ -99,6 +104,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
      */
     public PlanoTreino(PlanoTreino planoTreino)
     {
+        this.codPlano = planoTreino.getCodPlano();
         this.dataRealizacao = planoTreino.getDataRealizacao();
         this.atividades = planoTreino.getAtividades();
     }
@@ -117,6 +123,9 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             if (a.getAtividade().getDataRealizacao().compareTo(i2) >= 0 && a.getAtividade().getDataRealizacao().compareTo(f2) <= 0) atividades.add((AtividadeIteracoes) a.clone());
         }
         return atividades;
+    }
+    public int getCodPlano(){
+        return this.codPlano;
     }
     
     public List<AtividadeIteracoes> getAtividades() {
@@ -161,6 +170,11 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             calorias += a.getIteracoes() * a.getAtividade().consumoCalorias(utilizador);
         }
         return calorias;
+    }
+    
+    public void addAtividade(Atividade atividade, int iteracoes){
+        AtividadeIteracoes adicionar = new AtividadeIteracoes(iteracoes,(Atividade) atividade.clone());
+        this.atividades.add(adicionar);
     }
 
     /**

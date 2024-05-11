@@ -216,6 +216,26 @@ public abstract class Utilizador implements Serializable
         this.atividadesIsoladas.add(adicionar);
     }
     
+    public void addPlanoTreino(PlanoTreino plano){
+       PlanoTreino adicionar = (PlanoTreino) plano.clone();
+       this.atividadesPlanoTreino.add(adicionar);
+    }
+    
+    public PlanoTreino getPlanoTreinoId(int id_plano){
+        PlanoTreino res = new PlanoTreino();
+        for(PlanoTreino plano : this.atividadesPlanoTreino){
+            if(plano.getCodPlano()==id_plano){
+                res = (PlanoTreino) plano.clone();
+                break;
+            }
+        }
+        return res;
+    }
+    
+    public void addAtividadePlanoTreino(int id_plano, Atividade atividade, int iteracoes){
+        this.getPlanoTreinoId(id_plano).addAtividade(atividade, iteracoes);
+    }
+    
     /** 
      * Numero de calorias gastas pelo utilizador
      * Requisito 3.2

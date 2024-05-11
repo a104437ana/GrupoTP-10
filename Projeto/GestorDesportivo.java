@@ -179,6 +179,59 @@ public class GestorDesportivo implements Serializable
          this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
     }
     
+    public void addAtivDistPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
+         Atividade novaAtividade;
+         if(tipo==1){
+             novaAtividade = new Corrida(realizacao, tempo, freqCardiaca, distancia);
+         }
+         else{
+             novaAtividade = new Ciclismo(realizacao, tempo, freqCardiaca, distancia);
+         }
+         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+    }
+    
+    public void addAtivDistAltPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
+         Atividade novaAtividade;
+         if(tipo==3){
+             novaAtividade = new Trail(realizacao, tempo, freqCardiaca, distancia, altimetria);
+         }
+         else{
+             novaAtividade = new Btt(realizacao, tempo, freqCardiaca, distancia, altimetria);
+         }
+         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+    }
+    
+    public void addAtivRepPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
+         Atividade novaAtividade;
+         if(tipo==5){
+             novaAtividade = new Flexoes(realizacao, tempo, freqCardiaca, repeticoes);
+         }
+         else{
+             novaAtividade = new Abdominais(realizacao, tempo, freqCardiaca, repeticoes);
+         }
+         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+    }
+    
+    public void addAtivRepsPesoPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
+         Atividade novaAtividade;
+         if(tipo==7){
+             novaAtividade = new LegPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
+         }
+         if(tipo==8){
+             novaAtividade = new BenchPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
+         }
+         else{
+             novaAtividade = new BicepCurls(realizacao, tempo, freqCardiaca, repeticoes, peso);
+         }
+         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+    }
+    
+    public int addPlanoTreinoUtilizador(int codUtilizador, LocalDate data){
+        PlanoTreino plano = new PlanoTreino(data);
+        this.utilizadores.get(codUtilizador).addPlanoTreino(plano);
+        return plano.getCodPlano();
+    }
+    
     public double kmsPercorridos(int codUtilizador, LocalDate dataInicio, LocalDate dataFim){
         return this.utilizadores.get(codUtilizador).allKmsDistancia(dataInicio,dataFim);
     }

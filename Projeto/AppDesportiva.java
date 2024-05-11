@@ -162,6 +162,64 @@ public class AppDesportiva
         menuAtual.pedeString("Atividade adicionada com sucesso.\nEnter para continuar");
     }
     
+    /**
+     * Método auxiliar adicionaAtividadePlano
+     * @param menu atual
+     */
+    private void adicionaAtividadePlano(Menu menuAtual,int codUtilizador, int id_plano, LocalDate data){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+        if(tipoAtiv<1||tipoAtiv>9){
+            tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+        }
+        LocalDateTime realizacao = menuAtual.pedeDataHora("Insira a data e hora de realização (dia/mês/ano horas:minutos:segundos)");
+        while(realizacao.isBefore(data.atStartOfDay())||realizacao.isAfter(data.plusWeeks(1).atTime(23,59))){
+            realizacao = menuAtual.pedeDataHora("Data de realização tem de estar na semana do plano de treino");
+        }
+        LocalTime tempo = menuAtual.pedeTempo("Insira o tempo de realização horas:minutos:segundos");
+        int freq = menuAtual.pedeInt("Insira a frequência cardíaca média durante a realização");
+        int iter = menuAtual.pedeInt("Insira o número de iterações da atividade");
+        if(tipoAtiv<=4){
+                double dist = menuAtual.pedeDouble("Insira a distância percorrida (em metros)");
+                if(tipoAtiv<=2) this.model.addAtivDistPlano(codUtilizador, id_plano, iter, realizacao, tempo, freq, dist, tipoAtiv);
+                else{
+                    double alt = menuAtual.pedeDouble("Insira os metros de altimetria");
+                    this.model.addAtivDistAltPlano(codUtilizador, id_plano, iter, realizacao, tempo, freq, dist, alt, tipoAtiv);
+                }
+        }
+        else{
+                int reps = menuAtual.pedeInt("Insira o número de repetições");
+                if(tipoAtiv<=6) this.model.addAtivRepPlano(codUtilizador, id_plano, iter,realizacao, tempo, freq, reps, tipoAtiv);
+                else{
+                    double peso = menuAtual.pedeDouble("Insira o peso utilizado (em kilos)");
+                    this.model.addAtivRepsPesoPlano(codUtilizador, id_plano, iter,realizacao, tempo, freq, reps, peso, tipoAtiv);
+                }
+        }
+        menuAtual.pedeString("Atividade adicionada com sucesso.\nEnter para continuar");
+    }
+    
+    private void adicionaPlanoTreino(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
+        if (!model.existeUtilizador(codUtilizador)){
+                menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
+                return;
+        }
+        LocalDate dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
+        while(dataRealizacao.getDayOfWeek()!=DayOfWeek.MONDAY){
+            dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
+        }
+        int id = this.model.addPlanoTreinoUtilizador(codUtilizador, dataRealizacao);
+        System.out.print("Plano adicionado com sucesso.\nCódigo do plano adicionado: ");
+        System.out.println(id);
+        menuAtual.pedeString("Enter para continuar");
+        int nAtividades = menuAtual.pedeInt("Insira o número de atividades a colocar no plano de treino");
+        while(nAtividades>0){
+            this.adicionaAtividadePlano(menuAtual, codUtilizador, id, dataRealizacao);
+            nAtividades--;
+        }
+    }
+    
     public void estatisticaEntreDatas(int op){
         LocalDate dataInicial;
         LocalDate dataFinal;
@@ -274,7 +332,9 @@ public class AppDesportiva
                 case 2 :    //opção "Adicionar atividade"
                     this.adicionaAtividade(menuSetup);
                     break;
-                case 3 : ; //opção "Adicionar plano de treino"
+                case 3 :    //opção "Adicionar plano de treino"
+                    this.adicionaPlanoTreino(menuSetup);
+                    break;
                 case 4 :    //opção "Iniciar simulação"
                     int d = 0;
                     while(d!=1&&d!=2){
