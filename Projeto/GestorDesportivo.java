@@ -26,6 +26,9 @@ public class GestorDesportivo implements Serializable
     public GestorDesportivo(){
         this.dataAtual = LocalDate.now();
         this.utilizadores = new HashMap<Integer, Utilizador>();
+        this.utilizadoresNumPeriodo = new HashMap<Integer, Utilizador>();
+        this.atividades = new HashMap<Integer,Atividade>();
+        this.planos = new HashMap<Integer,PlanoTreino>();
     }
     
     public void guardaEstado(String nome) throws IOException {
@@ -44,22 +47,25 @@ public class GestorDesportivo implements Serializable
         return (model);
     }
 
-    public List<Utilizador> infoNumPeriodo (LocalDate dataInicio, LocalDate dataFim) {
+    public void atualizaInfo (LocalDate dataInicio, LocalDate datafim) {
+        this.utilizadoresNumPeriodo = new HashMap<Integer, Utilizador>();
         List<Utilizador> utilizadores = new ArrayList<Utilizador>();
         for (Utilizador u : this.utilizadores.values()) {
-            utilizadores.add((Utilizador) u.utilizadorNumPeriodo(dataInicio,dataFim));
+            Utilizador value = (Utilizador) u.utilizadorNumPeriodo(dataInicio,datafim);
+            int chave = value.getCodUtilizador();
+            this.utilizadoresNumPeriodo.put(chave,value);
         }
-        return utilizadores;
     }
+    
         /**
      * Requisitos 3.2
      * ponto 6
      */
-    public PlanoTreino planoTreinoMaisCalorias (LocalDate dataInicio, LocalDate dataFim) {
+    public PlanoTreino planoTreinoMaisCalorias (LocalDate i, LocalDate f) {
         double maxCal = 0;
         PlanoTreino b = null;
-        for (Utilizador u : this.utilizadores.values()) {
-            PlanoTreino a = u.planoTreinoMaisCalorias(dataInicio, dataFim);
+        for (Utilizador u : this.utilizadoresNumPeriodo.values()) {
+            PlanoTreino a = u.planoTreinoMaisCalorias(LocalDate.MIN, dataAtual);
             if (a.caloriasDispendidas(u) >= maxCal) {
                 b = a;
                 maxCal = a.caloriasDispendidas(u);
@@ -72,10 +78,10 @@ public class GestorDesportivo implements Serializable
      * Requisitos 3.2
      * ponto 3
      */
-    public String atividadeMaisRealizada (LocalDate dataAtual) {
+    public String atividadeMaisRealizada (LocalDate i, LocalDate f) {
         List<Atividade> atividades = new ArrayList<Atividade>();
         Predicate<Atividade> p = atividade -> true;
-        this.utilizadores.values().forEach(u -> atividades.addAll(u.atividadesNumPeriodoQueRespeitamP(LocalDate.MIN, dataAtual, p)));
+        this.utilizadoresNumPeriodo.values().forEach(u -> atividades.addAll(u.atividadesNumPeriodoQueRespeitamP(i, f, p)));
         
         Map<String,Integer> tipoAtividadeQuantidade = new HashMap<>();
         
@@ -103,7 +109,7 @@ public class GestorDesportivo implements Serializable
      * ponto 2
     */
     public Utilizador maisAtividades (LocalDate dataInicial, LocalDate dataFinal) {
-         return (Utilizador) this.utilizadores.values().stream().reduce((u1, u2) -> u1.numeroAtividades(dataInicial,dataFinal) > u2.numeroAtividades(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
+         return (Utilizador) this.utilizadoresNumPeriodo.values().stream().reduce((u1, u2) -> u1.numeroAtividades(dataInicial,dataFinal) > u2.numeroAtividades(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
     }
     
     /**
@@ -112,7 +118,7 @@ public class GestorDesportivo implements Serializable
      * ponto 1
     */
     public Utilizador maisCaloriasGastas(LocalDate dataInicial, LocalDate dataFinal) {
-        return (Utilizador) this.utilizadores.values().stream().reduce((u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
+        return (Utilizador) this.utilizadoresNumPeriodo.values().stream().reduce((u1, u2) -> u1.totalCaloriasDispendidas(dataInicial,dataFinal) > u2.totalCaloriasDispendidas(dataInicial,dataFinal) ? u1 : u2).orElse(null).clone();
     }
     
     
@@ -236,16 +242,16 @@ public class GestorDesportivo implements Serializable
     }
     
     public double kmsPercorridos(int codUtilizador, LocalDate dataInicio, LocalDate dataFim){
-        return this.utilizadores.get(codUtilizador).allKmsDistancia(dataInicio,dataFim);
+        return this.utilizadoresNumPeriodo.get(codUtilizador).allKmsDistancia(dataInicio,dataFim);
     }
     
     public double metrosAltimetria(int codUtilizador, LocalDate dataInicio, LocalDate dataFim){
-        return this.utilizadores.get(codUtilizador).allMetrosAltimetria(dataInicio,dataFim);
+        return this.utilizadoresNumPeriodo.get(codUtilizador).allMetrosAltimetria(dataInicio,dataFim);
     }
     
     public String atividadesUtilizador(int codUtilizador){
         StringBuilder sb = new StringBuilder();
-        for (Atividade a : this.utilizadores.get(codUtilizador).allAtividades(LocalDate.MIN,LocalDate.MAX)){
+        for (Atividade a : this.utilizadoresNumPeriodo.get(codUtilizador).allAtividades(LocalDate.MIN,LocalDate.MAX)){
             sb.append(a.toString());
         }
         return sb.toString();
@@ -253,7 +259,7 @@ public class GestorDesportivo implements Serializable
     
     public String mostraInfo(){
         StringBuilder sb = new StringBuilder();
-        for(Utilizador u : this.infoNumPeriodo(LocalDate.MIN, this.dataAtual)){
+        for(Utilizador u : this.utilizadoresNumPeriodo.values()){
             sb.append(u.toString());
         }
         return sb.toString();
