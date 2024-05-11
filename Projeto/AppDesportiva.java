@@ -15,7 +15,7 @@ public class AppDesportiva
     private Menu menuInicial, menuSetup, menuSimulacao, menuEstatisticas;
     private LocalDate dataAtual;
     private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
-    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador", "Adicionar atividade", "Adicionar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
+    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
     private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Voltar ao setup"};
     private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
    
@@ -129,13 +129,8 @@ public class AppDesportiva
      * Método auxiliar adicionaAtividade
      * @param menu atual
      */
-    private void adicionaAtividade(Menu menuAtual){
+    private int addAtividade(Menu menuAtual){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
-        if (!model.existeUtilizador(codUtilizador)){
-                menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
-                return;
-        }
         int tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
         if(tipoAtiv<1||tipoAtiv>9){
             tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
@@ -143,30 +138,67 @@ public class AppDesportiva
         LocalDateTime realizacao = menuAtual.pedeDataHora("Insira a data e hora de realização (dia/mês/ano horas:minutos:segundos)");
         LocalTime tempo = menuAtual.pedeTempo("Insira o tempo de realização horas:minutos:segundos");
         int freq = menuAtual.pedeInt("Insira a frequência cardíaca média durante a realização");
+        int id;
         if(tipoAtiv<=4){
                 double dist = menuAtual.pedeDouble("Insira a distância percorrida (em metros)");
-                if(tipoAtiv<=2) this.model.addAtivDist(codUtilizador,realizacao, tempo, freq, dist, tipoAtiv);
+                if(tipoAtiv<=2) id = this.model.addAtivDist(realizacao, tempo, freq, dist, tipoAtiv);
                 else{
                     double alt = menuAtual.pedeDouble("Insira os metros de altimetria");
-                    this.model.addAtivDistAlt(codUtilizador,realizacao, tempo, freq, dist, alt, tipoAtiv);
+                    id = this.model.addAtivDistAlt(realizacao, tempo, freq, dist, alt, tipoAtiv);
                 }
         }
         else{
                 int reps = menuAtual.pedeInt("Insira o número de repetições");
-                if(tipoAtiv<=6) this.model.addAtivRep(codUtilizador,realizacao, tempo, freq, reps, tipoAtiv);
+                if(tipoAtiv<=6) id = this.model.addAtivRep(realizacao, tempo, freq, reps, tipoAtiv);
                 else{
                     double peso = menuAtual.pedeDouble("Insira o peso utilizado (em kilos)");
-                    this.model.addAtivRepsPeso(codUtilizador,realizacao, tempo, freq, reps, peso, tipoAtiv);
+                    id = this.model.addAtivRepsPeso(realizacao, tempo, freq, reps, peso, tipoAtiv);
                 }
         }
-        menuAtual.pedeString("Atividade adicionada com sucesso.\nEnter para continuar");
+        return id;
+    }
+    
+    /**
+     * Método auxiliar registaAtividade
+     * @param menu atual
+     */
+    private void registaAtividade(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
+        if (!model.existeUtilizador(codUtilizador)){
+                menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
+                return;
+        }
+        int codAtividade = menuAtual.pedeInt("Insira o código da atividade");
+        if (!model.existeAtividade(codAtividade)){
+                menuAtual.pedeString("Atividade não existe.\nEnter para continuar");
+                return;
+        }
+        model.registaAtividade(codUtilizador, codAtividade);
+        menuAtual.pedeString("Atividade registada com sucesso.\nEnter para continuar");
+    }
+    
+    /**
+     * Método auxiliar addRegistaAtividade
+     * @param menu atual
+     */
+    private int addRegistaAtividade(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
+        while (!model.existeUtilizador(codUtilizador)){
+                menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
+                return 0;
+        }
+        int id = addAtividade(menuAtual);
+        model.registaAtividade(codUtilizador, id);
+        return id;
     }
     
     /**
      * Método auxiliar adicionaAtividadePlano
      * @param menu atual
      */
-    private void adicionaAtividadePlano(Menu menuAtual,int codUtilizador, int id_plano, LocalDate data){
+    private void adicionaAtividadePlano(Menu menuAtual, int id_plano, LocalDate data){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         int tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
         if(tipoAtiv<1||tipoAtiv>9){
@@ -181,44 +213,73 @@ public class AppDesportiva
         int iter = menuAtual.pedeInt("Insira o número de iterações da atividade");
         if(tipoAtiv<=4){
                 double dist = menuAtual.pedeDouble("Insira a distância percorrida (em metros)");
-                if(tipoAtiv<=2) this.model.addAtivDistPlano(codUtilizador, id_plano, iter, realizacao, tempo, freq, dist, tipoAtiv);
+                if(tipoAtiv<=2) this.model.addAtivDistPlano(id_plano, iter, realizacao, tempo, freq, dist, tipoAtiv);
                 else{
                     double alt = menuAtual.pedeDouble("Insira os metros de altimetria");
-                    this.model.addAtivDistAltPlano(codUtilizador, id_plano, iter, realizacao, tempo, freq, dist, alt, tipoAtiv);
+                    this.model.addAtivDistAltPlano(id_plano, iter, realizacao, tempo, freq, dist, alt, tipoAtiv);
                 }
         }
         else{
                 int reps = menuAtual.pedeInt("Insira o número de repetições");
-                if(tipoAtiv<=6) this.model.addAtivRepPlano(codUtilizador, id_plano, iter,realizacao, tempo, freq, reps, tipoAtiv);
+                if(tipoAtiv<=6) this.model.addAtivRepPlano(id_plano, iter,realizacao, tempo, freq, reps, tipoAtiv);
                 else{
                     double peso = menuAtual.pedeDouble("Insira o peso utilizado (em kilos)");
-                    this.model.addAtivRepsPesoPlano(codUtilizador, id_plano, iter,realizacao, tempo, freq, reps, peso, tipoAtiv);
+                    this.model.addAtivRepsPesoPlano(id_plano, iter,realizacao, tempo, freq, reps, peso, tipoAtiv);
                 }
         }
         menuAtual.pedeString("Atividade adicionada com sucesso.\nEnter para continuar");
     }
     
-    private void adicionaPlanoTreino(Menu menuAtual){
+    private int addPlano(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        LocalDate dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
+        while(dataRealizacao.getDayOfWeek()!=DayOfWeek.MONDAY){
+            dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
+        }
+        int id = this.model.addPlanoTreino(dataRealizacao);
+        System.out.print("Plano adicionado com sucesso.\nCódigo do plano adicionado: ");
+        System.out.println(id);
+        menuAtual.pedeString("Enter para continuar");
+        int nAtividades = menuAtual.pedeInt("Insira o número de atividades a colocar no plano de treino");
+        while(nAtividades>0){
+            this.adicionaAtividadePlano(menuAtual, id, dataRealizacao);
+            nAtividades--;
+        }
+        return id;
+    }
+    
+    private void registaPlano(Menu menuAtual){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
         if (!model.existeUtilizador(codUtilizador)){
                 menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
                 return;
         }
-        LocalDate dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
-        while(dataRealizacao.getDayOfWeek()!=DayOfWeek.MONDAY){
-            dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
+        int codPlano = menuAtual.pedeInt("Insira o código do plano de treino");
+        if (!model.existePlano(codPlano)){
+                menuAtual.pedeString("Plano de treino não existe.\nEnter para continuar");
+                return;
         }
-        int id = this.model.addPlanoTreinoUtilizador(codUtilizador, dataRealizacao);
-        System.out.print("Plano adicionado com sucesso.\nCódigo do plano adicionado: ");
-        System.out.println(id);
-        menuAtual.pedeString("Enter para continuar");
-        int nAtividades = menuAtual.pedeInt("Insira o número de atividades a colocar no plano de treino");
-        while(nAtividades>0){
-            this.adicionaAtividadePlano(menuAtual, codUtilizador, id, dataRealizacao);
-            nAtividades--;
-        }
+        model.registaPlanoTreino(codUtilizador, codPlano);
+        menuAtual.pedeString("Plano de treino registado com sucesso.\nEnter para continuar");
     }
+    
+    /**
+     * Método auxiliar addRegistaPlano
+     * @param menu atual
+     */
+    private int addRegistaPlano(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
+        if (!model.existeUtilizador(codUtilizador)){
+                menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
+                return 0;
+        }
+        int id = addPlano(menuAtual);
+        model.registaPlano(codUtilizador, id);
+        return id;
+    }
+    
     
     public void estatisticaEntreDatas(int op){
         LocalDate dataInicial;
@@ -237,7 +298,7 @@ public class AppDesportiva
         }
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (op){
-            case 1:
+                case 1:
                 Utilizador res = this.model.maisCaloriasGastas(dataInicial,dataFinal);
                 System.out.println(res.toString());
                 break;
@@ -330,12 +391,38 @@ public class AppDesportiva
                     this.adicionaUser(menuSetup);
                     break;
                 case 2 :    //opção "Adicionar atividade"
-                    this.adicionaAtividade(menuSetup);
+                    int id = this.addAtividade(menuSetup);
+                    System.out.print("Atividade adicionada com sucesso.\nCódigo da atividade adicionada: ");
+                    System.out.println(id);
+                    menuSetup.pedeString("Enter para continuar");
                     break;
-                case 3 :    //opção "Adicionar plano de treino"
-                    this.adicionaPlanoTreino(menuSetup);
+                case 3 :    //opção "Registar execução de atividade"
+                    this.registaAtividade(menuSetup);
+                    menuSetup.pedeString("Atividade registada com sucesso.\nEnter para continuar");
                     break;
-                case 4 :    //opção "Iniciar simulação"
+                case 4 :    //opção "Adicionar atividade e registar execução"
+                    int cod = this.addRegistaAtividade(menuSetup);
+                    System.out.print("Atividade adicionada com sucesso.\nCódigo da atividade adicionada: ");
+                    System.out.println(cod);
+                    menuSetup.pedeString("Enter para continuar");
+                    break;
+                case 5 :    //opção "Adicionar plano de treino"
+                    int idPlano = this.addPlano(menuSetup);
+                    System.out.print("Plano de treino adicionado com sucesso.\nCódigo do plano adicionado: ");
+                    System.out.println(idPlano);
+                    menuSetup.pedeString("Enter para continuar");
+                    break;
+                case 6 :    //opção "Registar execução de plano de treino"
+                    this.registaPlano(menuSetup);
+                    menuSetup.pedeString("Plano de treino registado com sucesso.\nEnter para continuar");
+                    break;
+                case 7 :    //opção "Adicionar plano de treino e registar execução"
+                    int codPlano = this.addRegistaPlano(menuSetup);
+                    System.out.print("Plano de treino adicionado com sucesso.\nCódigo do plano adicionado: ");
+                    System.out.println(codPlano);
+                    menuSetup.pedeString("Enter para continuar");
+                    break;
+                case 8 :    //opção "Iniciar simulação"
                     int d = 0;
                     while(d!=1&&d!=2){
                         d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
@@ -343,10 +430,10 @@ public class AppDesportiva
                     if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data atual (dia/mês/ano)");
                     this.runSimulacao();
                     break;
-                case 5 :    //opção "Guardar estado"
+                case 9 :    //opção "Guardar estado"
                     this.guardaDados(menuSetup);
                     break;
-                case 6 :    //opção "Guardar e sair"
+                case 10 :    //opção "Guardar e sair"
                     int guardar = this.guardaDados(menuSetup);
                     if (guardar == 1) break;
                     op=0;
