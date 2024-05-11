@@ -51,8 +51,8 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             this.iteracoes = iteracoes;
         }
     
-        public void setR(Atividade atividade){
-            this.atividade = atividade; //clone??
+        public void setAtividade(Atividade atividade){
+            this.atividade = (Atividade)atividade.clone();
         }
         
         /**
