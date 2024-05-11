@@ -112,6 +112,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     }
     
     public PlanoTreino(PlanoTreino planoTreino, LocalDate inicio, LocalDate fim) {
+        this.codPlano = planoTreino.getCodPlano();
         this.dataRealizacao = planoTreino.getDataRealizacao();
         this.atividades = planoTreino.getAtividadesNumPeriodo(inicio,fim);
     }
