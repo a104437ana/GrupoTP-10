@@ -252,8 +252,8 @@ public class AppDesportiva
                     break;
             }
             if(op!=0){
-                menuSetup.runMenu();
-                op = menuSetup.getOpcao();
+                menuInicial.runMenu();
+                op = menuInicial.getOpcao();
             }
         }
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
