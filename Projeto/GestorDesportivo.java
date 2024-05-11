@@ -39,6 +39,13 @@ public class GestorDesportivo implements Serializable
         return (model);
     }
 
+    public List<Utilizador> infoNumPeriodo (LocalDate dataInicio, LocalDate dataFim) {
+        List<Utilizador> utilizadores = new ArrayList<Utilizador>();
+        for (Utilizador u : this.utilizadores.values()) {
+            utilizadores.add((Utilizador) u.utilizadorNumPeriodo(dataInicio,dataFim));
+        }
+        return utilizadores;
+    }
         /**
      * Requisitos 3.2
      * ponto 6

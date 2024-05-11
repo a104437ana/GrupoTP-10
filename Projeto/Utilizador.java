@@ -75,6 +75,26 @@ public abstract class Utilizador implements Serializable
         this.atividadesPlanoTreino = new TreeSet<PlanoTreino>();
         this.atividadesIsoladas = new TreeSet<Atividade>();
     }
+    
+    public Utilizador(Utilizador umUtilizador, LocalDate dataInicio, LocalDate dataFim)
+    {
+        this.codUtilizador = umUtilizador.getCodUtilizador();
+        this.nome = umUtilizador.getNome();
+        this.morada = umUtilizador.getMorada();
+        this.email = umUtilizador.getEmail();
+        this.freqCardiaca = umUtilizador.getFreqCardiaca();
+        this.peso = umUtilizador.getPeso();
+        this.altura = umUtilizador.getAltura();
+        this.dataNascimento = umUtilizador.getDataNascimento();
+        this.genero = umUtilizador.getGenero();
+        this.atividadesPlanoTreino = new TreeSet<PlanoTreino>();
+        List<PlanoTreino> planos = umUtilizador.planosTreinos(dataInicio, dataFim);
+        this.atividadesPlanoTreino.addAll(planos);
+        this.atividadesIsoladas = new TreeSet<Atividade>();
+        Predicate<Atividade> p = atividade -> true;
+        List<Atividade> atividadesIsoladas = umUtilizador.atividadesIsoladas(dataInicio,dataFim,p);
+        this.atividadesIsoladas.addAll(atividadesIsoladas);
+    }
 
     /**
      * Construtor de cópia
@@ -266,16 +286,7 @@ public abstract class Utilizador implements Serializable
     
     public List<Atividade> atividadesNumPeriodoQueRespeitamP (LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p){
         List<Atividade> atividades = new ArrayList<Atividade>();
-        
-        LocalDateTime data_inicial = LocalDateTime.of(dataInicio, LocalTime.MIDNIGHT);
-        LocalDateTime data_final = LocalDateTime.of(dataFim, LocalTime.MIDNIGHT);
-        
-        List<Atividade> atividadesIsoladas = this.atividadesIsoladas
-        .stream()
-        .filter(atividade -> p.test(atividade) && atividade.getDataRealizacao().compareTo(data_inicial) >= 0 && atividade.getDataRealizacao().compareTo(data_final) <= 0)
-        .map(atividade -> (Atividade) atividade.clone())
-        .collect(Collectors.toList());
-        
+        List<Atividade> atividadesIsoladas = this.atividadesIsoladas(dataInicio,dataFim,p);
         atividades.addAll(atividadesIsoladas);
         
         List<PlanoTreino> planosTreino = this.atividadesPlanoTreino
@@ -302,6 +313,25 @@ public abstract class Utilizador implements Serializable
         .orElse(null).clone();
     }
     
+    public List<Atividade> atividadesIsoladas(LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p) {
+        LocalDateTime data_inicial = LocalDateTime.of(dataInicio, LocalTime.MIDNIGHT);
+        LocalDateTime data_final = LocalDateTime.of(dataFim, LocalTime.MIDNIGHT);
+        return this.atividadesIsoladas
+        .stream()
+        .filter(atividade -> p.test(atividade) && atividade.getDataRealizacao().compareTo(data_inicial) >= 0 && atividade.getDataRealizacao().compareTo(data_final) <= 0)
+        .map(atividade -> (Atividade) atividade.clone())
+        .collect(Collectors.toList());
+    }
+    
+    public List<PlanoTreino> planosTreinos(LocalDate dataInicio, LocalDate dataFim) {
+        return this.atividadesPlanoTreino
+        .stream()
+        .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
+        .map(planoTreino -> (PlanoTreino) planoTreino.clone())
+        .collect(Collectors.toList());
+    }
+    
+    public abstract Object utilizadorNumPeriodo(LocalDate dataInicio, LocalDate dataFim);
     /**
      * Metodo que calcula a idade de um utilizador
      * 

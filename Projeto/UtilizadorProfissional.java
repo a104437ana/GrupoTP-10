@@ -35,6 +35,10 @@ public class UtilizadorProfissional extends Utilizador
         super(u);
     }
     
+    public UtilizadorProfissional(UtilizadorProfissional u, LocalDate i, LocalDate f) {
+        super(u,i,f);
+    }
+    
     /**
      * Método que calcula o fator multiplicativo de um utilizador profissional
      *
@@ -68,6 +72,11 @@ public class UtilizadorProfissional extends Utilizador
      */
     public Object clone(){
         UtilizadorProfissional t = new UtilizadorProfissional(this);
+        return t;
+    }
+    
+    public Object utilizadorNumPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        UtilizadorProfissional t = new UtilizadorProfissional (this, dataInicio, dataFim);
         return t;
     }
 }

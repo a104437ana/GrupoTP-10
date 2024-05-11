@@ -34,7 +34,11 @@ public class UtilizadorAmador extends Utilizador
     public UtilizadorAmador(UtilizadorAmador u) {
         super(u);
     }
-
+    
+    public UtilizadorAmador(UtilizadorAmador u, LocalDate i, LocalDate f) {
+        super(u,i,f);
+    }
+    
     /**
      * Método que calcula o fator multiplicativo de um utilizador amador
      *
@@ -68,6 +72,11 @@ public class UtilizadorAmador extends Utilizador
      */
     public Object clone(){
         UtilizadorAmador t = new UtilizadorAmador(this);
+        return t;
+    }
+    
+    public Object utilizadorNumPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        UtilizadorAmador t = new UtilizadorAmador (this, dataInicio, dataFim);
         return t;
     }
 }

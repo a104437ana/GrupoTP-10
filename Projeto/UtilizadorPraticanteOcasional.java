@@ -35,6 +35,10 @@ public class UtilizadorPraticanteOcasional extends Utilizador
         super(u);
     }
     
+    public UtilizadorPraticanteOcasional(UtilizadorPraticanteOcasional u, LocalDate i, LocalDate f) {
+        super(u,i,f);
+    }
+    
     /**
      * Método que calcula o fator multiplicativo de um utilizador praticante ocasional
      *
@@ -68,6 +72,11 @@ public class UtilizadorPraticanteOcasional extends Utilizador
      */
     public Object clone(){
         UtilizadorPraticanteOcasional t = new UtilizadorPraticanteOcasional(this);
+        return t;
+    }
+    
+    public Object utilizadorNumPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        UtilizadorPraticanteOcasional t = new UtilizadorPraticanteOcasional(this,dataInicio,dataFim);
         return t;
     }
 }
