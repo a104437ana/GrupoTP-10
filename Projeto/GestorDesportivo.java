@@ -19,6 +19,9 @@ public class GestorDesportivo implements Serializable
 {
     private LocalDate dataAtual;
     private Map<Integer, Utilizador> utilizadores;
+    private Map<Integer, Utilizador> utilizadoresNumPeriodo;
+    private Map<Integer, Atividade> atividades;
+    private Map<Integer, PlanoTreino> planos;
     
     public GestorDesportivo(){
         this.dataAtual = LocalDate.now();
