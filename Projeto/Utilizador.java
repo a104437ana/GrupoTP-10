@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.function.Predicate;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.io.*;
 
@@ -273,6 +274,15 @@ public abstract class Utilizador implements Serializable
         return atividades;
     }
     
+    public <R> List<R> infoDasAtividadesUtilizadorNumPeriodoQueRespeitamP(LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p, BiFunction<Atividade,Utilizador,R> f, Utilizador u){
+        List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(dataInicio, dataFim, p);
+        
+        List<R> infoDasAtividades = new ArrayList<>();
+        for(Atividade atividade: atividades) {
+            infoDasAtividades.add(f.apply(atividade,u));
+        }
+        return infoDasAtividades;
+    }
     
     public <R> List<R> infoDasAtividadesNumPeriodoQueRespeitamP(LocalDate dataInicio, LocalDate dataFim, Predicate<Atividade> p, Function<Atividade,R> f){
         List<Atividade> atividades = atividadesNumPeriodoQueRespeitamP(dataInicio, dataFim, p);

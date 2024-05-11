@@ -69,6 +69,10 @@ public abstract class AtivDistancia extends Atividade
         return (velocidade - valorNulo) * valorIncremento;
     }
 
+    public double getVelocidade(){
+        return this.distancia / this.getTempo().toSecondOfDay();
+    }
+
     /**
      * Método equals
      */
