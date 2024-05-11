@@ -16,9 +16,10 @@ public class AppDesportiva
     private LocalDate dataAtual;
     private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
     private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
-    private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Voltar ao setup"};
+    private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Gerar plano de treino","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Voltar ao setup"};
     private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
-   
+    private String path;
+    
     /**
      * Construtor de AppDesportiva
      */
@@ -48,14 +49,17 @@ public class AppDesportiva
             this.model = this.model.carregaEstado(ficheiro);
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuInicial.pedeString("Dados carregados com sucesso.\nEnter para continuar");
+            this.path = ficheiro;
         }
         catch (ClassNotFoundException clExc){
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuInicial.pedeString("Não foi possível carregar os dados do ficheiro.\nEnter para continuar");
+            this.runInicial();
         }
         catch (IOException ioExc){
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuInicial.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
+            this.runInicial();
         }
     }
     
@@ -69,6 +73,7 @@ public class AppDesportiva
         try{
             this.model = this.model.carregaEstado(ficheiro);
             menuAtual.pedeString("Dados carregados com sucesso.\nEnter para continuar");
+            this.path=ficheiro;
             return 0;
         }
         catch (ClassNotFoundException clExc){
@@ -86,9 +91,8 @@ public class AppDesportiva
      */
     private int guardaDados(Menu menuAtual){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        String ficheiro = menuAtual.pedeString("Insira o nome do ficheiro para guardar");
         try {
-            this.model.guardaEstado(ficheiro);
+            this.model.guardaEstado(this.path);
             menuAtual.pedeString("Estado guardado com sucesso.\nEnter para continuar");
             return 0;
         }
@@ -366,6 +370,15 @@ public class AppDesportiva
                     op=0;
                     break;
                 case 2 :    //opção "Novo estado"
+                    String ficheiro = menuInicial.pedeString("Insira o nome do ficheiro onde guardar o estado");
+                    this.path=ficheiro;
+                    try {
+                        this.model.guardaEstado(this.path);
+                    }
+                    catch (IOException e){
+                        menuInicial.pedeString("Não foi possível aceder ao ficheiro.\nEnter para continuar");
+                        break;
+                    }
                     int exit = this.runSetup();
                     if (exit==1) op=0;
                     break;
@@ -428,6 +441,7 @@ public class AppDesportiva
                         d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
                     }
                     if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data atual (dia/mês/ano)");
+                    this.model.atualizaInfo(this.dataAtual);
                     this.runSimulacao();
                     break;
                 case 9 :    //opção "Guardar estado"
@@ -457,12 +471,29 @@ public class AppDesportiva
         int op = menuSimulacao.getOpcao();
         while (op!=0){
             switch (op){
-                case 1 : ; //opção "Avançar tempo"
-                case 2 : ;  //opção "Consultar recordes"
-                case 3 :    //opção "Consultar estatísticas"
+                case 1 :    //opção "Avançar tempo"
+                    int d = 0;
+                    while(d!=1&&d!=2){
+                        d = this.menuSimulacao.pedeInt("1: Escolher data para a qual avançar\n2: Inserir número de dias a avançar");
+                    }
+                    if(d==1) this.dataAtual = this.menuSimulacao.pedeData("Insira a data (dia/mês/ano)");
+                    else this.dataAtual = this.dataAtual.plusDays(this.menuSimulacao.pedeInt("Insira o número de dias a avançar"));
+                    this.model.atualizaInfo(this.dataAtual);
+                    break;
+                case 2 :    //opção "Gerar plano de treino"
+                    
+                    break;
+                case 3 :    //opção "Consultar recordes"
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    int tipoAtiv = menuSimulacao.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+                    if(tipoAtiv<1||tipoAtiv>9){
+                        tipoAtiv = menuSimulacao.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+                    }
+                    break;
+                case 4 :    //opção "Consultar estatísticas"
                     this.runQueries();
                     break;
-                case 4 :    //opção "Mostrar todas as informações"
+                case 5 :    //opção "Mostrar todas as informações"
                     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     String str = this.model.mostraInfo();
                     System.out.println(str);
@@ -508,7 +539,13 @@ public class AppDesportiva
                         menuEstatisticas.pedeString("Utilizador não existe.\nEnter para continuar");
                         break;
                     }
-                    String res = this.model.atividadesUtilizador(codUser);
+                    int d = 0;
+                    while(d!=1&&d!=2){
+                        d = this.menuSetup.pedeInt("1: Mostrar atividades já realizadas\n2: Mostrar todas as atividades");
+                    }
+                    String res;
+                    if (d==1) res = this.model.atividadesExecutadasUtilizador(codUser);
+                    else res = this.model.atividadesUtilizador(codUser);
                     System.out.print(res);
                     menuEstatisticas.pedeString("Enter para continuar");
                     break;

@@ -150,7 +150,7 @@ public class Menu
             input = LocalDate.parse(scan.nextLine(), formatter);
         }
         catch (Exception e){
-            System.out.println("Inserir uma data no formato ano-mês-dia");
+            System.out.println("Inserir uma data no formato dia/mês/ano");
         }
         }
         return input;
@@ -193,7 +193,7 @@ public class Menu
             input = LocalDateTime.parse(scan.nextLine(), formatter);
         }
         catch (Exception e){
-            System.out.println("Inserir data e hora");
+            System.out.println("Inserir data e hora no formato dia/mês/ano horas:minutos:segundos");
         }
         }
         return input;

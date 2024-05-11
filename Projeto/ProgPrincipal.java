@@ -32,6 +32,6 @@ public class ProgPrincipal
      */
     public static void main(String[] args){
         if(args.length==0) new ProgPrincipal().controller.runInicial();
-        else new ProgPrincipal(args[0]).controller.runInicial();
+        else new ProgPrincipal(args[0]).controller.runSetup();
     }
 }

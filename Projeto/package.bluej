@@ -60,9 +60,14 @@ dependency17.type=UsesDependency
 dependency18.from=BenchPress
 dependency18.to=AtivRepsPeso
 dependency18.type=UsesDependency
+<<<<<<< HEAD
 dependency19.from=ProgPrincipal
 dependency19.to=AppDesportiva
 >>>>>>> b3b883eea0b7d850bb34df7c5a0be643a34553bf
+=======
+dependency19.from=Flexoes
+dependency19.to=Utilizador
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency19.type=UsesDependency
 dependency2.from=Btt
 dependency2.to=Atividade
@@ -99,39 +104,44 @@ dependency29.from=ProgPrincipal
 dependency29.to=AppDesportiva
 =======
 dependency20.from=Flexoes
-dependency20.to=Utilizador
+dependency20.to=Atividade
 dependency20.type=UsesDependency
 dependency21.from=Flexoes
-dependency21.to=Atividade
+dependency21.to=AtivRepeticoes
 dependency21.type=UsesDependency
-dependency22.from=Flexoes
-dependency22.to=AtivRepeticoes
+dependency22.from=Utilizador
+dependency22.to=PlanoTreino
 dependency22.type=UsesDependency
 dependency23.from=Utilizador
-dependency23.to=PlanoTreino
+dependency23.to=Atividade
 dependency23.type=UsesDependency
 dependency24.from=Utilizador
-dependency24.to=Atividade
+dependency24.to=AtivDistancia
 dependency24.type=UsesDependency
 dependency25.from=Utilizador
-dependency25.to=AtivDistancia
+dependency25.to=AtivDistAltimetria
 dependency25.type=UsesDependency
-dependency26.from=Utilizador
-dependency26.to=AtivDistAltimetria
+dependency26.from=BicepCurls
+dependency26.to=Utilizador
 dependency26.type=UsesDependency
 dependency27.from=BicepCurls
-dependency27.to=Utilizador
+dependency27.to=Atividade
 dependency27.type=UsesDependency
 dependency28.from=BicepCurls
-dependency28.to=Atividade
+dependency28.to=AtivRepeticoes
 dependency28.type=UsesDependency
 dependency29.from=BicepCurls
+<<<<<<< HEAD
 dependency29.to=AtivRepeticoes
 >>>>>>> b3b883eea0b7d850bb34df7c5a0be643a34553bf
+=======
+dependency29.to=AtivRepsPeso
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency29.type=UsesDependency
 dependency3.from=Btt
 dependency3.to=BicepCurls
 dependency3.type=UsesDependency
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency30.from=Flexoes
 dependency30.to=Utilizador
@@ -164,38 +174,47 @@ dependency39.from=BicepCurls
 =======
 dependency30.from=BicepCurls
 dependency30.to=AtivRepsPeso
+=======
+dependency30.from=AtivRepsPeso
+dependency30.to=Utilizador
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency30.type=UsesDependency
-dependency31.from=AtivRepsPeso
+dependency31.from=Trail
 dependency31.to=Utilizador
 dependency31.type=UsesDependency
 dependency32.from=Trail
-dependency32.to=Utilizador
+dependency32.to=Atividade
 dependency32.type=UsesDependency
 dependency33.from=Trail
-dependency33.to=Atividade
+dependency33.to=BicepCurls
 dependency33.type=UsesDependency
 dependency34.from=Trail
-dependency34.to=BicepCurls
+dependency34.to=AtivDistancia
 dependency34.type=UsesDependency
 dependency35.from=Trail
-dependency35.to=AtivDistancia
+dependency35.to=AtivDistAltimetria
 dependency35.type=UsesDependency
-dependency36.from=Trail
-dependency36.to=AtivDistAltimetria
+dependency36.from=LegPress
+dependency36.to=Utilizador
 dependency36.type=UsesDependency
 dependency37.from=LegPress
-dependency37.to=Utilizador
+dependency37.to=Atividade
 dependency37.type=UsesDependency
 dependency38.from=LegPress
-dependency38.to=Atividade
+dependency38.to=AtivRepeticoes
 dependency38.type=UsesDependency
 dependency39.from=LegPress
+<<<<<<< HEAD
 >>>>>>> b3b883eea0b7d850bb34df7c5a0be643a34553bf
 dependency39.to=AtivRepeticoes
+=======
+dependency39.to=AtivRepsPeso
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency39.type=UsesDependency
 dependency4.from=Btt
 dependency4.to=AtivDistancia
 dependency4.type=UsesDependency
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency40.from=BicepCurls
 dependency40.to=AtivRepsPeso
@@ -229,34 +248,42 @@ dependency49.to=AtivRepeticoes
 =======
 dependency40.from=LegPress
 dependency40.to=AtivRepsPeso
+=======
+dependency40.from=Corrida
+dependency40.to=Utilizador
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency40.type=UsesDependency
 dependency41.from=Corrida
-dependency41.to=Utilizador
+dependency41.to=Atividade
 dependency41.type=UsesDependency
 dependency42.from=Corrida
-dependency42.to=Atividade
+dependency42.to=AtivDistancia
 dependency42.type=UsesDependency
-dependency43.from=Corrida
-dependency43.to=AtivDistancia
+dependency43.from=GestorDesportivo
+dependency43.to=Utilizador
 dependency43.type=UsesDependency
 dependency44.from=GestorDesportivo
-dependency44.to=Utilizador
+dependency44.to=Atividade
 dependency44.type=UsesDependency
 dependency45.from=GestorDesportivo
-dependency45.to=Atividade
+dependency45.to=PlanoTreino
 dependency45.type=UsesDependency
 dependency46.from=GestorDesportivo
-dependency46.to=PlanoTreino
+dependency46.to=UtilizadorAmador
 dependency46.type=UsesDependency
 dependency47.from=GestorDesportivo
-dependency47.to=UtilizadorAmador
+dependency47.to=UtilizadorProfissional
 dependency47.type=UsesDependency
 dependency48.from=GestorDesportivo
-dependency48.to=UtilizadorProfissional
+dependency48.to=UtilizadorPraticanteOcasional
 dependency48.type=UsesDependency
 dependency49.from=GestorDesportivo
+<<<<<<< HEAD
 dependency49.to=UtilizadorPraticanteOcasional
 >>>>>>> b3b883eea0b7d850bb34df7c5a0be643a34553bf
+=======
+dependency49.to=Corrida
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency49.type=UsesDependency
 dependency5.from=Btt
 dependency5.to=AtivDistAltimetria
@@ -293,40 +320,45 @@ dependency59.from=GestorDesportivo
 dependency59.to=Trail
 =======
 dependency50.from=GestorDesportivo
-dependency50.to=Corrida
+dependency50.to=Ciclismo
 dependency50.type=UsesDependency
 dependency51.from=GestorDesportivo
-dependency51.to=Ciclismo
+dependency51.to=Trail
 dependency51.type=UsesDependency
 dependency52.from=GestorDesportivo
-dependency52.to=Trail
+dependency52.to=Btt
 dependency52.type=UsesDependency
 dependency53.from=GestorDesportivo
-dependency53.to=Btt
+dependency53.to=Flexoes
 dependency53.type=UsesDependency
 dependency54.from=GestorDesportivo
-dependency54.to=Flexoes
+dependency54.to=Abdominais
 dependency54.type=UsesDependency
 dependency55.from=GestorDesportivo
-dependency55.to=Abdominais
+dependency55.to=LegPress
 dependency55.type=UsesDependency
 dependency56.from=GestorDesportivo
-dependency56.to=LegPress
+dependency56.to=BenchPress
 dependency56.type=UsesDependency
 dependency57.from=GestorDesportivo
-dependency57.to=BenchPress
+dependency57.to=BicepCurls
 dependency57.type=UsesDependency
 dependency58.from=GestorDesportivo
-dependency58.to=BicepCurls
+dependency58.to=AtivRepsPeso
 dependency58.type=UsesDependency
 dependency59.from=GestorDesportivo
+<<<<<<< HEAD
 dependency59.to=AtivRepsPeso
 >>>>>>> b3b883eea0b7d850bb34df7c5a0be643a34553bf
+=======
+dependency59.to=AtivRepeticoes
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency59.type=UsesDependency
 dependency6.from=PlanoTreino
 dependency6.to=Atividade
 dependency6.type=UsesDependency
 dependency60.from=GestorDesportivo
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency60.to=Btt
 dependency60.type=UsesDependency
@@ -376,12 +408,15 @@ dependency9.from=Btt
 dependency9.to=AtivDistAltimetria
 =======
 dependency60.to=AtivRepeticoes
+=======
+dependency60.to=AtivDistAltimetria
+>>>>>>> 1dd81e7 (Continuação menus)
 dependency60.type=UsesDependency
 dependency61.from=GestorDesportivo
-dependency61.to=AtivDistAltimetria
+dependency61.to=AtivDistancia
 dependency61.type=UsesDependency
-dependency62.from=GestorDesportivo
-dependency62.to=AtivDistancia
+dependency62.from=ProgPrincipal
+dependency62.to=AppDesportiva
 dependency62.type=UsesDependency
 dependency63.from=AppDesportiva
 dependency63.to=GestorDesportivo
