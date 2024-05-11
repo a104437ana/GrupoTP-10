@@ -33,6 +33,11 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             this.iteracoes = iteracoes;
             this.atividade = atividade;
         }
+        
+        public AtividadeIteracoes(AtividadeIteracoes a) {
+            this.iteracoes = a.getIteracoes();
+            this.atividade = a.getAtividade();
+        }
     
         public int getIteracoes(){
             return this.iteracoes;
@@ -48,6 +53,14 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     
         public void setR(Atividade atividade){
             this.atividade = atividade; //clone??
+        }
+        
+        /**
+         * clone
+         */
+        public AtividadeIteracoes clone() {
+            AtividadeIteracoes c = new AtividadeIteracoes(this);
+            return c;
         }
     }
 
@@ -75,11 +88,18 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     public PlanoTreino(PlanoTreino planoTreino)
     {
         this.dataRealizacao = planoTreino.getDataRealizacao();
-//        this.atividades = planoTreino.getAtividades();
+        this.atividades = planoTreino.getAtividades();
     }
 
     // Getters e setters
-
+    public List<AtividadeIteracoes> getAtividades() {
+        List<AtividadeIteracoes> atividades = new ArrayList<AtividadeIteracoes>();
+        for(AtividadeIteracoes a : this.atividades) {
+            atividades.add((AtividadeIteracoes) a.clone());
+        }
+        return atividades;
+    }
+    
     public LocalDate getDataRealizacao(){
         return this.dataRealizacao;
     }

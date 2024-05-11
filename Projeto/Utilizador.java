@@ -91,7 +91,13 @@ public abstract class Utilizador implements Serializable
         this.dataNascimento = umUtilizador.getDataNascimento();
         this.genero = umUtilizador.getGenero();
         this.atividadesPlanoTreino = new TreeSet<PlanoTreino>(); //cópia
+        for (PlanoTreino plano : umUtilizador.getAtividadesPlanoTreino()) {
+            this.atividadesPlanoTreino.add(plano);
+        }
         this.atividadesIsoladas = new TreeSet<Atividade>(); //cópia
+        for (Atividade atividade : umUtilizador.getAtividadesIsoladas()) {
+            this.atividadesIsoladas.add(atividade);
+        }
     }
 
     /**
@@ -168,6 +174,20 @@ public abstract class Utilizador implements Serializable
 
     public void setGenero(char genero) {
         this.genero = genero;
+    }
+    
+    public List<Atividade> getAtividadesIsoladas () {
+        return this.atividadesIsoladas
+        .stream()
+        .map(a -> (Atividade) a.clone())
+        .collect(Collectors.toList());
+    }
+    
+    public List<PlanoTreino> getAtividadesPlanoTreino () {
+        return this.atividadesPlanoTreino
+        .stream()
+        .map(p -> (PlanoTreino) p.clone())
+        .collect(Collectors.toList());
     }
     
     public void addAtividade(Atividade atividade){
@@ -275,11 +295,11 @@ public abstract class Utilizador implements Serializable
     }
     
     public PlanoTreino planoTreinoMaisCalorias (LocalDate dataInicio, LocalDate dataFim) {
-        return this.atividadesPlanoTreino
+        return (PlanoTreino) this.atividadesPlanoTreino
         .stream()
         .filter(planoTreino -> planoTreino.getDataRealizacao().compareTo(dataInicio) >= 0 && planoTreino.getDataRealizacao().compareTo(dataFim) <= 0)
         .reduce((p1, p2) -> p1.caloriasDispendidas(this) > p2.caloriasDispendidas(this) ? p1 : p2)
-        .orElse(null);
+        .orElse(null).clone();
     }
     
     /**
