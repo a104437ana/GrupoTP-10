@@ -276,7 +276,7 @@ public class AppDesportiva
                 return 0;
         }
         int id = addPlano(menuAtual);
-        model.registaPlano(codUtilizador, id);
+        model.registaPlanoTreino(codUtilizador, id);
         return id;
     }
     

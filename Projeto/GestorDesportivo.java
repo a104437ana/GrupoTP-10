@@ -141,7 +141,15 @@ public class GestorDesportivo implements Serializable
         return this.utilizadores.containsKey(codUtilizador);
     }
     
-    public void addAtivDist(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
+    public boolean existeAtividade(int codAtividade){
+        return this.atividades.containsKey(codAtividade);
+    }
+    
+    public boolean existePlano(int codPlano){
+        return this.planos.containsKey(codPlano);
+    }
+    
+    public int addAtivDist(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
          Atividade novaAtividade;
          if(tipo==1){
              novaAtividade = new Corrida(realizacao, tempo, freqCardiaca, distancia);
@@ -149,10 +157,11 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Ciclismo(realizacao, tempo, freqCardiaca, distancia);
          }
-         this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
+         this.atividades.put(novaAtividade.getCodAtividade(), novaAtividade);
+         return novaAtividade.getCodAtividade();
     }
     
-    public void addAtivDistAlt(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
+    public int addAtivDistAlt(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
          Atividade novaAtividade;
          if(tipo==3){
              novaAtividade = new Trail(realizacao, tempo, freqCardiaca, distancia, altimetria);
@@ -160,10 +169,11 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Btt(realizacao, tempo, freqCardiaca, distancia, altimetria);
          }
-         this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
+         this.atividades.put(novaAtividade.getCodAtividade(), novaAtividade);
+         return novaAtividade.getCodAtividade();
     }
     
-    public void addAtivRep(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
+    public int addAtivRep(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
          Atividade novaAtividade;
          if(tipo==5){
              novaAtividade = new Flexoes(realizacao, tempo, freqCardiaca, repeticoes);
@@ -171,10 +181,11 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Abdominais(realizacao, tempo, freqCardiaca, repeticoes);
          }
-         this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
+         this.atividades.put(novaAtividade.getCodAtividade(), novaAtividade);
+         return novaAtividade.getCodAtividade();
     }
     
-    public void addAtivRepsPeso(int codUtilizador, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
+    public int addAtivRepsPeso(LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
          Atividade novaAtividade;
          if(tipo==7){
              novaAtividade = new LegPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
@@ -185,10 +196,16 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new BicepCurls(realizacao, tempo, freqCardiaca, repeticoes, peso);
          }
-         this.utilizadores.get(codUtilizador).addAtividade(novaAtividade);
+         this.atividades.put(novaAtividade.getCodAtividade(), novaAtividade);
+         return novaAtividade.getCodAtividade();
     }
     
-    public void addAtivDistPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
+    public void registaAtividade(int codUtilizador, int codAtividade){
+        Atividade ativ =  this.atividades.get(codAtividade);
+        this.utilizadores.get(codUtilizador).addAtividade((Atividade) ativ.clone());
+    }
+    
+    public void addAtivDistPlano(int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, int tipo){
          Atividade novaAtividade;
          if(tipo==1){
              novaAtividade = new Corrida(realizacao, tempo, freqCardiaca, distancia);
@@ -196,10 +213,10 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Ciclismo(realizacao, tempo, freqCardiaca, distancia);
          }
-         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+         this.planos.get(codPlano).addAtividade(novaAtividade, iteracoes);
     }
     
-    public void addAtivDistAltPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
+    public void addAtivDistAltPlano(int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, double distancia, double altimetria, int tipo){
          Atividade novaAtividade;
          if(tipo==3){
              novaAtividade = new Trail(realizacao, tempo, freqCardiaca, distancia, altimetria);
@@ -207,10 +224,10 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Btt(realizacao, tempo, freqCardiaca, distancia, altimetria);
          }
-         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+         this.planos.get(codPlano).addAtividade(novaAtividade, iteracoes);
     }
     
-    public void addAtivRepPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
+    public void addAtivRepPlano(int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, int tipo){
          Atividade novaAtividade;
          if(tipo==5){
              novaAtividade = new Flexoes(realizacao, tempo, freqCardiaca, repeticoes);
@@ -218,10 +235,10 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new Abdominais(realizacao, tempo, freqCardiaca, repeticoes);
          }
-         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+         this.planos.get(codPlano).addAtividade(novaAtividade, iteracoes);
     }
     
-    public void addAtivRepsPesoPlano(int codUtilizador, int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
+    public void addAtivRepsPesoPlano(int codPlano, int iteracoes, LocalDateTime realizacao, LocalTime tempo, int freqCardiaca, int repeticoes, double peso, int tipo){
          Atividade novaAtividade;
          if(tipo==7){
              novaAtividade = new LegPress(realizacao, tempo, freqCardiaca, repeticoes, peso);
@@ -232,12 +249,17 @@ public class GestorDesportivo implements Serializable
          else{
              novaAtividade = new BicepCurls(realizacao, tempo, freqCardiaca, repeticoes, peso);
          }
-         this.utilizadores.get(codUtilizador).addAtividadePlanoTreino(codPlano, novaAtividade, iteracoes);
+         this.planos.get(codPlano).addAtividade(novaAtividade, iteracoes);
     }
     
-    public int addPlanoTreinoUtilizador(int codUtilizador, LocalDate data){
+    public void registaPlanoTreino(int codUtilizador, int codPlano){
+        PlanoTreino plano =  this.planos.get(codPlano);
+        this.utilizadores.get(codUtilizador).addPlanoTreino((PlanoTreino) plano.clone());
+    }
+    
+    public int addPlanoTreino(LocalDate data){
         PlanoTreino plano = new PlanoTreino(data);
-        this.utilizadores.get(codUtilizador).addPlanoTreino(plano);
+        this.planos.put(plano.getCodPlano(), plano);
         return plano.getCodPlano();
     }
     
