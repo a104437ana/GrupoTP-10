@@ -104,7 +104,7 @@ public class GestorDesportivo implements Serializable
     }
     
     
-    public void addUtilizador(String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero, int tipo){
+    public int addUtilizador(String nome, String morada, String email, int freqCardiaca, int peso, int altura, LocalDate dataNascimento, char genero, int tipo){
          Utilizador novoUtilizador;
          if(tipo==1){
              novoUtilizador = new UtilizadorAmador(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
@@ -116,6 +116,7 @@ public class GestorDesportivo implements Serializable
              novoUtilizador = new UtilizadorPraticanteOcasional(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero);
          }
          this.utilizadores.put(novoUtilizador.getCodUtilizador(), novoUtilizador);
+         return novoUtilizador.getCodUtilizador();
     }
     
     public boolean existeUtilizador(int codUtilizador){

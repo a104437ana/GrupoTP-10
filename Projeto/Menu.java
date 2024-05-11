@@ -1,6 +1,7 @@
 package Projeto;
 import java.util.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Classe Menu, que implementa uma interface em modo texto
@@ -61,7 +62,7 @@ public class Menu
             op = -1;
         }
         if(op<0 || op>this.opcoes.size()-1){
-            System.out.println("Opção inválida");
+            pedeString("Opção inválida.\nEnter para continuar");
             op=-1;
         }
         return op;
@@ -139,13 +140,14 @@ public class Menu
     * @returns próxima data inserida
     */
     public LocalDate pedeData(String mensagem){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(mensagem);
         LocalDate input = null;
         Scanner scan;
         while(input == null){
         try{
             scan = new Scanner(System.in);
-            input = LocalDate.parse(scan.nextLine());
+            input = LocalDate.parse(scan.nextLine(), formatter);
         }
         catch (Exception e){
             System.out.println("Inserir uma data no formato ano-mês-dia");
@@ -181,13 +183,14 @@ public class Menu
     * @returns próxima data com hora inserida
     */
     public LocalDateTime pedeDataHora(String mensagem){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         System.out.println(mensagem);
         LocalDateTime input = null;
         Scanner scan;
         while(input == null){
         try{
             scan = new Scanner(System.in);
-            input = LocalDateTime.parse(scan.nextLine());
+            input = LocalDateTime.parse(scan.nextLine(), formatter);
         }
         catch (Exception e){
             System.out.println("Inserir data e hora");

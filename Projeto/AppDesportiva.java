@@ -12,11 +12,12 @@ import java.time.*;
 public class AppDesportiva
 {
     private GestorDesportivo model;
-    private Menu menuSetup, menuApp, menuEstatisticas;
+    private Menu menuInicial, menuSetup, menuSimulacao, menuEstatisticas;
     private LocalDate dataAtual;
-    private static String[] opcoesSetup = {"Menu Principal","Carregar estado", "Adicionar utilizador", "Adicionar atividade", "Adicionar plano de treino", "Começar fase de simulação", "Guardar estado", "Guardar e sair","Sair"};
-    private static String[] opcoesApp = {"Menu","Adicionar utilizador", "Adicionar atividade", "Adicionar plano de treino","Registar execução", "Alterar data", "Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Guardar estado", "Voltar ao setup", "Guardar e sair", "Sair"};
-    private static String[] opcoesQueries = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
+    private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
+    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador", "Adicionar atividade", "Adicionar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
+    private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Voltar ao setup"};
+    private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
    
     /**
      * Construtor de AppDesportiva
@@ -24,9 +25,10 @@ public class AppDesportiva
     public AppDesportiva()
     {
         this.model = new GestorDesportivo();
+        this.menuInicial = new Menu(AppDesportiva.opcoesInicial);
         this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
-        this.menuApp = new Menu(AppDesportiva.opcoesApp);
-        this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
+        this.menuSimulacao = new Menu(AppDesportiva.opcoesSimulacao);
+        this.menuEstatisticas = new Menu(AppDesportiva.opcoesEstatisticas);
         this.dataAtual = LocalDate.now();
     }
     
@@ -37,9 +39,10 @@ public class AppDesportiva
     public AppDesportiva(String ficheiro)
     {
         this.model = new GestorDesportivo();
+        this.menuInicial = new Menu(AppDesportiva.opcoesInicial);
         this.menuSetup = new Menu(AppDesportiva.opcoesSetup);
-        this.menuApp = new Menu(AppDesportiva.opcoesApp);
-        this.menuEstatisticas = new Menu(AppDesportiva.opcoesQueries);
+        this.menuSimulacao = new Menu(AppDesportiva.opcoesSimulacao);
+        this.menuEstatisticas = new Menu(AppDesportiva.opcoesEstatisticas);
         this.dataAtual = LocalDate.now();
         try{
             this.model = this.model.carregaEstado(ficheiro);
@@ -103,7 +106,7 @@ public class AppDesportiva
         int freqCardiaca = menuAtual.pedeInt("Insira a frequência cardíaca média do utilizador");
         int peso = menuAtual.pedeInt("Insira o peso do utilizador (em kilos)");
         int altura = menuAtual.pedeInt("Insira a altura do utilizador (em centímetros)");
-        LocalDate dataNascimento = menuAtual.pedeData("Insira a data de nascimento do utilizador (ano-mês-dia)");
+        LocalDate dataNascimento = menuAtual.pedeData("Insira a data de nascimento do utilizador (dia/mês/ano)");
         char genero = menuAtual.pedeString("Insira o género do utilizador: M ou F").charAt(0);
         while(genero!='M'&&genero!='F'){
             genero = menuAtual.pedeString("Insira o género do utilizador: M ou F").charAt(0);
@@ -112,8 +115,10 @@ public class AppDesportiva
         while(tipo<1||tipo>3){
             tipo = menuAtual.pedeInt("Insira o tipo de utilizador:\n1: Utilizador amador\n2: Utilizador praticante ocasional\n3: Utilizador profissional");
         }
-        model.addUtilizador(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero, tipo);
-        menuAtual.pedeString("Utilizador adicionado com sucesso.\nEnter para continuar");
+        int cod = model.addUtilizador(nome, morada, email, freqCardiaca, peso, altura, dataNascimento, genero, tipo);
+        System.out.print("Utilizador adicionado com sucesso.\nCódigo do utilizador adicionado: ");
+        System.out.println(cod);
+        menuAtual.pedeString("Enter para continuar");
     }
     
     /**
@@ -131,8 +136,8 @@ public class AppDesportiva
         if(tipoAtiv<1||tipoAtiv>9){
             tipoAtiv = menuAtual.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
         }
-        LocalDateTime realizacao = menuAtual.pedeDataHora("Insira a data e hora de realização (ano-mês-diaThoras:minutos:[segundos-opcional])");
-        LocalTime tempo = menuAtual.pedeTempo("Insira o tempo de realização horas:minutos:[segundos-opcional]");
+        LocalDateTime realizacao = menuAtual.pedeDataHora("Insira a data e hora de realização (dia/mês/ano horas:minutos:segundos)");
+        LocalTime tempo = menuAtual.pedeTempo("Insira o tempo de realização horas:minutos:segundos");
         int freq = menuAtual.pedeInt("Insira a frequência cardíaca média durante a realização");
         if(tipoAtiv<=4){
                 double dist = menuAtual.pedeDouble("Insira a distância percorrida (em metros)");
@@ -165,8 +170,8 @@ public class AppDesportiva
             dataFinal = this.dataAtual;
         }
         else{
-            dataInicial = this.menuEstatisticas.pedeData("Insira data inicial");
-            dataFinal = this.menuEstatisticas.pedeData("Insira data final");
+            dataInicial = this.menuEstatisticas.pedeData("Insira data inicial (dia/mês/ano)");
+            dataFinal = this.menuEstatisticas.pedeData("Insira data final (dia/mês/ano)");
         }
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (op){
@@ -203,8 +208,8 @@ public class AppDesportiva
             dataFinal = this.dataAtual;
         }
         else{
-            dataInicial = this.menuEstatisticas.pedeData("Insira data inicial");
-            dataFinal = this.menuEstatisticas.pedeData("Insira data final");
+            dataInicial = this.menuEstatisticas.pedeData("Insira data inicial (dia/mês/ano)");
+            dataFinal = this.menuEstatisticas.pedeData("Insira data final (dia/mês/ano)");
         }
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         switch (op){
@@ -223,47 +228,22 @@ public class AppDesportiva
     }
     
     /**
-     * Método runSetup, que executa o menu inicial, lê e trata as opções escolhidas, enviando a operação pretendida para o model, indo para outro menu, ou encerrando o programa
+     * Método runInicial, que executa o menu inicial, lê e trata as opções escolhidas
      */
-    public void runSetup(){
-        menuSetup.runMenu();
-        int op = menuSetup.getOpcao();
+    public void runInicial(){
+        menuInicial.runMenu();
+        int op = menuInicial.getOpcao();
         while (op!=0){
             switch (op){ 
-
                 case 1 :   //opção "Carregar estado"
-                    this.carregaDados(menuSetup);
-                    break;
-                case 2 :    //opção "Adicionar utilizador"
-                    this.adicionaUser(menuSetup);
-                    break;
-                case 3 :    //opção "Adicionar atividade"
-                    this.adicionaAtividade(menuSetup);
-                    break;
-                case 4 : ; //opção "Adicionar plano de treino"
-                case 5 :    //opção "Começar fase de simulação"
-                    {
-                        int d = 0;
-                        while(d!=1&&d!=2){
-                            d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
-                        }
-                        if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data atual");
-                        int ext = this.runApp();
-                        if(ext == 2){
-                            op=0;
-                        }
-                        else if (ext == 1){
-                            this.guardaDados(menuSetup);
-                            op=0;
-                        }
-                    }
-                    break;
-                case 6 :    //opção "Guardar estado"
-                    this.guardaDados(menuSetup);
-                    break;
-                case 7 :    //opção "Guardar e sair"
-                    this.guardaDados(menuSetup);
+                    this.carregaDados(menuInicial);
+                    int ext = this.runSetup();
+                    if (ext==1) op=0;
                     op=0;
+                    break;
+                case 2 :    //opção "Novo estado"
+                    int exit = this.runSetup();
+                    if (exit==1) op=0;
                     break;
             }
             if(op!=0){
@@ -276,43 +256,69 @@ public class AppDesportiva
     }
     
     /**
-     * Método runApp que executa o menu depois de iniciada a simulação
-     * @return código de saída para o menu setup: 0 - não sair, 1 - guardar e sair, 2 - sair sem guardar
+     * Método runSetup, que executa o menu onde são adicionados os utilizadores, atividades e planos de treino
      */
-    public int runApp(){
-        menuApp.runMenu();
-        int op = menuApp.getOpcao();
-        while (op!=0){
+    public int runSetup(){
+        menuSetup.runMenu();
+        int op = menuSetup.getOpcao();
+        while (op!=0){ 
             switch (op){
                 case 1 :    //opção "Adicionar utilizador"
-                    this.adicionaUser(menuApp);
+                    this.adicionaUser(menuSetup);
                     break;
                 case 2 :    //opção "Adicionar atividade"
-                    this.adicionaAtividade(menuApp);
+                    this.adicionaAtividade(menuSetup);
                     break;
                 case 3 : ; //opção "Adicionar plano de treino"
-                case 4 : ; //opção "Registar execução"
-                case 5 : ;   //opção "Alterar data"
-                case 6 : ;  //opção "Consultar recordes"
-                case 7 :    //opção "Consultar estatísticas"
+                case 4 :    //opção "Iniciar simulação"
+                    int d = 0;
+                    while(d!=1&&d!=2){
+                        d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
+                    }
+                    if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data atual (dia/mês/ano)");
+                    this.runSimulacao();
+                    break;
+                case 5 :    //opção "Guardar estado"
+                    this.guardaDados(menuSetup);
+                    break;
+                case 6 :    //opção "Guardar e sair"
+                    this.guardaDados(menuSetup);
+                    op=0;
+                    break;
+            }
+            if(op!=0){
+                menuSetup.runMenu();
+                op = menuSetup.getOpcao();
+            }
+        }
+        return 1;
+    }
+    
+    /**
+     * Método runSimulacao que executa o menu depois de iniciada a simulação
+     */
+    public void runSimulacao(){
+        menuSimulacao.runMenu();
+        System.out.print("Data atual da simulação: ");
+        System.out.println(this.dataAtual.toString());
+        int op = menuSimulacao.getOpcao();
+        while (op!=0){
+            switch (op){
+                case 1 : ; //opção "Avançar tempo"
+                case 2 : ;  //opção "Consultar recordes"
+                case 3 :    //opção "Consultar estatísticas"
                     this.runQueries();
                     break;
-                case 8 :    //opção "Mostrar todas as informações"
+                case 4 :    //opção "Mostrar todas as informações"
                     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     String str = this.model.mostraInfo();
                     System.out.println(str);
-                    menuApp.pedeString("Enter para continuar");
+                    menuSimulacao.pedeString("Enter para continuar");
                     break;
-                case 9 :    //opção "Guardar estado"
-                    this.guardaDados(menuApp);
-                    break;
-                case 10 : return 0;  //opção "Voltar ao setup"
-                case 11 : return 1; //opção "Guardar e sair"
             }
-            menuApp.runMenu();
-            op = menuApp.getOpcao();
+            menuSimulacao.runMenu();
+            op = menuSimulacao.getOpcao();
         }
-        return 2;
     }
     
     /**
@@ -353,7 +359,7 @@ public class AppDesportiva
                     System.out.print(res);
                     menuEstatisticas.pedeString("Enter para continuar");
                     break;
-        }
+            }
             menuEstatisticas.runMenu();
             op = menuEstatisticas.getOpcao();
         }
