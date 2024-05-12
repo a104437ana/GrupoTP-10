@@ -46,6 +46,21 @@ public class GestorDesportivo implements Serializable
         ois.close();
         return (model);
     }
+    
+    public void estadoAtualizado () {
+        if (!this.utilizadores.isEmpty()) {
+            int maiorChaveU = Collections.max(this.utilizadores.keySet());
+            utilizadores.get(1).setProximoCodigo(maiorChaveU + 1);
+        }
+        if (!this.atividades.isEmpty()) {
+            int maiorChaveA = Collections.max(this.atividades.keySet());
+            atividades.get(1).setProximoCodigo(maiorChaveA + 1);
+        }
+        if (!this.planos.isEmpty()) {
+            int maiorChaveP = Collections.max(this.planos.keySet());
+            planos.get(1).setProximoCodigo(maiorChaveP + 1);
+        }
+    }
 
     public void atualizaInfo (LocalDate datafim) {
         this.utilizadoresNumPeriodo = new HashMap<Integer, Utilizador>();
@@ -135,6 +150,30 @@ public class GestorDesportivo implements Serializable
          }
          this.utilizadores.put(novoUtilizador.getCodUtilizador(), novoUtilizador);
          return novoUtilizador.getCodUtilizador();
+    }
+    
+    public String showUtilizador(int codigo) {
+        if (this.utilizadores.containsKey(codigo)) {
+            return this.utilizadores.get(codigo).toString();
+        } else {
+            return "Nao existe utilizador com este codigo\n";
+        }
+    }
+    
+    public String showAtividade(int codigo) {
+        if (this.atividades.containsKey(codigo)) {
+            return this.atividades.get(codigo).toString();
+        } else {
+            return "Nao existe atividade com este codigo\n";
+        }
+    }
+    
+    public String showPlanoTreino(int codigo) {
+        if (this.planos.containsKey(codigo)) {
+            return this.planos.get(codigo).toString();
+        } else {
+            return "Nao existe plano de treino com este codigo\n";
+        }
     }
     
     public boolean existeUtilizador(int codUtilizador){
@@ -295,43 +334,43 @@ public class GestorDesportivo implements Serializable
         return sb.toString();
     }
 
-    public double recordMaisPeso(Class<Atividade> tipo){
+    public double recordMaisPeso(Class<?> tipo){
         double peso;
         peso = recordDouble(tipo, a -> ((AtivRepsPeso)a).getPeso());
         return peso;
     }
 
-    public int recordMaisRepeticoes(Class<Atividade> tipo){
+    public int recordMaisRepeticoes(Class<?> tipo){
         int reps;
         reps = recordInt(tipo, a -> ((AtivRepeticoes)a).getRepeticoes());
         return reps;
     }
 
-    public double recordMaiorAltimetria(Class<Atividade> tipo){
+    public double recordMaiorAltimetria(Class<?> tipo){
         double altimetria;
         altimetria = recordDouble(tipo, a -> ((AtivDistAltimetria)a).getAltimetria());
         return altimetria;
     }
 
-    public double recordMaisVelocidade(Class<Atividade> tipo){
+    public double recordMaisVelocidade(Class<?> tipo){
         double velocidade;
         velocidade = recordDouble(tipo, a -> ((AtivDistancia)a).getVelocidade());
         return velocidade;
     }
 
-    public int recordMaisTempo(Class<Atividade> tipo){
+    public int recordMaisTempo(Class<?> tipo){
         int tempo;
         tempo = recordInt(tipo, a -> ((Atividade)a).getTempo().toSecondOfDay());
         return tempo;
     }
 
-    public double recordMaisDistancia(Class<Atividade> tipo){
+    public double recordMaisDistancia(Class<?> tipo){
         double distancia;
         distancia = recordDouble(tipo, a -> ((AtivDistancia)a).getDistancia());
         return distancia;
     }
 
-    public double recordMaisCalorias(Class<Atividade> tipo){
+    public double recordMaisCalorias(Class<?> tipo){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
         Predicate<Atividade> p = a -> tipo.isInstance(a);
@@ -342,7 +381,7 @@ public class GestorDesportivo implements Serializable
                                 .orElse(0.0);
     }
 
-    public double recordDouble(Class<Atividade> tipo, Function<Atividade,Double> f){
+    public double recordDouble(Class<?> tipo, Function<Atividade,Double> f){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
         Predicate<Atividade> p = a -> tipo.isInstance(a);
@@ -352,7 +391,7 @@ public class GestorDesportivo implements Serializable
                                 .orElse(0.0);
     }
 
-    public int recordInt(Class<Atividade> tipo, Function<Atividade,Integer> f){
+    public int recordInt(Class<?> tipo, Function<Atividade,Integer> f){
         LocalDate inicio = LocalDate.MIN;
         LocalDate fim = LocalDate.MAX;
         Predicate<Atividade> p = a -> tipo.isInstance(a);

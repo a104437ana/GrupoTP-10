@@ -53,7 +53,7 @@ public class UtilizadorProfissional extends Utilizador
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de Utilizador: Profissional");
+        sb.append("\nTipo de Utilizador: Profissional\n");
         return (sb.toString());
     }
     

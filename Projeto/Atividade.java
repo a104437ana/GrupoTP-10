@@ -60,6 +60,9 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
         this.freqCardiaca = umaAtividade.getFreqCardiaca();
     }
     
+    public void setProximoCodigo(int proximoCodigo) {
+        this.proximoCodAtividade = proximoCodigo;
+    }
     // Getters e setters
 
     public int getCodAtividade(){

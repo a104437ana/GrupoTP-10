@@ -53,7 +53,7 @@ public class UtilizadorPraticanteOcasional extends Utilizador
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de Utilizador: Praticante Ocasional");
+        sb.append("\nTipo de Utilizador: Praticante Ocasional\n");
         return (sb.toString());
     }
     

@@ -61,7 +61,7 @@ public class Menu
         catch (InputMismatchException e){
             op = -1;
         }
-        if(op<0 || op>this.opcoes.size()-1){
+        if(op<0 || op>this.opcoes.size()-2){
             pedeString("Opção inválida.\nEnter para continuar");
             op=-1;
         }

@@ -120,7 +120,7 @@ public abstract class Utilizador implements Serializable
             this.atividadesIsoladas.add(atividade);
         }
     }
-
+    
     /**
      * Getters e setters
      */
@@ -209,6 +209,10 @@ public abstract class Utilizador implements Serializable
         .stream()
         .map(p -> (PlanoTreino) p.clone())
         .collect(Collectors.toList());
+    }
+    
+    public void setProximoCodigo(int proximoCodigo) {
+        this.proximoCodigo = proximoCodigo;
     }
     
     public void addAtividade(Atividade atividade){
@@ -419,11 +423,11 @@ public abstract class Utilizador implements Serializable
         sb.append(this.getIdade());
         sb.append(" anos\nGenero: ");
         sb.append(this.genero);
-        sb.append("\n\nAtividades: \n");
+        sb.append("\nAtividades: \n");
         for (Atividade a : this.atividadesIsoladas){
             sb.append(a.toString());
         }
-        sb.append("\n\nPlanos de treino: \n");
+        sb.append("\nPlanos de treino: \n");
         for (PlanoTreino p : this.atividadesPlanoTreino){
             sb.append(p.toString());
         }

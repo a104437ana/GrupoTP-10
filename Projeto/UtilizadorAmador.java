@@ -53,7 +53,7 @@ public class UtilizadorAmador extends Utilizador
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTipo de Utilizador: Amador");
+        sb.append("\nTipo de Utilizador: Amador\n");
         return (sb.toString());
     }
     

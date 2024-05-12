@@ -1,6 +1,7 @@
 package Projeto;
 import java.util.List;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -69,7 +70,16 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
             AtividadeIteracoes c = new AtividadeIteracoes(this);
             return c;
         }
-
+        
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(this.atividade);
+            sb.append("Iteracoes: ");
+            sb.append(this.iteracoes);
+            sb.append("\n");
+            return (sb.toString());
+        }
+        
         /**
          * Método equals
          */
@@ -116,7 +126,10 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         this.dataRealizacao = planoTreino.getDataRealizacao();
         this.atividades = planoTreino.getAtividadesNumPeriodo(inicio,fim);
     }
-
+    
+    public void setProximoCodigo(int proximoCodigo) {
+        this.proximoCodigo = proximoCodigo;
+    }
     // Getters e setters
     public List<AtividadeIteracoes> getAtividadesNumPeriodo(LocalDate inicio, LocalDate fim) {
         LocalDateTime i2 = LocalDateTime.of(inicio, LocalTime.MIDNIGHT);
@@ -245,7 +258,21 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         }
         return planos;
     }
-
+    
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Plano de Treino\nCodigo de Plano de Treino: ");
+        sb.append(this.codPlano);
+        sb.append("\nData de realizaçao: ");
+        sb.append(this.dataRealizacao);
+        sb.append("\nAtividades e suas iteraçoes: \n");
+        for (AtividadeIteracoes a : this.atividades){
+            sb.append(a.toString());
+        }
+        return (sb.toString());
+    }
+    
     /**
      * Método compareTo
      */

@@ -15,8 +15,8 @@ public class AppDesportiva
     private Menu menuInicial, menuSetup, menuSimulacao, menuEstatisticas;
     private LocalDate dataAtual;
     private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
-    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
-    private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Gerar plano de treino","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações", "Voltar ao setup"};
+    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador","Visualizar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução","Visualizar atividade", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução","Gerar plano de treino","Gerar plano de treino e registar execuçao","Visualizar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
+    private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações (todos os utilizadores e as suas atividades e planos de treino executados)", "Voltar ao setup"};
     private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
     private String path;
     
@@ -31,6 +31,7 @@ public class AppDesportiva
         this.menuSimulacao = new Menu(AppDesportiva.opcoesSimulacao);
         this.menuEstatisticas = new Menu(AppDesportiva.opcoesEstatisticas);
         this.dataAtual = LocalDate.now();
+        this.runInicial();
     }
     
     /**
@@ -49,7 +50,9 @@ public class AppDesportiva
             this.model = this.model.carregaEstado(ficheiro);
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuInicial.pedeString("Dados carregados com sucesso.\nEnter para continuar");
+            this.model.estadoAtualizado();
             this.path = ficheiro;
+            this.runSetup();
         }
         catch (ClassNotFoundException clExc){
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -72,6 +75,7 @@ public class AppDesportiva
         String ficheiro = menuAtual.pedeString("Insira o nome do ficheiro a carregar");
         try{
             this.model = this.model.carregaEstado(ficheiro);
+            this.model.estadoAtualizado();
             menuAtual.pedeString("Dados carregados com sucesso.\nEnter para continuar");
             this.path=ficheiro;
             return 0;
@@ -129,6 +133,33 @@ public class AppDesportiva
         menuAtual.pedeString("Enter para continuar");
     }
     
+    private void mostraUser(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codigo = menuAtual.pedeInt("Insira o codigo do utilizador");
+        String s = model.showUtilizador(codigo);
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.print(s);
+        menuAtual.pedeString("Enter para continuar");
+    }
+    
+    private void mostraAtividade(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codigo = menuAtual.pedeInt("Insira o codigo da atividade");
+        String s = model.showAtividade(codigo);
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.print(s);
+        menuAtual.pedeString("Enter para continuar");
+    }
+    
+    private void mostraPlanoTreino(Menu menuAtual){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int codigo = menuAtual.pedeInt("Insira o codigo do plano de treino");
+        String s = model.showPlanoTreino(codigo);
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.print(s);
+        menuAtual.pedeString("Enter para continuar");
+    }
+    
     /**
      * Método auxiliar adicionaAtividade
      * @param menu atual
@@ -159,6 +190,9 @@ public class AppDesportiva
                     id = this.model.addAtivRepsPeso(realizacao, tempo, freq, reps, peso, tipoAtiv);
                 }
         }
+        System.out.print("Atividade adicionada com sucesso.\nCódigo da atividade adicionada: ");
+        System.out.println(id);
+        menuSetup.pedeString("Enter para continuar");
         return id;
     }
     
@@ -188,12 +222,13 @@ public class AppDesportiva
      */
     private int addRegistaAtividade(Menu menuAtual){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        int id = addAtividade(menuAtual);
         int codUtilizador = menuAtual.pedeInt("Insira o código do utilizador");
         while (!model.existeUtilizador(codUtilizador)){
                 menuAtual.pedeString("Utilizador não existe.\nEnter para continuar");
                 return 0;
         }
-        int id = addAtividade(menuAtual);
+        menuAtual.pedeString("Atividade registada com sucesso.\nEnter para continuar");
         model.registaAtividade(codUtilizador, id);
         return id;
     }
@@ -241,14 +276,14 @@ public class AppDesportiva
             dataRealizacao = menuAtual.pedeData("Insira a data de início do plano de treino (segunda feira)");
         }
         int id = this.model.addPlanoTreino(dataRealizacao);
-        System.out.print("Plano adicionado com sucesso.\nCódigo do plano adicionado: ");
-        System.out.println(id);
-        menuAtual.pedeString("Enter para continuar");
         int nAtividades = menuAtual.pedeInt("Insira o número de atividades a colocar no plano de treino");
         while(nAtividades>0){
             this.adicionaAtividadePlano(menuAtual, id, dataRealizacao);
             nAtividades--;
         }
+        System.out.print("Plano de treino adicionado com sucesso.\nCódigo do plano adicionado: ");
+        System.out.println(id);
+        menuSetup.pedeString("Enter para continuar");
         return id;
     }
     
@@ -284,7 +319,6 @@ public class AppDesportiva
         return id;
     }
     
-    
     public void estatisticaEntreDatas(int op){
         LocalDate dataInicial;
         LocalDate dataFinal;
@@ -312,6 +346,7 @@ public class AppDesportiva
                 break;
             case 6:
                 PlanoTreino plano = this.model.planoTreinoMaisCalorias(dataFinal);
+                if (plano != null)
                 System.out.println(plano.toString());
                 break;
         }
@@ -403,51 +438,50 @@ public class AppDesportiva
                 case 1 :    //opção "Adicionar utilizador"
                     this.adicionaUser(menuSetup);
                     break;
-                case 2 :    //opção "Adicionar atividade"
-                    int id = this.addAtividade(menuSetup);
-                    System.out.print("Atividade adicionada com sucesso.\nCódigo da atividade adicionada: ");
-                    System.out.println(id);
-                    menuSetup.pedeString("Enter para continuar");
+                case 2 :
+                    this.mostraUser(menuSetup);
                     break;
-                case 3 :    //opção "Registar execução de atividade"
+                case 3 :    //opção "Adicionar atividade"
+                    this.addAtividade(menuSetup);
+                    break;
+                case 4 :    //opção "Registar execução de atividade"
                     this.registaAtividade(menuSetup);
-                    menuSetup.pedeString("Atividade registada com sucesso.\nEnter para continuar");
                     break;
-                case 4 :    //opção "Adicionar atividade e registar execução"
-                    int cod = this.addRegistaAtividade(menuSetup);
-                    System.out.print("Atividade adicionada com sucesso.\nCódigo da atividade adicionada: ");
-                    System.out.println(cod);
-                    menuSetup.pedeString("Enter para continuar");
+                case 5 :    //opção "Adicionar atividade e registar execução"
+                    this.addRegistaAtividade(menuSetup);
                     break;
-                case 5 :    //opção "Adicionar plano de treino"
-                    int idPlano = this.addPlano(menuSetup);
-                    System.out.print("Plano de treino adicionado com sucesso.\nCódigo do plano adicionado: ");
-                    System.out.println(idPlano);
-                    menuSetup.pedeString("Enter para continuar");
+                case 6 :
+                    this.mostraAtividade(menuSetup);
                     break;
-                case 6 :    //opção "Registar execução de plano de treino"
+                case 7 :    //opção "Adicionar plano de treino"
+                    this.addPlano(menuSetup);
+                    break;
+                case 8 :    //opção "Registar execução de plano de treino"
                     this.registaPlano(menuSetup);
-                    menuSetup.pedeString("Plano de treino registado com sucesso.\nEnter para continuar");
                     break;
-                case 7 :    //opção "Adicionar plano de treino e registar execução"
+                case 9 :    //opção "Adicionar plano de treino e registar execução"
                     int codPlano = this.addRegistaPlano(menuSetup);
-                    System.out.print("Plano de treino adicionado com sucesso.\nCódigo do plano adicionado: ");
-                    System.out.println(codPlano);
-                    menuSetup.pedeString("Enter para continuar");
                     break;
-                case 8 :    //opção "Iniciar simulação"
+                case 10 : //gerar
+                    break;
+                case 11 : //gerar e executar
+                    break;
+                case 12 :
+                    this.mostraPlanoTreino(menuSetup);
+                    break;
+                case 13 :    //opção "Iniciar simulação"
                     int d = 0;
                     while(d!=1&&d!=2){
                         d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
                     }
-                    if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data atual (dia/mês/ano)");
+                    if(d==1) this.dataAtual = this.menuSetup.pedeData("Insira a data (dia/mês/ano)");
                     this.model.atualizaInfo(this.dataAtual);
                     this.runSimulacao();
                     break;
-                case 9 :    //opção "Guardar estado"
+                case 14 :    //opção "Guardar estado"
                     this.guardaDados(menuSetup);
                     break;
-                case 10 :    //opção "Guardar e sair"
+                case 15 :    //opção "Guardar e sair"
                     int guardar = this.guardaDados(menuSetup);
                     if (guardar == 1) break;
                     op=0;
@@ -458,6 +492,8 @@ public class AppDesportiva
                 op = menuSetup.getOpcao();
             }
         }
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("Programa encerrado");
         return 1;
     }
     
@@ -480,20 +516,152 @@ public class AppDesportiva
                     else this.dataAtual = this.dataAtual.plusDays(this.menuSimulacao.pedeInt("Insira o número de dias a avançar"));
                     this.model.atualizaInfo(this.dataAtual);
                     break;
-                case 2 :    //opção "Gerar plano de treino"
-                    
-                    break;
-                case 3 :    //opção "Consultar recordes"
+                case 2 :    //opção "Consultar recordes"
                     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     int tipoAtiv = menuSimulacao.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
                     if(tipoAtiv<1||tipoAtiv>9){
                         tipoAtiv = menuSimulacao.pedeInt("Insira o tipo da atividade:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
                     }
+                    Class<?> classe;
+                    double calorias;
+                    double kms;
+                    int tempo;
+                    double velocidade;
+                    double altimetria;
+                    int rep;
+                    double peso;
+                    switch(tipoAtiv) {
+                        case 1:
+                            System.out.println("\nRecords das atividades do tipo Corrida:");
+                            System.out.print("-> o maior numero de calorias numa atividade deste tipo: ");
+                            classe = Corrida.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de kms percorridos numa atividade deste tipo: ");
+                            kms = model.recordMaisDistancia(classe);
+                            System.out.println(kms);
+                            System.out.print("-> o maior numero de segundos passados a executar uma atividade deste tipo: ");
+                            tempo = model.recordMaisTempo(classe);
+                            System.out.println(tempo);
+                            System.out.print("-> a maior velocidade media numa atividade deste tipo: ");
+                            velocidade = model.recordMaisVelocidade(classe);
+                            System.out.println(velocidade);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 2:
+                            System.out.println("\nRecords das atividades do tipo Ciclismo:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = Ciclismo.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de kms percorridos numa atividade deste tipo: ");
+                            kms = model.recordMaisDistancia(classe);
+                            System.out.println(kms);
+                            System.out.print("-> o maior numero de segundos passados a executar uma atividade deste tipo: ");
+                            tempo = model.recordMaisTempo(classe);
+                            System.out.println(tempo);
+                            System.out.print("-> a maior velocidade media numa atividade deste tipo: ");
+                            velocidade = model.recordMaisVelocidade(classe);
+                            System.out.println(velocidade);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 3:
+                            System.out.println("\nRecords das atividades do tipo Trail:"); 
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = Trail.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de kms percorridos numa atividade deste tipo: ");
+                            kms = model.recordMaisDistancia(classe);
+                            System.out.println(kms);
+                            System.out.print("-> o maior numero de segundos passados a executar uma atividade deste tipo: ");
+                            tempo = model.recordMaisTempo(classe);
+                            System.out.println(tempo);
+                            System.out.print("-> a maior altimetria numa atividade deste tipo: ");
+                            altimetria = model.recordMaiorAltimetria(classe);
+                            System.out.println(altimetria);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 4:
+                            System.out.println("\nRecords das atividades do tipo Btt:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = Btt.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de kms percorridos numa atividade deste tipo: ");
+                            kms = model.recordMaisDistancia(classe);
+                            System.out.println(kms);
+                            System.out.print("-> o maior numero de segundos passados a executar uma atividade deste tipo: ");
+                            tempo = model.recordMaisTempo(classe);
+                            System.out.println(tempo);
+                            System.out.print("-> a maior altimetria numa atividade deste tipo: ");
+                            altimetria = model.recordMaiorAltimetria(classe);
+                            System.out.println(altimetria);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 5:
+                            System.out.println("\nRecords das atividades do tipo Flexoes:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = Flexoes.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de repeticoes numa atividade deste tipo: ");
+                            rep = model.recordMaisRepeticoes(classe);
+                            System.out.println(rep);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 6:
+                            System.out.println("\nRecords das atividades do tipo Abdominais:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = Abdominais.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de repeticoes numa atividade deste tipo: ");
+                            rep = model.recordMaisRepeticoes(classe);
+                            System.out.println(rep);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 7:
+                            System.out.println("\nRecords das atividades do tipo Leg Press:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = LegPress.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 8:System.out.println("\nRecords das atividades do tipo Bench Press:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = BenchPress.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de repeticoes numa atividade deste tipo: ");
+                            rep = model.recordMaisRepeticoes(classe);
+                            System.out.println(rep);
+                            System.out.print("-> o maior peso usado numa atividade deste tipo: ");
+                            peso = model.recordMaisPeso(classe);
+                            System.out.println(peso);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                        case 9:
+                            System.out.println("\nRecords das atividades do tipo Bicep Curls:");
+                            System.out.print("-> o maior numero de calorias gastas numa atividade deste tipo: ");
+                            classe = BicepCurls.class;
+                            calorias = model.recordMaisCalorias(classe);
+                            System.out.println(calorias);
+                            System.out.print("-> o maior numero de repeticoes numa atividade deste tipo: ");
+                            rep = model.recordMaisRepeticoes(classe);
+                            System.out.println(rep);
+                            System.out.print("-> o maior peso usado numa atividade deste tipo: ");
+                            peso = model.recordMaisPeso(classe);
+                            System.out.println(peso);
+                            menuSimulacao.pedeString("\nEnter para continuar");
+                            break;
+                    }
                     break;
-                case 4 :    //opção "Consultar estatísticas"
+                case 3 :    //opção "Consultar estatísticas"
                     this.runQueries();
                     break;
-                case 5 :    //opção "Mostrar todas as informações"
+                case 4 :    //opção "Mostrar todas as informações"
                     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     String str = this.model.mostraInfo();
                     System.out.println(str);
