@@ -216,7 +216,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
         i = 0;
         //atividades normais
         while (ativPorSemana > 0) {
-            if (semana[i] > 0 && semana[i] < maxAtivDia) {
+            if (semana[i] >= 0 && semana[i] < maxAtivDia) {
                 semana[i]++;
                 ativPorSemana--;
             }

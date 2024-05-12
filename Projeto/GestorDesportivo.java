@@ -431,9 +431,11 @@ public class GestorDesportivo implements Serializable
             else if (atividades[i] == 8) { //LegPress
                 at = new LegPress();
             }
-            else { //Trail
+            else if (atividades[i] == 9) { //Trail
                 at = new Trail();
             }
+            else
+                at = new Corrida();
             a.add(at);
         }
         return a;
@@ -443,6 +445,7 @@ public class GestorDesportivo implements Serializable
             List<Atividade> a = listaAtividades(atividades);
             List<PlanoTreino> p = new ArrayList<>();
             PlanoTreino plano = new PlanoTreino();
+            System.out.println("Ok\n");
             p = plano.geraPlanoTreino(this.utilizadores.get(codUtilizador), a, maxAtivDia, ativPorSemana, consumoCaloricoMinimo, inicioSemana);
             int size = p.size();
             int i = 0;
