@@ -15,7 +15,7 @@ public class AppDesportiva
     private Menu menuInicial, menuSetup, menuSimulacao, menuEstatisticas;
     private LocalDate dataAtual;
     private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
-    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador","Visualizar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução","Visualizar atividade", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução","Gerar plano de treino","Visualizar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
+    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador","Visualizar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução","Visualizar atividade", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução","Visualizar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
     private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações (todos os utilizadores e as suas atividades e planos de treino executados)", "Voltar ao setup"};
     private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
     private String path;
@@ -161,7 +161,7 @@ public class AppDesportiva
     }
     
     /**
-     * Método auxiliar adicionaAtividade
+     * Método auxiliar addAtividade
      * @param menu atual
      */
     private int addAtividade(Menu menuAtual){
@@ -235,7 +235,6 @@ public class AppDesportiva
     
     /**
      * Método auxiliar adicionaAtividadePlano
-     * @param menu atual
      */
     private void adicionaAtividadePlano(Menu menuAtual, int id_plano, LocalDate data){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -331,6 +330,10 @@ public class AppDesportiva
         return res;
     }
     
+    /**
+     * Método geraPlanoTreino()
+     * Não acabado
+     */
     private void geraPlanoTreino(){
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             int codUtilizador = menuSetup.pedeInt("Insira o código do utilizador");
@@ -504,13 +507,10 @@ public class AppDesportiva
                 case 9 :    //opção "Adicionar plano de treino e registar execução"
                     int codPlano = this.addRegistaPlano(menuSetup);
                     break;
-                case 10 : //gerar
-                    this.geraPlanoTreino();
-                    break;
-                case 11 :
+                case 10 :
                     this.mostraPlanoTreino(menuSetup);
                     break;
-                case 12 :    //opção "Iniciar simulação"
+                case 11 :    //opção "Iniciar simulação"
                     int d = 0;
                     while(d!=1&&d!=2){
                         d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
@@ -519,10 +519,10 @@ public class AppDesportiva
                     this.model.atualizaInfo(this.dataAtual);
                     this.runSimulacao();
                     break;
-                case 13 :    //opção "Guardar estado"
+                case 12 :    //opção "Guardar estado"
                     this.guardaDados(menuSetup);
                     break;
-                case 14 :    //opção "Guardar e sair"
+                case 13 :    //opção "Guardar e sair"
                     int guardar = this.guardaDados(menuSetup);
                     if (guardar == 1) break;
                     op=0;
@@ -715,7 +715,7 @@ public class AppDesportiva
     }
     
     /**
-     * Método runApp que executa o menu de estatísticas
+     * Método runQueries que executa o menu de estatísticas
      */
     public void runQueries(){
         this.menuEstatisticas.runMenu();
