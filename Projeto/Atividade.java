@@ -61,7 +61,7 @@ public abstract class Atividade implements Comparable<Atividade>, Serializable
     }
     
     public void setProximoCodigo(int proximoCodigo) {
-        this.proximoCodAtividade = proximoCodigo;
+        Atividade.proximoCodAtividade = proximoCodigo;
     }
     // Getters e setters
 

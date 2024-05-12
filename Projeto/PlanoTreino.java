@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.io.*;
 
@@ -128,7 +127,7 @@ public class PlanoTreino implements Comparable<PlanoTreino>, Serializable
     }
     
     public void setProximoCodigo(int proximoCodigo) {
-        this.proximoCodigo = proximoCodigo;
+        PlanoTreino.proximoCodigo = proximoCodigo;
     }
     // Getters e setters
     public List<AtividadeIteracoes> getAtividadesNumPeriodo(LocalDate inicio, LocalDate fim) {
