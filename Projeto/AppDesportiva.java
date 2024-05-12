@@ -15,7 +15,7 @@ public class AppDesportiva
     private Menu menuInicial, menuSetup, menuSimulacao, menuEstatisticas;
     private LocalDate dataAtual;
     private static String[] opcoesInicial = {"Menu Inicial","Carregar estado", "Novo estado", "Sair"};
-    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador","Visualizar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução","Visualizar atividade", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução","Gerar plano de treino","Gerar plano de treino e registar execuçao","Visualizar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
+    private static String[] opcoesSetup = {"Menu Setup","Adicionar utilizador","Visualizar utilizador", "Adicionar atividade", "Registar execução de atividade", "Adicionar atividade e registar execução","Visualizar atividade", "Adicionar plano de treino", "Registar execução de plano de treino", "Adicionar plano de treino e registar execução","Gerar plano de treino","Visualizar plano de treino", "Iniciar simulação", "Guardar estado", "Guardar e sair","Sair sem guardar"};
     private static String[] opcoesSimulacao = {"Menu Simulação", "Avançar tempo","Consultar recordes", "Consultar estatísticas", "Mostrar todas as informações (todos os utilizadores e as suas atividades e planos de treino executados)", "Voltar ao setup"};
     private static String[] opcoesEstatisticas = {"Estatísticas","Utilizador com mais calorias gastas", "Utilizador com mais atividades realizadas", "Atividade mais realizada", "Total de kilómetros percorridos", "Metros de altimetria acumulados", "Plano de treino mais exigente", "Atividades de um utilizador", "Voltar"};
     private String path;
@@ -318,6 +318,48 @@ public class AppDesportiva
         model.registaPlanoTreino(codUtilizador, id);
         return id;
     }
+
+    private boolean existeAtiv(int ativ[],int tipo){
+        boolean res = false;
+        int i;
+        for (i=0; i<ativ.length; i++){
+            if(ativ[i] == tipo){
+                res= true;
+                break;
+            }
+        }
+        return res;
+    }
+    
+    private void geraPlanoTreino(){
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            int codUtilizador = menuSetup.pedeInt("Insira o código do utilizador");
+            while (!model.existeUtilizador(codUtilizador)){
+                menuSetup.pedeString("Utilizador não existe.\nEnter para continuar");
+            }
+            int ativ[] = new int[9];
+            int i = 0;
+            int tipoAtiv = menuSetup.pedeInt("Insira o tipo de atividade a incluir:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+            while(tipoAtiv<1||tipoAtiv>9){
+                tipoAtiv = menuSetup.pedeInt("Insira o tipo de atividade a incluir:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls");
+            }
+            while(tipoAtiv!=0){
+                ativ[i] = tipoAtiv; i++;
+                tipoAtiv = menuSetup.pedeInt("Insira o tipo de atividade (não repetida) a incluir:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls\n0: Nenhum");
+                while(tipoAtiv<0||tipoAtiv>9 && !existeAtiv(ativ, tipoAtiv) ){
+                        tipoAtiv = menuSetup.pedeInt("Insira o tipo de atividade (não repetida) a incluir:\n1: Corrida\n2: Ciclismo\n3: Trail\n4: Btt\n5: Flexões\n6: Abdominais\n7: Leg Press\n8: Bench Press\n9: Bicep Curls\n0: Nenhum");
+                }
+            }
+            int maxAtivDia = menuSetup.pedeInt("Insira o número máximo de atividades por dia");            
+            int ativPorSemana = menuSetup.pedeInt("Insira o número de atividades a realizar por semana");        
+            double consumoCaloricoMinimo = menuSetup.pedeDouble("Insira o consumo calórico mínimo pretendido"); 
+            LocalDate dataRealizacao = menuSetup.pedeData("Insira a data de início do plano de treino (segunda feira)");
+            while(dataRealizacao.getDayOfWeek()!=DayOfWeek.MONDAY){
+                dataRealizacao = menuSetup.pedeData("Insira a data de início do plano de treino (segunda feira)");
+            }
+            this.model.geraPlanoTreinoUtilizador(codUtilizador, ativ, maxAtivDia, ativPorSemana, consumoCaloricoMinimo, dataRealizacao);
+            menuSetup.pedeString("Plano de treino gerado com sucesso.\nEnter para continuar");
+    }
     
     public void estatisticaEntreDatas(int op){
         LocalDate dataInicial;
@@ -463,13 +505,12 @@ public class AppDesportiva
                     int codPlano = this.addRegistaPlano(menuSetup);
                     break;
                 case 10 : //gerar
+                    this.geraPlanoTreino();
                     break;
-                case 11 : //gerar e executar
-                    break;
-                case 12 :
+                case 11 :
                     this.mostraPlanoTreino(menuSetup);
                     break;
-                case 13 :    //opção "Iniciar simulação"
+                case 12 :    //opção "Iniciar simulação"
                     int d = 0;
                     while(d!=1&&d!=2){
                         d = this.menuSetup.pedeInt("1: Escolher data\n2: Utilizar data do sistema");
@@ -478,10 +519,10 @@ public class AppDesportiva
                     this.model.atualizaInfo(this.dataAtual);
                     this.runSimulacao();
                     break;
-                case 14 :    //opção "Guardar estado"
+                case 13 :    //opção "Guardar estado"
                     this.guardaDados(menuSetup);
                     break;
-                case 15 :    //opção "Guardar e sair"
+                case 14 :    //opção "Guardar e sair"
                     int guardar = this.guardaDados(menuSetup);
                     if (guardar == 1) break;
                     op=0;

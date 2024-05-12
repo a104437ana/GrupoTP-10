@@ -440,16 +440,16 @@ public class GestorDesportivo implements Serializable
     }
 
     public void geraPlanoTreinoUtilizador(int codUtilizador, int[] atividades, int maxAtivDia, int ativPorSemana, double consumoCaloricoMinimo, LocalDate inicioSemana){
-        if (this.utilizadores.containsKey(codUtilizador)) {
             List<Atividade> a = listaAtividades(atividades);
             List<PlanoTreino> p = new ArrayList<>();
-            PlanoTreino plano = null;
+            PlanoTreino plano = new PlanoTreino();
             p = plano.geraPlanoTreino(this.utilizadores.get(codUtilizador), a, maxAtivDia, ativPorSemana, consumoCaloricoMinimo, inicioSemana);
             int size = p.size();
             int i = 0;
+            int res[] = new int[size];
             for (i=0; i<size; i++) {
                 this.utilizadores.get(codUtilizador).addPlanoTreino(p.get(i));
+                res[i] = p.get(i).getCodPlano();
             }
         }
-    }
 }
